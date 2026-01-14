@@ -2,6 +2,7 @@
   import { useQuery } from 'convex-svelte';
   import { api } from '../../../convex/_generated/api';
   import { currentView } from '../lib/stores';
+  import { t } from '../lib/i18n';
   import StorageChart from './viz/StorageChart.svelte';
   import RamChart from './viz/RamChart.svelte';
   import DeviceTypeChart from './viz/DeviceTypeChart.svelte';
@@ -30,13 +31,13 @@
   <div class="page-header">
     <div class="page-title">
       <span class="title-prefix">// </span>
-      <h1>SYSTEM OVERVIEW</h1>
+      <h1>{$t('dashboard.title')}</h1>
     </div>
-    <p class="page-subtitle">Real-time hardware inventory monitoring</p>
+    <p class="page-subtitle">{$t('dashboard.subtitle')}</p>
   </div>
 
   <!-- Primary Metrics Row -->
-  <mc-section label="PRIMARY METRICS">
+  <mc-section label={$t('dashboard.primaryMetrics')}>
     <div class="metrics-grid">
       <!-- Total Devices -->
       <div class="metric-card">
@@ -48,9 +49,9 @@
         </div>
         <div class="metric-content">
           <div class="metric-value">{statsData?.total_devices || 0}</div>
-          <div class="metric-label">TOTAL UNITS</div>
+          <div class="metric-label">{$t('dashboard.totalUnits')}</div>
         </div>
-        <div class="metric-badge">ALL</div>
+        <div class="metric-badge">{$t('dashboard.all')}</div>
       </div>
 
       <!-- Total Storage -->
@@ -65,9 +66,9 @@
         </div>
         <div class="metric-content">
           <div class="metric-value">{statsData?.total_storage_formatted || '0 B'}</div>
-          <div class="metric-label">TOTAL STORAGE</div>
+          <div class="metric-label">{$t('dashboard.totalStorage')}</div>
         </div>
-        <div class="metric-badge storage">STO</div>
+        <div class="metric-badge storage">{$t('dashboard.sto')}</div>
       </div>
 
       <!-- RAM Utilization -->
@@ -83,7 +84,7 @@
             <span class="metric-value">{statsData?.total_ram_current || '0GB'}</span>
             <span class="metric-value-sub">/ {statsData?.total_ram_potential || '0GB'}</span>
           </div>
-          <div class="metric-label">MEMORY CAPACITY</div>
+          <div class="metric-label">{$t('dashboard.memoryCapacity')}</div>
           <div class="metric-progress">
             <div class="metric-progress-fill" style="width: {ramPercent}%"></div>
           </div>
@@ -100,21 +101,21 @@
         </div>
         <div class="metric-content">
           <div class="metric-value">{statsData?.upgradeable_devices || 0}</div>
-          <div class="metric-label">UPGRADE READY</div>
+          <div class="metric-label">{$t('dashboard.upgradeReady')}</div>
         </div>
-        <div class="metric-badge upgradeable">UPG</div>
+        <div class="metric-badge upgradeable">{$t('dashboard.upg')}</div>
       </div>
     </div>
   </mc-section>
 
   <!-- Analytics Section -->
-  <mc-section label="ANALYTICS">
+  <mc-section label={$t('dashboard.analytics')}>
     <mc-grid columns="3" class="analytics-grid">
       <!-- Storage Distribution -->
       <mc-panel>
         <div class="card-header">
-          <h3>STORAGE DISTRIBUTION</h3>
-          <mc-badge variant="custom" color="cyan" no-dot>BY DEVICE</mc-badge>
+          <h3>{$t('dashboard.storageDistribution')}</h3>
+          <mc-badge variant="custom" color="cyan" no-dot>{$t('dashboard.byDevice')}</mc-badge>
         </div>
         <div class="card-content">
           <StorageChart devices={deviceList} />
@@ -124,8 +125,8 @@
       <!-- RAM Utilization -->
       <mc-panel>
         <div class="card-header">
-          <h3>MEMORY UTILIZATION</h3>
-          <mc-badge variant="custom" color="green" no-dot>EXPANDABLE</mc-badge>
+          <h3>{$t('dashboard.memoryUtilization')}</h3>
+          <mc-badge variant="custom" color="green" no-dot>{$t('dashboard.expandable')}</mc-badge>
         </div>
         <div class="card-content">
           <RamChart devices={deviceList} />
@@ -135,8 +136,8 @@
       <!-- Device Types -->
       <mc-panel>
         <div class="card-header">
-          <h3>DEVICE CLASSIFICATION</h3>
-          <mc-badge variant="custom" color="blue" no-dot>BY TYPE</mc-badge>
+          <h3>{$t('dashboard.deviceClassification')}</h3>
+          <mc-badge variant="custom" color="blue" no-dot>{$t('dashboard.byType')}</mc-badge>
         </div>
         <div class="card-content">
           <DeviceTypeChart stats={statsData} />
@@ -154,7 +155,7 @@
         <rect x="3" y="14" width="7" height="7" rx="1"/>
         <rect x="14" y="14" width="7" height="7" rx="1"/>
       </svg>
-      VIEW ALL DEVICES →
+      {$t('dashboard.viewAllDevices')} →
     </mc-button>
   </div>
 </div>

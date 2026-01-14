@@ -5,8 +5,12 @@ import './styles/global.css';
 // Register Mission Control Web Components
 import 'mission-control-ui/define-all';
 
-const app = mount(App, {
-  target: document.getElementById('app')!,
-});
+// Initialize i18n
+import { initI18n } from './lib/i18n';
 
-export default app;
+// Initialize i18n then mount the app
+initI18n().then(() => {
+  mount(App, {
+    target: document.getElementById('app')!,
+  });
+});

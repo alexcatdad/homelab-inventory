@@ -2,6 +2,7 @@
   import { useQuery } from 'convex-svelte';
   import { api } from '../../../convex/_generated/api';
   import { typeFilter, searchQuery, openCreateForm } from '../lib/stores';
+  import { t } from '../lib/i18n';
   import DeviceCard from './DeviceCard.svelte';
 
   let currentTypeFilter: string | null = $state(null);
@@ -37,16 +38,16 @@
   <div class="page-header">
     <div class="page-title">
       <span class="title-prefix">// </span>
-      <h1>DEVICE INVENTORY</h1>
+      <h1>{$t('devices.title')}</h1>
     </div>
 
     <div class="header-controls">
       <div class="filter-group">
-        <label class="filter-label">TYPE</label>
+        <label class="filter-label">{$t('devices.type')}</label>
         <select onchange={setTypeFilter} value={currentTypeFilter || ''}>
-          <option value="">All Types</option>
+          <option value="">{$t('devices.allTypes')}</option>
           {#each deviceTypes as type}
-            <option value={type}>{type}</option>
+            <option value={type}>{$t(`devices.types.${type}`)}</option>
           {/each}
         </select>
       </div>
@@ -55,7 +56,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 5v14M5 12h14"/>
         </svg>
-        ADD DEVICE
+        {$t('devices.addDevice')}
       </button>
     </div>
   </div>
@@ -64,14 +65,14 @@
   <div class="results-bar">
     <div class="results-count">
       <span class="count-value">{filteredDevices.length}</span>
-      <span class="count-label">UNIT{filteredDevices.length !== 1 ? 'S' : ''} FOUND</span>
+      <span class="count-label">{$t('devices.unitsFound', { count: filteredDevices.length })}</span>
     </div>
     {#if currentTypeFilter || currentSearch}
       <button class="clear-filters" onclick={() => { typeFilter.set(null); searchQuery.set(''); }}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
-        CLEAR FILTERS
+        {$t('devices.clearFilters')}
       </button>
     {/if}
   </div>
@@ -93,8 +94,8 @@
           <path d="M8 21h8M12 17v4"/>
         </svg>
       </div>
-      <p class="empty-title">NO DEVICES FOUND</p>
-      <p class="empty-sub">Try adjusting your search or filters</p>
+      <p class="empty-title">{$t('devices.noDevicesFound')}</p>
+      <p class="empty-sub">{$t('devices.noDevicesHint')}</p>
     </div>
   {/if}
 </div>

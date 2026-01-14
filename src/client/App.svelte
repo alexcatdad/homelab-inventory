@@ -8,6 +8,8 @@
     authInitialized as authInitializedStore,
     initializeAuth,
   } from "./lib/authStore";
+  import { t } from "./lib/i18n";
+  import { syncLanguageFromConvex } from "./lib/i18n/languageStore";
   import Dashboard from "./components/Dashboard.svelte";
   import DeviceGrid from "./components/DeviceGrid.svelte";
   import DeviceDetail from "./components/DeviceDetail.svelte";
@@ -29,6 +31,7 @@
   let loading = $state(true);
   let authReady = $state(false);
   let initStarted = $state(false);
+  let languageSynced = $state(false);
 
   // Initialize auth on mount - handles OAuth callback and token restoration
   $effect(() => {
@@ -65,6 +68,12 @@
       // Query completed - update stores with server-confirmed state
       const isAuthed = !!authState.data;
       isAuthenticated.set(isAuthed);
+
+      // Sync language preference when auth state is confirmed
+      if (!languageSynced) {
+        languageSynced = true;
+        syncLanguageFromConvex(client, isAuthed).catch(console.error);
+      }
     }
   });
 </script>
@@ -88,7 +97,7 @@
         <div class="spinner"></div>
         <div class="spinner-glow"></div>
       </div>
-      <span class="loading-text">INITIALIZING</span>
+      <span class="loading-text">{$t('app.initializing')}</span>
     </div>
   </div>
 {:else if !authenticated}
