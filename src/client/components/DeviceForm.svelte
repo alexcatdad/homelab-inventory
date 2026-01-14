@@ -1,11 +1,15 @@
 <script lang="ts">
-  import { deviceFormOpen, editingDevice, formSaving, formError, closeForm, saveDevice } from '../lib/stores';
-  import { lookupSpecs, specLookupLoading, specLookupError } from '../lib/llm/specLookup';
+  import { useConvexClient } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
+  import { deviceFormOpen, editingDevice, formSaving, formError, closeForm, type Device } from '../lib/stores';
+  import { lookupSpecs, specLookupLoading, specLookupError, type ConvexSpecsOps } from '../lib/llm/specLookup';
   import { llmStatus, initializeLLM } from '../lib/llm/engine';
-  import type { DeviceWithRelations, DeviceType, RAMType } from '../../shared/types';
+  import type { DeviceType, RAMType, Specifications } from '../../shared/types';
+
+  const client = useConvexClient();
 
   let isOpen = $state(false);
-  let device: DeviceWithRelations | null = $state(null);
+  let device: Device | null = $state(null);
   let saving = $state(false);
   let error: string | null = $state(null);
   let lookingUpSpecs = $state(false);
@@ -128,8 +132,26 @@
     specLookupLoading.set(true);
     specLookupError.set(null);
 
+    // Create Convex operations adapter for specLookup
+    const convexOps: ConvexSpecsOps = {
+      checkCache: async (modelQuery: string) => {
+        const result = await client.action(api.specs.checkCache, { model: modelQuery });
+        return {
+          cached: result.cached,
+          specs: result.specs,
+          source_url: result.source_url,
+        };
+      },
+      saveCache: async (modelQuery: string, specs: Specifications) => {
+        await client.mutation(api.specs.setCache, { model: modelQuery, specs });
+      },
+      proxySearch: async (query: string) => {
+        return await client.action(api.specs.proxySearch, { query });
+      },
+    };
+
     try {
-      const result = await lookupSpecs(model, type);
+      const result = await lookupSpecs(model, type, convexOps);
 
       if (result.success && result.specs) {
         // Fill in specs from lookup
@@ -167,6 +189,9 @@
       return;
     }
 
+    formSaving.set(true);
+    formError.set(null);
+
     // Build specs object
     const specifications: any = {};
 
@@ -196,15 +221,31 @@
       };
     }
 
-    await saveDevice({
-      name: name.trim(),
-      model: model.trim() || undefined,
-      type,
-      quantity,
-      location: location.trim() || undefined,
-      notes: notes.trim() || undefined,
-      specifications: Object.keys(specifications).length > 0 ? specifications : undefined,
-    });
+    try {
+      const deviceData = {
+        name: name.trim(),
+        model: model.trim() || undefined,
+        type,
+        quantity,
+        location: location.trim() || undefined,
+        notes: notes.trim() || undefined,
+        specifications: Object.keys(specifications).length > 0 ? specifications : undefined,
+      };
+
+      if (device) {
+        // Update existing device
+        await client.mutation(api.devices.update, { id: device._id, ...deviceData });
+      } else {
+        // Create new device
+        await client.mutation(api.devices.create, deviceData);
+      }
+
+      closeForm();
+    } catch (e) {
+      formError.set(e instanceof Error ? e.message : 'Failed to save device');
+    } finally {
+      formSaving.set(false);
+    }
   }
 
   let isEditing = $derived(device !== null);

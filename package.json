@@ -1,16 +1,13 @@
 {
   "name": "home-inventory",
-  "module": "src/server/index.ts",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run dev:server & bun run dev:client",
-    "dev:server": "bun run --watch src/server/index.ts",
-    "dev:client": "vite",
+    "dev": "bunx convex dev & vite",
     "build": "vite build",
     "import": "bun run scripts/import-yaml.ts",
     "download-model": "bun run scripts/download-model.ts",
-    "start": "bun run src/server/index.ts",
+    "migrate": "bun run scripts/import-to-convex.ts",
     "test": "bunx playwright test",
     "test:ui": "bunx playwright test --ui"
   },
@@ -31,7 +28,8 @@
   },
   "dependencies": {
     "@mlc-ai/web-llm": "^0.2.80",
-    "hono": "^4.11.4",
+    "convex": "^1.31.4",
+    "convex-svelte": "^0.0.12",
     "mission-control-ui": "file:../ui",
     "yaml": "^2.8.2"
   }

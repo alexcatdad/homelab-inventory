@@ -7,6 +7,7 @@ export default defineConfig({
     configFile: path.resolve(__dirname, 'svelte.config.js')
   })],
   root: 'src/client',
+  envDir: path.resolve(__dirname),
   build: {
     outDir: '../../dist/client',
     emptyOutDir: true,

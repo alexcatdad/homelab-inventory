@@ -1,34 +1,28 @@
 <script lang="ts">
-  import { devices, typeFilter, searchQuery, openCreateForm } from '../lib/stores';
-  import type { DeviceWithRelations } from '../../shared/types';
+  import { useQuery } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
+  import { typeFilter, searchQuery, openCreateForm } from '../lib/stores';
   import DeviceCard from './DeviceCard.svelte';
 
-  let deviceList: DeviceWithRelations[] = $state([]);
   let currentTypeFilter: string | null = $state(null);
   let currentSearch = $state('');
 
   $effect(() => {
-    const unsubDevices = devices.subscribe(v => deviceList = v);
     const unsubType = typeFilter.subscribe(v => currentTypeFilter = v);
     const unsubSearch = searchQuery.subscribe(v => currentSearch = v);
     return () => {
-      unsubDevices();
       unsubType();
       unsubSearch();
     };
   });
 
-  // Computed filtered devices
-  let filteredDevices = $derived(deviceList.filter(d => {
-    if (currentTypeFilter && d.type !== currentTypeFilter) return false;
-    if (currentSearch) {
-      const query = currentSearch.toLowerCase();
-      return d.name.toLowerCase().includes(query) ||
-        d.model.toLowerCase().includes(query) ||
-        d.specifications?.cpu?.model?.toLowerCase().includes(query);
-    }
-    return true;
+  // Convex query with reactive filters
+  const devicesQuery = useQuery(api.devices.list, () => ({
+    type: currentTypeFilter || undefined,
+    search: currentSearch || undefined,
   }));
+
+  let filteredDevices = $derived(devicesQuery.data || []);
 
   function setTypeFilter(e: Event) {
     const value = (e.target as HTMLSelectElement).value;
@@ -84,7 +78,7 @@
 
   <!-- Device Grid -->
   <div class="device-grid">
-    {#each filteredDevices as device, i (device.id)}
+    {#each filteredDevices as device, i (device._id)}
       <div class="grid-item" style="animation-delay: {Math.min(i * 50, 300)}ms">
         <DeviceCard {device} />
       </div>

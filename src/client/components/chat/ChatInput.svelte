@@ -1,5 +1,11 @@
 <script lang="ts">
-  import { chatGenerating, sendMessage } from '../../lib/chatStore';
+  import { chatGenerating } from '../../lib/chatStore';
+
+  interface Props {
+    onSend: (message: string) => void;
+  }
+
+  let { onSend }: Props = $props();
 
   let inputValue = $state('');
   let inputElement: HTMLTextAreaElement;
@@ -10,7 +16,7 @@
     const trimmed = inputValue.trim();
     if (!trimmed || isDisabled) return;
 
-    sendMessage(trimmed);
+    onSend(trimmed);
     inputValue = '';
 
     // Reset textarea height

@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { loadData, currentView, loading, error } from './lib/stores';
+  import { setupConvex } from 'convex-svelte';
+  import { currentView } from './lib/stores';
   import Dashboard from './components/Dashboard.svelte';
   import DeviceGrid from './components/DeviceGrid.svelte';
   import DeviceDetail from './components/DeviceDetail.svelte';
@@ -9,25 +10,15 @@
   import TopologyView from './components/TopologyView.svelte';
   import Header from './components/Header.svelte';
 
-  let isLoading = $state(true);
-  let errorMsg: string | null = $state(null);
+  // Initialize Convex client
+  setupConvex(import.meta.env.VITE_CONVEX_URL);
+
   let view = $state('dashboard');
 
-  // Subscribe to stores
+  // Subscribe to view store
   $effect(() => {
-    const unsubLoading = loading.subscribe(v => isLoading = v);
-    const unsubError = error.subscribe(v => errorMsg = v);
-    const unsubView = currentView.subscribe(v => view = v);
-    return () => {
-      unsubLoading();
-      unsubError();
-      unsubView();
-    };
-  });
-
-  // Load data on mount
-  $effect(() => {
-    loadData();
+    const unsub = currentView.subscribe(v => view = v);
+    return () => unsub();
   });
 </script>
 
@@ -63,44 +54,15 @@
   <Header />
 
   <main class="main">
-    {#if isLoading}
-      <div class="loading">
-        <div class="loading-indicator">
-          <div class="spinner"></div>
-          <div class="spinner-glow"></div>
-        </div>
-        <p class="loading-text">INITIALIZING SYSTEM</p>
-        <p class="loading-sub">Loading inventory data...</p>
-      </div>
-    {:else if errorMsg}
-      <div class="error">
-        <div class="error-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 8v4M12 16h.01"/>
-          </svg>
-        </div>
-        <p class="error-title">SYSTEM ERROR</p>
-        <p class="error-msg">{errorMsg}</p>
-        <button class="btn btn-primary" onclick={() => loadData()}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 4v6h6M23 20v-6h-6"/>
-            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-          </svg>
-          RETRY CONNECTION
-        </button>
-      </div>
-    {:else}
-      <div class="content" class:fade-in={!isLoading}>
-        {#if view === 'dashboard'}
-          <Dashboard />
-        {:else if view === 'devices'}
-          <DeviceGrid />
-        {:else if view === 'topology'}
-          <TopologyView />
-        {/if}
-      </div>
-    {/if}
+    <div class="content fade-in">
+      {#if view === 'dashboard'}
+        <Dashboard />
+      {:else if view === 'devices'}
+        <DeviceGrid />
+      {:else if view === 'topology'}
+        <TopologyView />
+      {/if}
+    </div>
   </main>
 
   <DeviceDetail />

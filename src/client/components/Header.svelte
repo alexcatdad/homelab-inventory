@@ -1,20 +1,21 @@
 <script lang="ts">
-  import { currentView, searchQuery, stats } from '../lib/stores';
+  import { useQuery } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
+  import { currentView, searchQuery } from '../lib/stores';
   import { openChat } from '../lib/chatStore';
-  import type { StatsResponse } from '../../shared/types';
+
+  const statsQuery = useQuery(api.stats.get, {});
 
   let search = $state('');
   let view = $state('dashboard');
-  let statsData: StatsResponse | null = $state(null);
+  let statsData = $derived(statsQuery.data);
 
   $effect(() => {
     const unsubSearch = searchQuery.subscribe(v => search = v);
     const unsubView = currentView.subscribe(v => view = v);
-    const unsubStats = stats.subscribe(v => statsData = v);
     return () => {
       unsubSearch();
       unsubView();
-      unsubStats();
     };
   });
 

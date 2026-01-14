@@ -1,21 +1,19 @@
 <script lang="ts">
-  import { stats, devices, currentView } from '../lib/stores';
-  import type { StatsResponse, DeviceWithRelations } from '../../shared/types';
+  import { useQuery } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
+  import { currentView } from '../lib/stores';
   import StorageChart from './viz/StorageChart.svelte';
   import RamChart from './viz/RamChart.svelte';
   import DeviceTypeChart from './viz/DeviceTypeChart.svelte';
 
-  let statsData: StatsResponse | null = $state(null);
-  let deviceList: DeviceWithRelations[] = $state([]);
+  // Convex queries - automatically reactive and real-time
+  const statsQuery = useQuery(api.stats.get, {});
+  const devicesQuery = useQuery(api.devices.list, {});
 
-  $effect(() => {
-    const unsubStats = stats.subscribe(v => statsData = v);
-    const unsubDevices = devices.subscribe(v => deviceList = v);
-    return () => {
-      unsubStats();
-      unsubDevices();
-    };
-  });
+  // Derive data from queries
+  let statsData = $derived(statsQuery.data);
+  let deviceList = $derived(devicesQuery.data || []);
+  let isLoading = $derived(statsQuery.isLoading || devicesQuery.isLoading);
 
   function goToDevices() {
     currentView.set('devices');

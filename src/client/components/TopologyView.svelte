@@ -1,63 +1,44 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { useQuery, useConvexClient } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
   import TopologyGraph from './TopologyGraph.svelte';
-  import type { TopologyNode, TopologyEdge, TopologyResponse } from '../../shared/types';
-  import { selectedDevice } from '../lib/stores';
+  import type { Id } from '../../../convex/_generated/dataModel';
 
-  let nodes = $state<TopologyNode[]>([]);
-  let edges = $state<TopologyEdge[]>([]);
-  let loading = $state(true);
-  let error = $state<string | null>(null);
+  // Convex query for topology data - real-time updates
+  const topologyQuery = useQuery(api.topology.get, {});
+  const client = useConvexClient();
 
-  async function fetchTopology() {
-    loading = true;
-    error = null;
+  // Derive data from query
+  let nodes = $derived(topologyQuery.data?.nodes || []);
+  let edges = $derived(topologyQuery.data?.edges || []);
+  let loading = $derived(topologyQuery.isLoading);
+  let error = $derived(topologyQuery.error?.message);
+
+  async function handleAddConnection(fromId: Id<"devices">, toId: Id<"devices">) {
     try {
-      const res = await fetch('/api/topology');
-      if (!res.ok) throw new Error('Failed to fetch topology');
-      const data: TopologyResponse = await res.json();
-      nodes = data.nodes;
-      edges = data.edges;
-    } catch (e) {
-      error = e instanceof Error ? e.message : 'Unknown error';
-    } finally {
-      loading = false;
-    }
-  }
-
-  async function handleAddConnection(fromId: number, toId: number) {
-    try {
-      const res = await fetch('/api/connections', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ from_device_id: fromId, to_device_id: toId }),
-      });
-      if (!res.ok) throw new Error('Failed to add connection');
-      await fetchTopology();
+      await client.mutation(api.topology.addConnection, { from_device_id: fromId, to_device_id: toId });
     } catch (e) {
       console.error('Failed to add connection:', e);
     }
   }
 
-  async function handleRemoveConnection(id: number) {
+  async function handleRemoveConnection(id: Id<"network_connections">) {
     try {
-      const res = await fetch(`/api/connections/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to remove connection');
-      await fetchTopology();
+      await client.mutation(api.topology.removeConnection, { id });
     } catch (e) {
       console.error('Failed to remove connection:', e);
     }
   }
 
-  function handleNodeClick(node: TopologyNode) {
-    // Open device detail panel
-    selectedDevice.set(node.id);
+  function handleNodeClick(node: { id: Id<"devices"> }) {
+    // TODO: implement device detail view for topology
+    console.log('Clicked node:', node.id);
   }
 
-  // Fetch on mount
-  onMount(() => {
-    fetchTopology();
-  });
+  function handleRefresh() {
+    // With Convex, data is real-time, but we can trigger a re-render
+    // by invalidating the query if needed
+  }
 </script>
 
 <div class="topology-view">
@@ -68,13 +49,10 @@
       <span class="device-count">{nodes.length} devices</span>
     </div>
     <div class="header-actions">
-      <button class="btn btn-secondary" onclick={fetchTopology} disabled={loading}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M1 4v6h6M23 20v-6h-6"/>
-          <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
-        </svg>
-        Refresh
-      </button>
+      <span class="realtime-indicator">
+        <span class="realtime-dot"></span>
+        REAL-TIME
+      </span>
     </div>
   </div>
 
@@ -90,7 +68,6 @@
         <path d="M12 8v4M12 16h.01"/>
       </svg>
       <span>{error}</span>
-      <button class="btn btn-secondary" onclick={fetchTopology}>Retry</button>
     </div>
   {:else if nodes.length === 0}
     <div class="empty-state">
@@ -184,6 +161,33 @@
   .header-actions {
     display: flex;
     gap: var(--space-2);
+  }
+
+  .realtime-indicator {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--signal-green);
+    padding: var(--space-1) var(--space-2);
+    background: rgba(0, 210, 106, 0.1);
+    border-radius: var(--radius-sm);
+  }
+
+  .realtime-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--signal-green);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
   }
 
   .btn {

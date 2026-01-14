@@ -2,8 +2,8 @@ import { writable, get } from 'svelte/store';
 import { llmEngine, llmStatus, initializeLLM } from './llm/engine';
 import { buildSystemPrompt } from './llm/prompts';
 import { formatInventoryContext } from './llm/context';
-import { devices, stats } from './stores';
 import type { ChatCompletionMessageParam } from '@mlc-ai/web-llm';
+import type { Device } from './stores';
 
 export interface ChatMessage {
   id: string;
@@ -24,8 +24,16 @@ function generateId(): string {
   return `msg-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 }
 
+// Stats type for chat context
+interface StatsData {
+  total_devices: number;
+  device_counts: Record<string, number>;
+  total_storage_tb?: number;
+  total_ram_gb?: number;
+}
+
 // Send a message and get streaming response
-export async function sendMessage(content: string): Promise<void> {
+export async function sendMessage(content: string, deviceList: Device[], statsData: StatsData | null): Promise<void> {
   const engine = get(llmEngine);
 
   // Ensure engine is ready
@@ -69,9 +77,7 @@ export async function sendMessage(content: string): Promise<void> {
 
   try {
     // Build context from current inventory
-    const currentDevices = get(devices);
-    const currentStats = get(stats);
-    const inventoryContext = formatInventoryContext(currentDevices, currentStats);
+    const inventoryContext = formatInventoryContext(deviceList, statsData);
     const systemPrompt = buildSystemPrompt(inventoryContext);
 
     // Build conversation history

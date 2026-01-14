@@ -1,8 +1,11 @@
 <script lang="ts">
-  import { deleteConfirmDevice, deleting, closeDeleteConfirm, removeDevice } from '../lib/stores';
-  import type { DeviceWithRelations } from '../../shared/types';
+  import { useConvexClient } from 'convex-svelte';
+  import { api } from '../../../convex/_generated/api';
+  import { deleteConfirmDevice, deleting, closeDeleteConfirm, clearSelectedIfMatch, type Device } from '../lib/stores';
 
-  let device: DeviceWithRelations | null = $state(null);
+  const client = useConvexClient();
+
+  let device: Device | null = $state(null);
   let isDeleting = $state(false);
 
   $effect(() => {
@@ -23,7 +26,18 @@
   }
 
   async function handleDelete() {
-    await removeDevice();
+    if (!device) return;
+
+    deleting.set(true);
+    try {
+      await client.mutation(api.devices.remove, { id: device._id });
+      clearSelectedIfMatch(device._id);
+      closeDeleteConfirm();
+    } catch (e) {
+      console.error('Failed to delete device:', e);
+    } finally {
+      deleting.set(false);
+    }
   }
 </script>
 

@@ -1,9 +1,15 @@
 <script lang="ts">
-  import { chatOpen, chatMessages, chatError, closeChat, clearChat } from '../../lib/chatStore';
+  import { useQuery } from 'convex-svelte';
+  import { api } from '../../../../convex/_generated/api';
+  import { chatOpen, chatMessages, chatError, closeChat, clearChat, sendMessage } from '../../lib/chatStore';
   import { llmStatus } from '../../lib/llm/engine';
   import ChatMessage from './ChatMessage.svelte';
   import ChatInput from './ChatInput.svelte';
   import ModelLoader from './ModelLoader.svelte';
+
+  // Convex queries for chat context
+  const devicesQuery = useQuery(api.devices.list, {});
+  const statsQuery = useQuery(api.stats.get, {});
 
   let messagesContainer: HTMLDivElement;
 
@@ -13,6 +19,12 @@
 
   function handleOverlayClick() {
     closeChat();
+  }
+
+  function handleSend(message: string) {
+    const devices = devicesQuery.data || [];
+    const stats = statsQuery.data || null;
+    sendMessage(message, devices, stats);
   }
 
   // Auto-scroll to bottom when new messages arrive
@@ -93,13 +105,13 @@
                 <p>Ask me anything about your homelab inventory!</p>
                 <div class="example-prompts">
                   <span class="prompt-label">Try asking:</span>
-                  <button class="prompt-chip" onclick={() => { import('../../lib/chatStore').then(m => m.sendMessage('What is the total storage capacity?')); }}>
+                  <button class="prompt-chip" onclick={() => handleSend('What is the total storage capacity?')}>
                     Total storage?
                   </button>
-                  <button class="prompt-chip" onclick={() => { import('../../lib/chatStore').then(m => m.sendMessage('Which devices support HEVC transcoding?')); }}>
+                  <button class="prompt-chip" onclick={() => handleSend('Which devices support HEVC transcoding?')}>
                     HEVC support?
                   </button>
-                  <button class="prompt-chip" onclick={() => { import('../../lib/chatStore').then(m => m.sendMessage('Compare RAM across all devices')); }}>
+                  <button class="prompt-chip" onclick={() => handleSend('Compare RAM across all devices')}>
                     Compare RAM
                   </button>
                 </div>
@@ -122,7 +134,7 @@
           </div>
 
           <!-- Input -->
-          <ChatInput />
+          <ChatInput onSend={handleSend} />
         {:else}
           <!-- Model loader -->
           <ModelLoader />

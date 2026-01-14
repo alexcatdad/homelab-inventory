@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { selectedDevice, openEditForm, openDeleteConfirm } from '../lib/stores';
+  import { selectedDevice, openEditForm, openDeleteConfirm, type Device } from '../lib/stores';
   import { formatBytes } from '../../shared/types';
-  import type { DeviceWithRelations } from '../../shared/types';
 
-  let device: DeviceWithRelations | null = $state(null);
+  let device: Device | null = $state(null);
 
   $effect(() => {
     const unsub = selectedDevice.subscribe(v => device = v);

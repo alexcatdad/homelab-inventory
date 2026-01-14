@@ -9,32 +9,15 @@ export interface SpecLookupResult {
   source?: 'cache' | 'web';
 }
 
-// Server API - cache only
-async function checkCache(model: string): Promise<{ cached: boolean; specs?: Specifications }> {
-  const res = await fetch(`/api/specs/cache?model=${encodeURIComponent(model)}`);
-  return res.json();
+// Convex operations interface - to be passed in from component
+export interface ConvexSpecsOps {
+  checkCache: (model: string) => Promise<{ cached: boolean; specs?: any; source_url?: string }>;
+  saveCache: (model: string, specs: Specifications) => Promise<void>;
+  proxySearch: (query: string) => Promise<string>;
 }
 
-async function saveToCache(model: string, specs: Specifications): Promise<void> {
-  await fetch('/api/specs/cache', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model, specs, source_url: 'duckduckgo' }),
-  });
-}
-
-// Search via server proxy (bypasses CORS, server fetches DuckDuckGo HTML)
-async function searchDuckDuckGo(model: string): Promise<string> {
-  const query = `${model} specifications CPU RAM`;
-  const proxyUrl = `/api/specs/proxy-search?q=${encodeURIComponent(query)}`;
-
-  const response = await fetch(proxyUrl);
-  if (!response.ok) {
-    throw new Error('Search request failed');
-  }
-
-  const html = await response.text();
-
+// Parse HTML from DuckDuckGo search results
+function parseSearchHtml(html: string): string {
   // Check for CAPTCHA/rate limit
   const isCaptcha = html.includes('anomaly-modal') ||
     html.includes('Please verify you are a human') ||
@@ -53,7 +36,7 @@ async function searchDuckDuckGo(model: string): Promise<string> {
   const snippets = snippetMatches.map(m => cleanHtml(m[1])).filter(Boolean);
   const titles = titleMatches.map(m => cleanHtml(m[1])).filter(Boolean);
 
-  // Combine into searchable content - use whichever has more items as base
+  // Combine into searchable content
   let content: string;
   if (titles.length >= snippets.length) {
     content = titles.map((t, i) => `${t}\n${snippets[i] || ''}`).join('\n\n');
@@ -197,7 +180,8 @@ function parseSpecResponse(response: string): Specifications | null {
 // Main spec lookup function - client-side search approach
 export async function lookupSpecs(
   modelName: string,
-  deviceType: DeviceType
+  deviceType: DeviceType,
+  ops: ConvexSpecsOps
 ): Promise<SpecLookupResult> {
   if (!modelName.trim()) {
     return { success: false, error: 'Model name is required' };
@@ -205,13 +189,14 @@ export async function lookupSpecs(
 
   try {
     // Step 1: Check server cache first
-    const cacheResult = await checkCache(modelName);
+    const cacheResult = await ops.checkCache(modelName);
     if (cacheResult.cached && cacheResult.specs) {
       return { success: true, specs: cacheResult.specs, source: 'cache' };
     }
 
     // Step 2: Search DuckDuckGo via proxy
-    const searchContent = await searchDuckDuckGo(modelName);
+    const searchHtml = await ops.proxySearch(`${modelName} specifications`);
+    const searchContent = parseSearchHtml(searchHtml);
     if (!searchContent) {
       return { success: false, error: 'No search results found' };
     }
@@ -246,7 +231,7 @@ export async function lookupSpecs(
     }
 
     // Step 5: Cache the extracted specs
-    await saveToCache(modelName, specs);
+    await ops.saveCache(modelName, specs);
 
     return { success: true, specs, source: 'web' };
   } catch (e) {

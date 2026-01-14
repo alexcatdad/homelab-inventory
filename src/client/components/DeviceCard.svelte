@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { DeviceWithRelations } from '../../shared/types';
+  import type { Device } from '../lib/stores';
   import { selectedDevice } from '../lib/stores';
   import { formatBytes } from '../../shared/types';
 
-  let { device }: { device: DeviceWithRelations } = $props();
+  let { device }: { device: Device } = $props();
 
   const typeClasses: Record<string, string> = {
     Server: 'badge-server',
