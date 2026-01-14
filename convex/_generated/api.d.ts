@@ -9,6 +9,8 @@
  */
 
 import type * as auth from "../auth.js";
+import type * as dataExport from "../dataExport.js";
+import type * as dataImport from "../dataImport.js";
 import type * as devices from "../devices.js";
 import type * as http from "../http.js";
 import type * as migrations_import from "../migrations/import.js";
@@ -24,6 +26,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
+  dataExport: typeof dataExport;
+  dataImport: typeof dataImport;
   devices: typeof devices;
   http: typeof http;
   "migrations/import": typeof migrations_import;

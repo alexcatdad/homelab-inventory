@@ -141,9 +141,22 @@
         <span class="time-label">SYS TIME</span>
       </div>
 
+      <!-- Settings Button -->
+      <button
+        class="icon-button"
+        class:active={view === 'settings'}
+        onclick={() => setView('settings')}
+        title="Settings"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+
       <!-- Sign Out Button -->
       <button
-        class="sign-out-button"
+        class="icon-button sign-out"
         onclick={signOut}
         disabled={isSigningOut}
         title="Sign Out"
@@ -421,8 +434,8 @@
     color: var(--text-dim);
   }
 
-  /* Sign Out Button */
-  .sign-out-button {
+  /* Icon Buttons (Settings, Sign Out) */
+  .icon-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -437,18 +450,30 @@
     flex-shrink: 0;
   }
 
-  .sign-out-button:hover:not(:disabled) {
+  .icon-button:hover:not(:disabled) {
+    background: var(--panel-hover);
+    border-color: var(--signal-blue);
+    color: var(--signal-blue);
+  }
+
+  .icon-button.active {
+    background: rgba(0, 168, 255, 0.1);
+    border-color: var(--signal-blue);
+    color: var(--signal-blue);
+  }
+
+  .icon-button.sign-out:hover:not(:disabled) {
     background: rgba(239, 68, 68, 0.1);
     border-color: var(--signal-red);
     color: var(--signal-red);
   }
 
-  .sign-out-button:disabled {
+  .icon-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  .sign-out-button svg {
+  .icon-button svg {
     width: 18px;
     height: 18px;
   }

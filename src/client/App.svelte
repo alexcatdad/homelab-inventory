@@ -15,6 +15,7 @@
   import DeleteConfirm from "./components/DeleteConfirm.svelte";
   import ChatPanel from "./components/chat/ChatPanel.svelte";
   import TopologyView from "./components/TopologyView.svelte";
+  import Settings from "./components/Settings.svelte";
   import Header from "./components/Header.svelte";
   import LoginPage from "./components/LoginPage.svelte";
 
@@ -153,6 +154,8 @@
           <DeviceGrid />
         {:else if view === "topology"}
           <TopologyView />
+        {:else if view === "settings"}
+          <Settings />
         {/if}
       </div>
     </main>

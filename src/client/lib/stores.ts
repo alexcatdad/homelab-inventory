@@ -13,7 +13,7 @@ export const typeFilter = writable<string | null>(null);
 export const selectedDevice = writable<Device | null>(null);
 
 // Current view
-export const currentView = writable<'dashboard' | 'devices' | 'topology'>('dashboard');
+export const currentView = writable<'dashboard' | 'devices' | 'topology' | 'settings'>('dashboard');
 
 // Form state stores
 export const deviceFormOpen = writable(false);
