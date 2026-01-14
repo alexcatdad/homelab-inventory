@@ -21,6 +21,8 @@
     "storage": "STORAGE",
     "sysTime": "SYS TIME",
     "searchPlaceholder": "Search inventory...",
+    "searchLabel": "Search devices",
+    "searchDescription": "Search by device name, model, or CPU",
     "aiAssistant": "AI Assistant",
     "settings": "Settings",
     "signOut": "Sign Out"
@@ -225,5 +227,15 @@
     "LPDDR4": "LPDDR4",
     "LPDDR5": "LPDDR5",
     "UnifiedMemory": "Unified Memory"
+  },
+  "accessibility": {
+    "skipToMain": "Skip to main content",
+    "mainNavigation": "Main navigation",
+    "deviceList": "Device list",
+    "closeDialog": "Close dialog",
+    "loading": "Loading, please wait",
+    "deviceDeleted": "Device deleted successfully",
+    "deviceSaved": "Device saved successfully",
+    "searchResults": "{count} devices found"
   }
 }

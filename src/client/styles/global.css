@@ -14,12 +14,12 @@
   --panel-hover: #242936;
   --panel-active: #2d3344;
 
-  /* ─── Text Hierarchy ───────────────────────────────────────────────────── */
+  /* ─── Text Hierarchy (WCAG AA compliant - 4.5:1 contrast ratio) ───────── */
   --text-bright: #f0f2f5;
   --text-primary: #c8cdd6;
-  --text-secondary: #8892a2;
-  --text-muted: #5c6578;
-  --text-dim: #3d4555;
+  --text-secondary: #9ba3b5;  /* Improved: ~5.2:1 contrast */
+  --text-muted: #7d8799;      /* Improved: ~4.5:1 contrast */
+  --text-dim: #6b7485;        /* Improved: ~3.8:1 (decorative only) */
 
   /* ─── Signal Colors (Aerospace-inspired) ───────────────────────────────── */
   --signal-blue: #00a8ff;
@@ -847,3 +847,114 @@ input::placeholder {
 .stagger-4 { animation-delay: 0.2s; }
 .stagger-5 { animation-delay: 0.25s; }
 .stagger-6 { animation-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--signal-blue);
+  color: var(--void);
+  padding: var(--space-2) var(--space-4);
+  z-index: 10000;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--signal-cyan);
+  outline-offset: 2px;
+}
+
+/* Visible focus indicators for all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--signal-blue);
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Enhanced focus for buttons */
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--signal-blue);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 168, 255, 0.2);
+}
+
+/* Enhanced focus for inputs */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--signal-blue);
+  outline-offset: 0;
+  border-color: var(--signal-blue);
+  box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.15);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Live region for announcements */
+.live-region {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .particles,
+  .data-streams,
+  .scan-line,
+  .radar-sweep,
+  .pulse-ring,
+  .grid-pulse {
+    display: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --text-muted: #a0a8b8;
+    --text-dim: #8892a2;
+    --border-panel: #4a5568;
+    --border-dim: #3d4555;
+  }
+}
