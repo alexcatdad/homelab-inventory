@@ -122,6 +122,7 @@ const importedSpecsCache = v.object({
 export const importDevices = mutation({
   args: {
     devices: v.array(importedDevice),
+    userId: v.id("users"),
   },
   handler: async (ctx, args) => {
     const results = { imported: 0, skipped: 0, errors: [] as string[] };
@@ -140,7 +141,7 @@ export const importDevices = mutation({
 
       try {
         // Cast to any for migration flexibility - schema will validate
-        await ctx.db.insert("devices", device as any);
+        await ctx.db.insert("devices", { ...device, userId: args.userId } as any);
         results.imported++;
       } catch (e) {
         results.errors.push(`${device.name}: ${e}`);
@@ -155,6 +156,7 @@ export const importDevices = mutation({
 export const importConnections = mutation({
   args: {
     connections: v.array(importedConnection),
+    userId: v.id("users"),
   },
   handler: async (ctx, args) => {
     const results = { imported: 0, skipped: 0, errors: [] as string[] };
@@ -190,6 +192,7 @@ export const importConnections = mutation({
 
       try {
         await ctx.db.insert("network_connections", {
+          userId: args.userId,
           from_device_id: fromId,
           to_device_id: toId,
           connection_type: conn.connection_type as any,

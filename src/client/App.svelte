@@ -1,75 +1,168 @@
 <script lang="ts">
-  import { setupConvex } from 'convex-svelte';
-  import { currentView } from './lib/stores';
-  import Dashboard from './components/Dashboard.svelte';
-  import DeviceGrid from './components/DeviceGrid.svelte';
-  import DeviceDetail from './components/DeviceDetail.svelte';
-  import DeviceForm from './components/DeviceForm.svelte';
-  import DeleteConfirm from './components/DeleteConfirm.svelte';
-  import ChatPanel from './components/chat/ChatPanel.svelte';
-  import TopologyView from './components/TopologyView.svelte';
-  import Header from './components/Header.svelte';
+  import { setupConvex, useQuery, useConvexClient } from "convex-svelte";
+  import { api } from "../../convex/_generated/api";
+  import { currentView } from "./lib/stores";
+  import {
+    isAuthenticated,
+    isAuthLoading,
+    authInitialized as authInitializedStore,
+    initializeAuth,
+  } from "./lib/authStore";
+  import Dashboard from "./components/Dashboard.svelte";
+  import DeviceGrid from "./components/DeviceGrid.svelte";
+  import DeviceDetail from "./components/DeviceDetail.svelte";
+  import DeviceForm from "./components/DeviceForm.svelte";
+  import DeleteConfirm from "./components/DeleteConfirm.svelte";
+  import ChatPanel from "./components/chat/ChatPanel.svelte";
+  import TopologyView from "./components/TopologyView.svelte";
+  import Header from "./components/Header.svelte";
+  import LoginPage from "./components/LoginPage.svelte";
 
   // Initialize Convex client
   setupConvex(import.meta.env.VITE_CONVEX_URL);
 
-  let view = $state('dashboard');
+  const client = useConvexClient();
+
+  let view = $state("dashboard");
+  let authenticated = $state(false);
+  let loading = $state(true);
+  let authReady = $state(false);
+  let initStarted = $state(false);
+
+  // Initialize auth on mount - handles OAuth callback and token restoration
+  $effect(() => {
+    if (!initStarted) {
+      initStarted = true;
+      initializeAuth(client).catch(console.error);
+    }
+  });
+
+  // Subscribe to auth stores
+  $effect(() => {
+    const unsubInit = authInitializedStore.subscribe((v) => (authReady = v));
+    const unsubAuth = isAuthenticated.subscribe((v) => (authenticated = v));
+    const unsubLoading = isAuthLoading.subscribe((v) => (loading = v));
+    return () => {
+      unsubInit();
+      unsubAuth();
+      unsubLoading();
+    };
+  });
 
   // Subscribe to view store
   $effect(() => {
-    const unsub = currentView.subscribe(v => view = v);
+    const unsub = currentView.subscribe((v) => (view = v));
     return () => unsub();
+  });
+
+  // Query auth state only AFTER auth is initialized (use 'skip' pattern)
+  const authState = useQuery(api.auth.currentUser, () => (authReady ? {} : "skip"));
+
+  // Sync query result back to stores when available
+  $effect(() => {
+    if (authReady && !authState.isLoading && authState.data !== undefined) {
+      // Query completed - update stores with server-confirmed state
+      const isAuthed = !!authState.data;
+      isAuthenticated.set(isAuthed);
+    }
   });
 </script>
 
-<div class="app">
-  <!-- Aerospace Background Effects -->
-  <div class="bg-effects" aria-hidden="true">
-    <div class="particles">
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
-      <div class="particle"></div>
+{#if loading}
+  <div class="app">
+    <!-- Background effects for loading screen -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
     </div>
-    <div class="data-streams">
-      <div class="data-stream"></div>
-      <div class="data-stream"></div>
-      <div class="data-stream"></div>
-      <div class="data-stream"></div>
-      <div class="data-stream"></div>
+
+    <div class="loading-screen">
+      <div class="loading-indicator">
+        <div class="spinner"></div>
+        <div class="spinner-glow"></div>
+      </div>
+      <span class="loading-text">INITIALIZING</span>
     </div>
-    <div class="grid-pulse"></div>
-    <div class="grid-pulse"></div>
-    <div class="grid-pulse"></div>
-    <div class="grid-pulse"></div>
-    <div class="grid-pulse"></div>
-    <div class="corner-accent top-left"></div>
-    <div class="corner-accent bottom-right"></div>
   </div>
-
-  <Header />
-
-  <main class="main">
-    <div class="content fade-in">
-      {#if view === 'dashboard'}
-        <Dashboard />
-      {:else if view === 'devices'}
-        <DeviceGrid />
-      {:else if view === 'topology'}
-        <TopologyView />
-      {/if}
+{:else if !authenticated}
+  <div class="app">
+    <!-- Background effects for login -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="data-streams">
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+      </div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
     </div>
-  </main>
 
-  <DeviceDetail />
-  <DeviceForm />
-  <DeleteConfirm />
-  <ChatPanel />
-</div>
+    <LoginPage />
+  </div>
+{:else}
+  <div class="app">
+    <!-- Aerospace Background Effects -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="data-streams">
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+      </div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
+    </div>
+
+    <Header />
+
+    <main class="main">
+      <div class="content fade-in">
+        {#if view === "dashboard"}
+          <Dashboard />
+        {:else if view === "devices"}
+          <DeviceGrid />
+        {:else if view === "topology"}
+          <TopologyView />
+        {/if}
+      </div>
+    </main>
+
+    <DeviceDetail />
+    <DeviceForm />
+    <DeleteConfirm />
+    <ChatPanel />
+  </div>
+{/if}
 
 <style>
   .app {
@@ -92,16 +185,18 @@
   }
 
   @keyframes fadeIn {
-    to { opacity: 1; }
+    to {
+      opacity: 1;
+    }
   }
 
-  /* Loading State */
-  .loading {
+  /* Loading Screen */
+  .loading-screen {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 50vh;
     gap: var(--space-4);
   }
 
@@ -132,7 +227,9 @@
   }
 
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .loading-text {
@@ -145,14 +242,13 @@
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  .loading-sub {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
   }
 
   /* Error State */

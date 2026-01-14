@@ -1,0 +1,414 @@
+{
+  "devices": [
+    {
+      "type": "Desktop",
+      "name": "Primary Home Lab Node",
+      "quantity": 1,
+      "model": "Custom Build",
+      "specifications": {
+        "cpu": {
+          "model": "AMD Ryzen 9 3900X",
+          "cores": 12,
+          "threads": 24,
+          "tdp_watts": 105,
+          "video_codecs": "None (no iGPU)"
+        },
+        "ram": {
+          "current": "32GB",
+          "max_supported": "128GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "ASUSTeK TUF GAMING X570-PLUS",
+          "chipset": "AMD X570",
+          "sata_ports": 8,
+          "nvme_slots": 2
+        }
+      },
+      "gpus": [
+        {
+          "model": "NVIDIA GeForce GTX 1050 Ti"
+        }
+      ],
+      "storage": [
+        {
+          "type": "NVMe SSD",
+          "capacity": "3.7T",
+          "capacity_bytes": 4068193022771,
+          "device_path": "/dev/nvme0n1p1",
+          "mount_point": "/mnt/ssd"
+        },
+        {
+          "type": "RAID Array",
+          "capacity": "466G",
+          "capacity_bytes": 500363689984,
+          "device_path": "/dev/md127",
+          "mount_point": "/mnt/safe"
+        },
+        {
+          "type": "RAID Array",
+          "capacity": "15T",
+          "capacity_bytes": 16492674416640,
+          "device_path": "/dev/md126",
+          "mount_point": "/mnt/data"
+        }
+      ],
+      "pcie_slots": [
+        {
+          "description": "1 x PCIe 4.0 x16 (x16 mode)",
+          "status": "Available"
+        },
+        {
+          "description": "1 x PCIe 4.0 x16 (max x4 mode)",
+          "status": "Available"
+        },
+        {
+          "description": "3 x PCIe 4.0 x1",
+          "status": "Available"
+        },
+        {
+          "description": "2 x M.2 Socket 3 (PCIe 4.0 x4 & SATA)",
+          "status": "Available"
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "AMD Ryzen 9 5950X (Workstation) or 5800X3D (Gaming)",
+        "notes": "Requires BIOS update for Ryzen 5000 support."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "Mac Studio",
+      "quantity": 1,
+      "model": "Mac Studio (2023)",
+      "specifications": {
+        "cpu": {
+          "model": "Apple M2 Max",
+          "cores": 12,
+          "threads": 12,
+          "tdp_watts": 30,
+          "video_codecs": "H.264, HEVC, ProRes, VP9"
+        },
+        "ram": {
+          "current": "32GB",
+          "max_supported": "32GB",
+          "type": "Unified Memory"
+        }
+      },
+      "gpus": [
+        {
+          "model": "Apple M2 Max (30-core or 38-core GPU)"
+        }
+      ],
+      "pcie_slots": [
+        {
+          "description": "None (Internal)",
+          "status": "Available"
+        },
+        {
+          "description": "Thunderbolt 4 / USB 4 (External)",
+          "status": "Available"
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Not Upgradeable",
+        "notes": "Unified Silicon (SoC)."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "Intel Fanless",
+      "quantity": 1,
+      "model": "Custom Build",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Core i5-4590S",
+          "cores": 4,
+          "threads": 4,
+          "tdp_watts": 65,
+          "video_codecs": "H.264"
+        },
+        "ram": {
+          "current": "16GB",
+          "max_supported": "16GB",
+          "type": "DDR3"
+        },
+        "motherboard": {
+          "model": "Asus Q87T",
+          "sata_ports": 4
+        }
+      },
+      "pcie_slots": [
+        {
+          "description": "1 x PCIe 3.0 x4",
+          "status": "Available"
+        },
+        {
+          "description": "1 x Mini-PCIe (Full-length)",
+          "status": "Available"
+        },
+        {
+          "description": "1 x Mini-PCIe (Half-length)",
+          "status": "Available"
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Intel Core i7-4790 (84W) or i7-4790S (65W)",
+        "notes": "Strict 84W TDP limit. i7-4790K (88W) is NOT recommended."
+      }
+    },
+    {
+      "type": "Server",
+      "name": "The Nas",
+      "quantity": 1,
+      "model": "Custom Build",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Celeron J4125",
+          "cores": 4,
+          "threads": 4,
+          "tdp_watts": 10,
+          "video_codecs": "H.264, HEVC (8-bit), VP9"
+        },
+        "ram": {
+          "current": "8GB",
+          "max_supported": "16GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "Custom Board",
+          "sata_ports": 4,
+          "nvme_slots": 2
+        }
+      },
+      "pcie_slots": [
+        {
+          "description": "Likely 1 x PCIe 2.0 x1 or M.2 Key E/M",
+          "status": "Available"
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Not Upgradeable",
+        "notes": "CPU is soldered (SoC)."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "The old boy",
+      "quantity": 1,
+      "model": "Custom Build",
+      "specifications": {
+        "cpu": {
+          "model": "AMD Ryzen 3 2200G",
+          "cores": 4,
+          "threads": 4,
+          "tdp_watts": 65,
+          "video_codecs": "H.264, HEVC, VP9 (VCN)"
+        },
+        "ram": {
+          "current": "8GB",
+          "max_supported": "64GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "ASRock AB350 Pro4",
+          "sata_ports": 6,
+          "nvme_slots": 1
+        }
+      },
+      "pcie_slots": [
+        {
+          "description": "1 x PCIe 3.0 x16 (x16 mode)",
+          "status": "Available"
+        },
+        {
+          "description": "1 x PCIe 3.0 x16 (x4 mode)",
+          "status": "Available"
+        },
+        {
+          "description": "4 x PCIe 2.0 x1",
+          "status": "Available"
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "AMD Ryzen 9 5950X or 5800X3D",
+        "notes": "Requires BIOS 7.00+. VRMs may struggle with 5950X under sustained load."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "HP EliteDesk 800 G4 #1",
+      "quantity": 1,
+      "model": "EliteDesk 800 G4 SFF",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Core i5-8500",
+          "cores": 6,
+          "threads": 6,
+          "tdp_watts": 65,
+          "video_codecs": "H.264, HEVC (10-bit), VP9"
+        },
+        "ram": {
+          "current": "8GB",
+          "max_supported": "64GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "HP 83EC",
+          "chipset": "Intel Q370",
+          "sata_ports": 3,
+          "nvme_slots": 2
+        }
+      },
+      "storage": [
+        {
+          "type": "SSD",
+          "capacity": "500GB",
+          "capacity_bytes": 536870912000
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Intel Core i7-8700",
+        "notes": "Supports up to 64GB DDR4-2666 (4 DIMM slots). Can upgrade CPU to any 8th gen Coffee Lake (i7-8700 max)."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "HP EliteDesk 800 G4 #2",
+      "quantity": 1,
+      "model": "EliteDesk 800 G4 SFF",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Core i5-8500",
+          "cores": 6,
+          "threads": 6,
+          "tdp_watts": 65,
+          "video_codecs": "H.264, HEVC (10-bit), VP9"
+        },
+        "ram": {
+          "current": "8GB",
+          "max_supported": "64GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "HP 83EC",
+          "chipset": "Intel Q370",
+          "sata_ports": 3,
+          "nvme_slots": 2
+        }
+      },
+      "storage": [
+        {
+          "type": "SSD",
+          "capacity": "500GB",
+          "capacity_bytes": 536870912000
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Intel Core i7-8700",
+        "notes": "Supports up to 64GB DDR4-2666 (4 DIMM slots). Can upgrade CPU to any 8th gen Coffee Lake (i7-8700 max)."
+      }
+    },
+    {
+      "type": "Desktop",
+      "name": "HP EliteDesk 800 G4 #3",
+      "quantity": 1,
+      "model": "EliteDesk 800 G4 SFF",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Core i5-8500",
+          "cores": 6,
+          "threads": 6,
+          "tdp_watts": 65,
+          "video_codecs": "H.264, HEVC (10-bit), VP9"
+        },
+        "ram": {
+          "current": "8GB",
+          "max_supported": "64GB",
+          "type": "DDR4"
+        },
+        "motherboard": {
+          "model": "HP 83EC",
+          "chipset": "Intel Q370",
+          "sata_ports": 3,
+          "nvme_slots": 2
+        }
+      },
+      "storage": [
+        {
+          "type": "SSD",
+          "capacity": "500GB",
+          "capacity_bytes": 536870912000
+        }
+      ],
+      "upgrade_analysis": {
+        "cpu_max": "Intel Core i7-8700",
+        "notes": "Supports up to 64GB DDR4-2666 (4 DIMM slots). Can upgrade CPU to any 8th gen Coffee Lake (i7-8700 max)."
+      }
+    },
+    {
+      "type": "Laptop",
+      "name": "MacBook Air M2",
+      "quantity": 1,
+      "model": "MacBook Air (2022)",
+      "specifications": {
+        "cpu": {
+          "model": "Apple M2",
+          "cores": 8,
+          "threads": 8,
+          "tdp_watts": 15,
+          "video_codecs": "H.264, HEVC, ProRes, VP9"
+        },
+        "ram": {
+          "current": "16GB",
+          "max_supported": "16GB",
+          "type": "Unified Memory"
+        }
+      }
+    },
+    {
+      "type": "Laptop",
+      "name": "Lenovo ThinkPad T480",
+      "quantity": 1,
+      "model": "ThinkPad T480",
+      "specifications": {
+        "cpu": {
+          "model": "Intel Core i5-8350U",
+          "cores": 4,
+          "threads": 8,
+          "tdp_watts": 15,
+          "video_codecs": "H.264, HEVC (10-bit), VP9"
+        },
+        "ram": {
+          "current": "16GB",
+          "max_supported": "32GB",
+          "type": "DDR4",
+          "slots_total": 2,
+          "slots_used": 2
+        }
+      },
+      "storage": [
+        {
+          "type": "SSD",
+          "capacity": "500GB",
+          "capacity_bytes": 500000000000
+        }
+      ]
+    },
+    {
+      "type": "Network",
+      "name": "ASUS Router",
+      "quantity": 1,
+      "model": "RT-AX89X"
+    }
+  ],
+  "network_connections": [],
+  "specs_cache": [
+    {
+      "model_query": "dell optiplex 7080",
+      "specs_json": "{\"cpu\":{\"model\":\"Intel Core i7\",\"cores\":8,\"threads\":8,\"tdp_watts\":65},\"ram\":{\"current\":\"\",\"max_supported\":\"64GB\",\"type\":\"DDR4\"},\"motherboard\":{\"model\":\"\",\"chipset\":\"Intel Q370\"}}",
+      "source_url": "duckduckgo",
+      "expires_at": 1770961077000
+    }
+  ]
+}

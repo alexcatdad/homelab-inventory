@@ -8,7 +8,9 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
 import type * as devices from "../devices.js";
+import type * as http from "../http.js";
 import type * as migrations_import from "../migrations/import.js";
 import type * as specs from "../specs.js";
 import type * as stats from "../stats.js";
@@ -21,7 +23,9 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
   devices: typeof devices;
+  http: typeof http;
   "migrations/import": typeof migrations_import;
   specs: typeof specs;
   stats: typeof stats;

@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 // Device type enum
 const deviceType = v.union(
@@ -101,8 +102,14 @@ const networkInfo = v.object({
 });
 
 export default defineSchema({
+  // Auth tables (users, sessions, etc.)
+  ...authTables,
+
   // Main devices table with embedded related data
+  // NOTE: userId is optional to support legacy data migration
+  // Once legacy data is cleared, make this required: userId: v.id("users")
   devices: defineTable({
+    userId: v.optional(v.id("users")),
     type: deviceType,
     name: v.string(),
     model: v.optional(v.string()),
@@ -121,10 +128,13 @@ export default defineSchema({
     network_info: v.optional(networkInfo),
   })
     .index("by_name", ["name"])
-    .index("by_type", ["type"]),
+    .index("by_type", ["type"])
+    .index("by_user", ["userId"]),
 
   // Network connections (many-to-many between devices)
+  // NOTE: userId is optional to support legacy data migration
   network_connections: defineTable({
+    userId: v.optional(v.id("users")),
     from_device_id: v.id("devices"),
     to_device_id: v.id("devices"),
     connection_type: connectionType,
@@ -132,7 +142,8 @@ export default defineSchema({
     speed: v.optional(v.string()),
   })
     .index("by_from_device", ["from_device_id"])
-    .index("by_to_device", ["to_device_id"]),
+    .index("by_to_device", ["to_device_id"])
+    .index("by_user", ["userId"]),
 
   // Hardware specs lookup cache
   specs_cache: defineTable({

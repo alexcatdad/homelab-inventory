@@ -1,8 +1,23 @@
 <script lang="ts">
-  import { useQuery } from 'convex-svelte';
+  import { useQuery, useConvexClient } from 'convex-svelte';
   import { api } from '../../../convex/_generated/api';
   import { currentView, searchQuery } from '../lib/stores';
   import { openChat } from '../lib/chatStore';
+  import { signOut as doSignOut } from '../lib/authStore';
+
+  const client = useConvexClient();
+  let isSigningOut = $state(false);
+
+  async function signOut() {
+    isSigningOut = true;
+    try {
+      await doSignOut(client);
+    } catch (e) {
+      console.error('Sign out failed:', e);
+      isSigningOut = false;
+    }
+    // Note: doSignOut reloads the page, so we don't reset isSigningOut
+  }
 
   const statsQuery = useQuery(api.stats.get, {});
 
@@ -125,6 +140,20 @@
         <span class="time">{time}</span>
         <span class="time-label">SYS TIME</span>
       </div>
+
+      <!-- Sign Out Button -->
+      <button
+        class="sign-out-button"
+        onclick={signOut}
+        disabled={isSigningOut}
+        title="Sign Out"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="16 17 21 12 16 7" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="21" y1="12" x2="9" y2="12" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -390,6 +419,38 @@
     font-size: 0.5625rem;
     letter-spacing: 0.15em;
     color: var(--text-dim);
+  }
+
+  /* Sign Out Button */
+  .sign-out-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: var(--panel-deep);
+    border: 1px solid var(--border-dim);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    transition: all var(--duration-base) var(--ease-out-quad);
+    flex-shrink: 0;
+  }
+
+  .sign-out-button:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: var(--signal-red);
+    color: var(--signal-red);
+  }
+
+  .sign-out-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .sign-out-button svg {
+    width: 18px;
+    height: 18px;
   }
 
   /* Responsive */

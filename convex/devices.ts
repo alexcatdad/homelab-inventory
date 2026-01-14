@@ -1,22 +1,27 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
-// List all devices with optional filtering
+// List all devices for the current user with optional filtering
 export const list = query({
   args: {
     type: v.optional(v.string()),
     search: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    let devices;
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      return []; // Return empty for unauthenticated users
+    }
 
+    let devices = await ctx.db
+      .query("devices")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .collect();
+
+    // Filter by type if specified
     if (args.type) {
-      devices = await ctx.db
-        .query("devices")
-        .withIndex("by_type", (q) => q.eq("type", args.type as any))
-        .collect();
-    } else {
-      devices = await ctx.db.query("devices").collect();
+      devices = devices.filter((d) => d.type === args.type);
     }
 
     // Apply search filter in memory
@@ -37,26 +42,37 @@ export const list = query({
   },
 });
 
-// Get single device by ID
+// Get single device by ID (verify ownership)
 export const get = query({
   args: { id: v.id("devices") },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+    const userId = await getAuthUserId(ctx);
+    if (!userId) return null;
+
+    const device = await ctx.db.get(args.id);
+    if (!device || device.userId !== userId) {
+      return null; // Don't reveal device exists if not owned
+    }
+    return device;
   },
 });
 
-// Get device by name (for duplicate checking)
+// Get device by name for current user (for duplicate checking)
 export const getByName = query({
   args: { name: v.string() },
   handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) return null;
+
     return await ctx.db
       .query("devices")
-      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("name"), args.name))
       .first();
   },
 });
 
-// Create a new device
+// Create a new device (assign to current user)
 export const create = mutation({
   args: {
     type: v.string(),
@@ -74,10 +90,16 @@ export const create = mutation({
     network_info: v.optional(v.any()),
   },
   handler: async (ctx, args) => {
-    // Check for duplicate name
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Authentication required");
+    }
+
+    // Check for duplicate name within user's devices
     const existing = await ctx.db
       .query("devices")
-      .withIndex("by_name", (q) => q.eq("name", args.name))
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("name"), args.name))
       .first();
 
     if (existing) {
@@ -85,6 +107,7 @@ export const create = mutation({
     }
 
     const deviceId = await ctx.db.insert("devices", {
+      userId,
       type: args.type as any,
       name: args.name,
       model: args.model || "",
@@ -104,7 +127,7 @@ export const create = mutation({
   },
 });
 
-// Update a device
+// Update a device (verify ownership)
 export const update = mutation({
   args: {
     id: v.id("devices"),
@@ -123,18 +146,24 @@ export const update = mutation({
     network_info: v.optional(v.any()),
   },
   handler: async (ctx, args) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Authentication required");
+    }
+
     const { id, ...updates } = args;
     const existing = await ctx.db.get(id);
 
-    if (!existing) {
-      throw new Error("Device not found");
+    if (!existing || existing.userId !== userId) {
+      throw new Error("Device not found or access denied");
     }
 
-    // Check for duplicate name if changing it
+    // Check for duplicate name if changing it (within user's devices)
     if (updates.name && updates.name !== existing.name) {
       const duplicate = await ctx.db
         .query("devices")
-        .withIndex("by_name", (q) => q.eq("name", updates.name!))
+        .withIndex("by_user", (q) => q.eq("userId", userId))
+        .filter((q) => q.eq(q.field("name"), updates.name!))
         .first();
       if (duplicate) {
         throw new Error(`Device "${updates.name}" already exists`);
@@ -154,11 +183,21 @@ export const update = mutation({
   },
 });
 
-// Delete a device
+// Delete a device (verify ownership)
 export const remove = mutation({
   args: { id: v.id("devices") },
   handler: async (ctx, args) => {
-    // Delete associated network connections
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      throw new Error("Authentication required");
+    }
+
+    const device = await ctx.db.get(args.id);
+    if (!device || device.userId !== userId) {
+      throw new Error("Device not found or access denied");
+    }
+
+    // Delete associated network connections (only user's)
     const fromConnections = await ctx.db
       .query("network_connections")
       .withIndex("by_from_device", (q) => q.eq("from_device_id", args.id))
@@ -169,7 +208,9 @@ export const remove = mutation({
       .collect();
 
     for (const conn of [...fromConnections, ...toConnections]) {
-      await ctx.db.delete(conn._id);
+      if (conn.userId === userId) {
+        await ctx.db.delete(conn._id);
+      }
     }
 
     await ctx.db.delete(args.id);

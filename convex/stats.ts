@@ -1,4 +1,5 @@
 import { query } from "./_generated/server";
+import { getAuthUserId } from "@convex-dev/auth/server";
 
 // Parse RAM string like "64GB" to number of GB
 function parseRamToGB(ram: string | undefined): number {
@@ -21,11 +22,28 @@ function formatBytes(bytes: number): string {
   return `${value.toFixed(value < 10 ? 1 : 0)} ${units[i]}`;
 }
 
-// Get inventory statistics
+// Get inventory statistics for current user
 export const get = query({
   args: {},
   handler: async (ctx) => {
-    const devices = await ctx.db.query("devices").collect();
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      // Return empty stats for unauthenticated users
+      return {
+        total_devices: 0,
+        devices_by_type: {},
+        total_storage_bytes: 0,
+        total_storage_formatted: "0 B",
+        total_ram_current: "0GB",
+        total_ram_potential: "0GB",
+        upgradeable_devices: 0,
+      };
+    }
+
+    const devices = await ctx.db
+      .query("devices")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .collect();
 
     const devicesByType: Record<string, number> = {};
     let totalStorageBytes = 0;
