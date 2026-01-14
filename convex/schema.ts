@@ -101,9 +101,21 @@ const networkInfo = v.object({
   open_ports: v.optional(v.array(v.number())),
 });
 
+// Supported languages
+const supportedLanguage = v.union(
+  v.literal("en"),
+  v.literal("ro")
+);
+
 export default defineSchema({
   // Auth tables (users, sessions, etc.)
   ...authTables,
+
+  // User preferences (language, etc.)
+  userPreferences: defineTable({
+    userId: v.id("users"),
+    language: supportedLanguage,
+  }).index("by_user", ["userId"]),
 
   // Main devices table with embedded related data
   // NOTE: userId is optional to support legacy data migration

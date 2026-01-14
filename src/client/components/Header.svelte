@@ -4,6 +4,8 @@
   import { currentView, searchQuery } from '../lib/stores';
   import { openChat } from '../lib/chatStore';
   import { signOut as doSignOut } from '../lib/authStore';
+  import { t, locale } from '../lib/i18n';
+  import LanguageSwitcher from './LanguageSwitcher.svelte';
 
   const client = useConvexClient();
   let isSigningOut = $state(false);
@@ -24,13 +26,16 @@
   let search = $state('');
   let view = $state('dashboard');
   let statsData = $derived(statsQuery.data);
+  let currentLocale = $state('en');
 
   $effect(() => {
     const unsubSearch = searchQuery.subscribe(v => search = v);
     const unsubView = currentView.subscribe(v => view = v);
+    const unsubLocale = locale.subscribe(v => currentLocale = v || 'en');
     return () => {
       unsubSearch();
       unsubView();
+      unsubLocale();
     };
   });
 
@@ -42,17 +47,18 @@
     searchQuery.set((e.target as HTMLInputElement).value);
   }
 
+  // Navigation items with translation keys
   const views = [
-    { id: 'dashboard', label: 'DASHBOARD', icon: 'grid' },
-    { id: 'devices', label: 'DEVICES', icon: 'cpu' },
-    { id: 'topology', label: 'TOPOLOGY', icon: 'network' },
+    { id: 'dashboard', labelKey: 'nav.dashboard', icon: 'grid' },
+    { id: 'devices', labelKey: 'nav.devices', icon: 'cpu' },
+    { id: 'topology', labelKey: 'nav.topology', icon: 'network' },
   ] as const;
 
-  // Current time for the "control room" feel
-  let time = $state(new Date().toLocaleTimeString('en-US', { hour12: false }));
+  // Current time for the "control room" feel - uses locale for formatting
+  let time = $state(new Date().toLocaleTimeString(currentLocale, { hour12: false }));
   $effect(() => {
     const interval = setInterval(() => {
-      time = new Date().toLocaleTimeString('en-US', { hour12: false });
+      time = new Date().toLocaleTimeString(currentLocale, { hour12: false });
     }, 1000);
     return () => clearInterval(interval);
   });
@@ -72,11 +78,11 @@
           </svg>
         </div>
         <div class="logo-text">
-          <span class="logo-title">HOMELAB</span>
-          <span class="logo-sub">INVENTORY SYSTEM</span>
+          <span class="logo-title">{$t('header.title')}</span>
+          <span class="logo-sub">{$t('header.subtitle')}</span>
         </div>
       </div>
-      <mc-status status="online">ONLINE</mc-status>
+      <mc-status status="online">{$t('common.online')}</mc-status>
     </div>
 
     <!-- Navigation -->
@@ -88,7 +94,7 @@
           onclick={() => setView(v.id)}
         >
           <span class="nav-indicator"></span>
-          <span class="nav-label">{v.label}</span>
+          <span class="nav-label">{$t(v.labelKey)}</span>
         </button>
       {/each}
     </nav>
@@ -100,18 +106,18 @@
         <div class="quick-stats">
           <div class="stat-chip">
             <span class="stat-value">{statsData.total_devices}</span>
-            <span class="stat-label">UNITS</span>
+            <span class="stat-label">{$t('header.units')}</span>
           </div>
           <div class="stat-divider"></div>
           <div class="stat-chip">
             <span class="stat-value">{statsData.total_storage_formatted}</span>
-            <span class="stat-label">STORAGE</span>
+            <span class="stat-label">{$t('header.storage')}</span>
           </div>
         </div>
       {/if}
 
       <!-- Chat Button -->
-      <button class="chat-button" onclick={openChat} title="AI Assistant">
+      <button class="chat-button" onclick={openChat} title={$t('header.aiAssistant')}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
@@ -129,7 +135,7 @@
         </svg>
         <input
           type="text"
-          placeholder="Search inventory..."
+          placeholder={$t('header.searchPlaceholder')}
           value={search}
           oninput={updateSearch}
         />
@@ -138,15 +144,18 @@
       <!-- Time Display -->
       <div class="time-display">
         <span class="time">{time}</span>
-        <span class="time-label">SYS TIME</span>
+        <span class="time-label">{$t('header.sysTime')}</span>
       </div>
+
+      <!-- Language Switcher -->
+      <LanguageSwitcher />
 
       <!-- Settings Button -->
       <button
         class="icon-button"
         class:active={view === 'settings'}
         onclick={() => setView('settings')}
-        title="Settings"
+        title={$t('header.settings')}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="3"/>
@@ -159,7 +168,7 @@
         class="icon-button sign-out"
         onclick={signOut}
         disabled={isSigningOut}
-        title="Sign Out"
+        title={$t('header.signOut')}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-linecap="round" stroke-linejoin="round"/>
