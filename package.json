@@ -1,0 +1,38 @@
+{
+  "name": "home-inventory",
+  "module": "src/server/index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun run dev:server & bun run dev:client",
+    "dev:server": "bun run --watch src/server/index.ts",
+    "dev:client": "vite",
+    "build": "vite build",
+    "import": "bun run scripts/import-yaml.ts",
+    "download-model": "bun run scripts/download-model.ts",
+    "start": "bun run src/server/index.ts",
+    "test": "bunx playwright test",
+    "test:ui": "bunx playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@types/bun": "latest",
+    "@types/d3": "^7.4.3",
+    "autoprefixer": "^10.4.23",
+    "d3": "^7.9.0",
+    "postcss": "^8.5.6",
+    "svelte": "^5.46.3",
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.3.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "^0.2.80",
+    "hono": "^4.11.4",
+    "mission-control-ui": "file:../ui",
+    "yaml": "^2.8.2"
+  }
+}

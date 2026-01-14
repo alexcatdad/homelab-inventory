@@ -1,0 +1,161 @@
+# Hardware Inventory & Upgrade Analysis
+# ------------------------------------
+# hardware:
+#   - type: [Server | Desktop | Laptop | Component | IoT]
+#     name: [Friendly Name]
+#     model: [Manufacturer Model]
+#     quantity: [Integer]
+#     specifications:
+#       cpu:
+#         model: [String]
+#         cores: [Integer]
+#         threads: [Integer]
+#       ram:
+#         current: [String]
+#         max_supported: [String]
+#         type: [String]
+#       motherboard:
+#         model: [String]
+#         chipset: [String]
+#       gpu:
+#         - model: [String]
+#           vram: [String]
+#       storage:
+#         - type: [NVMe | SSD | HDD | RAID]
+#           capacity: [String]
+#           device: [String]
+#           mount_point: [String]
+#           details: [String]
+#     upgrade_analysis:
+#       cpu_max: [String]
+#       notes: [String]
+#     expansion:
+#       pcie_slots:
+#         - [String]
+
+hardware:
+  - type: "Desktop"
+    name: "Primary Home Lab Node"
+    model: "Custom Build"
+    quantity: 1
+    specifications:
+      motherboard:
+        model: "ASUSTeK TUF GAMING X570-PLUS"
+        chipset: "AMD X570"
+      cpu:
+        model: "AMD Ryzen 9 3900X"
+        cores: 12
+        threads: 24
+      ram:
+        current: "32GB"
+        max_supported: "128GB"
+        type: "DDR4"
+      gpu:
+        - model: "NVIDIA GeForce GTX 1050 Ti"
+      storage:
+        - type: "NVMe SSD"
+          capacity: "3.7T"
+          device: "/dev/nvme0n1p1"
+          mount_point: "/mnt/ssd"
+        - type: "RAID Array"
+          capacity: "466G"
+          device: "/dev/md127"
+          mount_point: "/mnt/safe"
+        - type: "RAID Array"
+          capacity: "15T"
+          device: "/dev/md126"
+          mount_point: "/mnt/data"
+    upgrade_analysis:
+      cpu_max: "AMD Ryzen 9 5950X (Workstation) or 5800X3D (Gaming)"
+      notes: "Requires BIOS update for Ryzen 5000 support."
+    expansion:
+      pcie_slots:
+        - "1 x PCIe 4.0 x16 (x16 mode)"
+        - "1 x PCIe 4.0 x16 (max x4 mode)"
+        - "3 x PCIe 4.0 x1"
+        - "2 x M.2 Socket 3 (PCIe 4.0 x4 & SATA)"
+
+  - type: "Desktop"
+    name: "Mac Studio"
+    model: "Mac Studio (2023)"
+    quantity: 1
+    specifications:
+      cpu:
+        model: "Apple M2 Max"
+      ram:
+        current: "32GB"
+        max_supported: "32GB"
+        type: "Unified Memory"
+      gpu:
+        - model: "Apple M2 Max (30-core or 38-core GPU)"
+    upgrade_analysis:
+      cpu_max: "Not Upgradeable"
+      notes: "Unified Silicon (SoC)."
+    expansion:
+      pcie_slots:
+        - "None (Internal)"
+        - "Thunderbolt 4 / USB 4 (External)"
+
+  - type: "Desktop"
+    name: "Intel Fanless"
+    model: "Custom Build"
+    quantity: 1
+    specifications:
+      motherboard:
+        model: "Asus Q87T"
+      cpu:
+        model: "Intel Core i5-4590S"
+      ram:
+        current: "16GB"
+        max_supported: "16GB"
+        type: "DDR3"
+    upgrade_analysis:
+      cpu_max: "Intel Core i7-4790 (84W) or i7-4790S (65W)"
+      notes: "Strict 84W TDP limit. i7-4790K (88W) is NOT recommended."
+    expansion:
+      pcie_slots:
+        - "1 x PCIe 3.0 x4"
+        - "1 x Mini-PCIe (Full-length)"
+        - "1 x Mini-PCIe (Half-length)"
+
+  - type: "Server"
+    name: "The Nas"
+    model: "Custom Build"
+    quantity: 1
+    specifications:
+      motherboard:
+        model: "Custom Board"
+      cpu:
+        model: "Intel Celeron J4125"
+      ram:
+        current: "8GB"
+        max_supported: "16GB"
+        type: "DDR4"
+    upgrade_analysis:
+      cpu_max: "Not Upgradeable"
+      notes: "CPU is soldered (SoC)."
+    expansion:
+      pcie_slots:
+        - "Likely 1 x PCIe 2.0 x1 or M.2 Key E/M"
+
+  - type: "Desktop"
+    name: "The old boy"
+    model: "Custom Build"
+    quantity: 1
+    specifications:
+      motherboard:
+        model: "ASRock AB350 Pro4"
+      cpu:
+        model: "AMD Ryzen 3 2200G"
+      ram:
+        current: "8GB"
+        max_supported: "64GB"
+        type: "DDR4"
+    upgrade_analysis:
+      cpu_max: "AMD Ryzen 9 5950X or 5800X3D"
+      notes: "Requires BIOS 7.00+. VRMs may struggle with 5950X under sustained load."
+    expansion:
+      pcie_slots:
+        - "1 x PCIe 3.0 x16 (x16 mode)"
+        - "1 x PCIe 3.0 x16 (x4 mode)"
+        - "4 x PCIe 2.0 x1"
