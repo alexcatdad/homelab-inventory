@@ -17,19 +17,21 @@
     <p class="subtitle">These cool people keep the project alive</p>
   </header>
 
-  <section class="become-supporter">
+  <section class="become-supporter" aria-labelledby="become-supporter-heading">
+    <h2 id="become-supporter-heading" class="visually-hidden">Support Options</h2>
     <p>Want to support the project?</p>
     <div class="support-options">
-      <a href="#monthly" class="support-button monthly">
+      <a href="#monthly" class="support-button monthly" onclick={(e) => e.preventDefault()}>
         Become a Monthly Supporter
       </a>
-      <a href="#one-time" class="support-button one-time">
+      <a href="#one-time" class="support-button one-time" onclick={(e) => e.preventDefault()}>
         Make a One-Time Donation
       </a>
     </div>
   </section>
 
-  <section class="supporters-list">
+  <section class="supporters-list" aria-labelledby="supporters-list-heading">
+    <h2 id="supporters-list-heading" class="visually-hidden">Supporters List</h2>
     {#if supporters.isLoading}
       <div class="loading">Loading supporters...</div>
     {:else if supporters.data && supporters.data.length > 0}
@@ -37,7 +39,7 @@
         {#each supporters.data as supporter}
           <div class="supporter-card">
             {#if supporter.avatarUrl}
-              <img src={supporter.avatarUrl} alt="" class="avatar" />
+              <img src={supporter.avatarUrl} alt="{supporter.displayName}" class="avatar" />
             {:else}
               <div class="avatar placeholder">
                 {supporter.displayName.charAt(0).toUpperCase()}
@@ -59,6 +61,18 @@
 </div>
 
 <style>
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
   .supporters-page {
     max-width: 900px;
     margin: 0 auto;
