@@ -1,9 +1,25 @@
 <script lang="ts">
-  import { useQuery } from 'convex-svelte';
+  import { useQuery, useMutation } from 'convex-svelte';
   import { api } from '../../../../convex/_generated/api';
 
   const userQuery = useQuery(api.auth.currentUser, {});
   const supporterStatus = useQuery(api.supporters.currentUserSupporter, {});
+
+  const deleteDataMutation = useMutation(api.account.deleteAllData);
+  let showDeleteConfirm = $state(false);
+  let isDeleting = $state(false);
+
+  async function deleteAllData() {
+    isDeleting = true;
+    try {
+      await deleteDataMutation({});
+      // Redirect to landing page after deletion
+      window.location.href = '/';
+    } catch (e) {
+      console.error('Failed to delete data:', e);
+      isDeleting = false;
+    }
+  }
 
   let user = $derived(userQuery.data);
   let isLoading = $derived(userQuery.isLoading);
@@ -105,6 +121,28 @@
           <span class="info-label">USER ID</span>
           <span class="info-value mono">{user._id}</span>
         </div>
+      </div>
+
+      <div class="danger-zone">
+        <h3>Danger Zone</h3>
+        <p>Delete all your inventory data. This cannot be undone.</p>
+        {#if !showDeleteConfirm}
+          <button type="button" class="delete-button" onclick={() => showDeleteConfirm = true}>
+            Delete All My Data
+          </button>
+        {:else}
+          <div class="confirm-delete">
+            <p>Are you sure? This will permanently delete all your devices and settings.</p>
+            <div class="confirm-buttons">
+              <button type="button" class="cancel-button" onclick={() => showDeleteConfirm = false}>
+                Cancel
+              </button>
+              <button type="button" class="confirm-delete-button" onclick={deleteAllData} disabled={isDeleting}>
+                {isDeleting ? 'Deleting...' : 'Yes, Delete Everything'}
+              </button>
+            </div>
+          </div>
+        {/if}
       </div>
     </div>
   {:else}
@@ -314,5 +352,96 @@
     font-family: var(--font-mono);
     font-size: 0.75rem;
     color: var(--signal-red);
+  }
+
+  /* Danger Zone */
+  .danger-zone {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--signal-red);
+  }
+
+  .danger-zone h3 {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--signal-red);
+    margin-bottom: var(--space-2);
+  }
+
+  .danger-zone > p {
+    color: var(--text-muted);
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .delete-button {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 1px solid var(--signal-red);
+    color: var(--signal-red);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .delete-button:hover {
+    background: var(--signal-red);
+    color: var(--void);
+  }
+
+  .confirm-delete {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--signal-red);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+  }
+
+  .confirm-delete p {
+    color: var(--signal-red);
+    font-size: 0.8125rem;
+    margin-bottom: var(--space-4);
+  }
+
+  .confirm-buttons {
+    display: flex;
+    gap: var(--space-3);
+  }
+
+  .cancel-button {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 1px solid var(--border-panel);
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .cancel-button:hover {
+    border-color: var(--text-secondary);
+  }
+
+  .confirm-delete-button {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: var(--space-2) var(--space-4);
+    background: var(--signal-red);
+    border: none;
+    color: white;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .confirm-delete-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 </style>
