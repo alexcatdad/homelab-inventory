@@ -10,6 +10,8 @@
   } from "./lib/authStore";
   import { t } from "./lib/i18n";
   import { syncLanguageFromConvex } from "./lib/i18n/languageStore";
+  import { router } from './lib/router';
+  import type { Route } from './lib/router';
   import Dashboard from "./components/Dashboard.svelte";
   import DeviceGrid from "./components/DeviceGrid.svelte";
   import DeviceDetail from "./components/DeviceDetail.svelte";
@@ -21,6 +23,10 @@
   import Header from "./components/Header.svelte";
   import LoginPage from "./components/LoginPage.svelte";
   import ErrorBoundary from "./components/ErrorBoundary.svelte";
+  import LandingPage from './components/public/LandingPage.svelte';
+  import SupportersPage from './components/public/SupportersPage.svelte';
+  import PrivacyPage from './components/public/PrivacyPage.svelte';
+  import TermsPage from './components/public/TermsPage.svelte';
 
   // Initialize Convex client
   setupConvex(import.meta.env.VITE_CONVEX_URL);
@@ -33,6 +39,7 @@
   let authReady = $state(false);
   let initStarted = $state(false);
   let languageSynced = $state(false);
+  let currentRoute = $state<Route>({ page: 'landing' });
 
   // Initialize auth on mount - handles OAuth callback and token restoration
   $effect(() => {
@@ -60,6 +67,12 @@
     return () => unsub();
   });
 
+  // Subscribe to router
+  $effect(() => {
+    const unsub = router.route.subscribe((r) => (currentRoute = r));
+    return () => unsub();
+  });
+
   // Query auth state only AFTER auth is initialized (use 'skip' pattern)
   const authState = useQuery(api.auth.currentUser, () => (authReady ? {} : "skip"));
 
@@ -80,31 +93,9 @@
 </script>
 
 <ErrorBoundary>
-{#if loading}
+{#if currentRoute.page === 'landing'}
   <div class="app">
-    <!-- Background effects for loading screen -->
-    <div class="bg-effects" aria-hidden="true">
-      <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-      </div>
-      <div class="corner-accent top-left"></div>
-      <div class="corner-accent bottom-right"></div>
-    </div>
-
-    <div class="loading-screen" role="status" aria-live="polite">
-      <div class="loading-indicator">
-        <div class="spinner"></div>
-        <div class="spinner-glow"></div>
-      </div>
-      <span class="loading-text">{$t('app.initializing')}</span>
-    </div>
-  </div>
-{:else if !authenticated}
-  <div class="app">
-    <!-- Background effects for login -->
+    <!-- Background effects for landing page -->
     <div class="bg-effects" aria-hidden="true">
       <div class="particles">
         <div class="particle"></div>
@@ -122,27 +113,13 @@
       <div class="corner-accent top-left"></div>
       <div class="corner-accent bottom-right"></div>
     </div>
-
-    <LoginPage />
+    <LandingPage />
   </div>
-{:else}
+{:else if currentRoute.page === 'supporters'}
   <div class="app">
-    <!-- Skip to main content link for keyboard users -->
-    <a href="#main-content" class="skip-link">{$t('accessibility.skipToMain')}</a>
-
-    <!-- Live region for screen reader announcements -->
-    <div
-      id="live-announcements"
-      class="live-region"
-      aria-live="polite"
-      aria-atomic="true"
-    ></div>
-
-    <!-- Aerospace Background Effects -->
+    <!-- Background effects for supporters page -->
     <div class="bg-effects" aria-hidden="true">
       <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
         <div class="particle"></div>
@@ -154,39 +131,166 @@
         <div class="data-stream"></div>
         <div class="data-stream"></div>
         <div class="data-stream"></div>
-        <div class="data-stream"></div>
-        <div class="data-stream"></div>
       </div>
-      <div class="grid-pulse"></div>
-      <div class="grid-pulse"></div>
-      <div class="grid-pulse"></div>
-      <div class="grid-pulse"></div>
-      <div class="grid-pulse"></div>
       <div class="corner-accent top-left"></div>
       <div class="corner-accent bottom-right"></div>
     </div>
-
-    <Header />
-
-    <main id="main-content" class="main" role="main" tabindex="-1">
-      <div class="content fade-in">
-        {#if view === "dashboard"}
-          <Dashboard />
-        {:else if view === "devices"}
-          <DeviceGrid />
-        {:else if view === "topology"}
-          <TopologyView />
-        {:else if view === "settings"}
-          <Settings />
-        {/if}
-      </div>
-    </main>
-
-    <DeviceDetail />
-    <DeviceForm />
-    <DeleteConfirm />
-    <ChatPanel />
+    <SupportersPage />
   </div>
+{:else if currentRoute.page === 'privacy'}
+  <div class="app">
+    <!-- Background effects for privacy page -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="data-streams">
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+      </div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
+    </div>
+    <PrivacyPage />
+  </div>
+{:else if currentRoute.page === 'terms'}
+  <div class="app">
+    <!-- Background effects for terms page -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="data-streams">
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+      </div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
+    </div>
+    <TermsPage />
+  </div>
+{:else if currentRoute.page === 'app'}
+  <!-- Auth-gated app content -->
+  {#if loading}
+    <div class="app">
+      <!-- Background effects for loading screen -->
+      <div class="bg-effects" aria-hidden="true">
+        <div class="particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+      </div>
+
+      <div class="loading-screen" role="status" aria-live="polite">
+        <div class="loading-indicator">
+          <div class="spinner"></div>
+          <div class="spinner-glow"></div>
+        </div>
+        <span class="loading-text">{$t('app.initializing')}</span>
+      </div>
+    </div>
+  {:else if !authenticated}
+    <div class="app">
+      <!-- Background effects for login -->
+      <div class="bg-effects" aria-hidden="true">
+        <div class="particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+        <div class="data-streams">
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+        </div>
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+      </div>
+
+      <LoginPage />
+    </div>
+  {:else}
+    <div class="app">
+      <!-- Skip to main content link for keyboard users -->
+      <a href="#main-content" class="skip-link">{$t('accessibility.skipToMain')}</a>
+
+      <!-- Live region for screen reader announcements -->
+      <div
+        id="live-announcements"
+        class="live-region"
+        aria-live="polite"
+        aria-atomic="true"
+      ></div>
+
+      <!-- Aerospace Background Effects -->
+      <div class="bg-effects" aria-hidden="true">
+        <div class="particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
+        <div class="data-streams">
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+          <div class="data-stream"></div>
+        </div>
+        <div class="grid-pulse"></div>
+        <div class="grid-pulse"></div>
+        <div class="grid-pulse"></div>
+        <div class="grid-pulse"></div>
+        <div class="grid-pulse"></div>
+        <div class="corner-accent top-left"></div>
+        <div class="corner-accent bottom-right"></div>
+      </div>
+
+      <Header />
+
+      <main id="main-content" class="main" role="main" tabindex="-1">
+        <div class="content fade-in">
+          {#if view === "dashboard"}
+            <Dashboard />
+          {:else if view === "devices"}
+            <DeviceGrid />
+          {:else if view === "topology"}
+            <TopologyView />
+          {:else if view === "settings"}
+            <Settings />
+          {/if}
+        </div>
+      </main>
+
+      <DeviceDetail />
+      <DeviceForm />
+      <DeleteConfirm />
+      <ChatPanel />
+    </div>
+  {/if}
 {/if}
 </ErrorBoundary>
 
