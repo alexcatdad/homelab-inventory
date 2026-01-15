@@ -237,5 +237,42 @@
     "deviceDeleted": "Device deleted successfully",
     "deviceSaved": "Device saved successfully",
     "searchResults": "{count} devices found"
+  },
+  "landing": {
+    "headline": "A homelab inventory tool you'll actually enjoy using",
+    "subheadline": "Track your gear. Visualize your network. Stop forgetting what you have.",
+    "cta": "Get Started — Free",
+    "whyTitle": "Why I Built This",
+    "whyText": "I tried existing tools but couldn't find one that clicked for me. So I built something simple and beautiful that I actually wanted to use. Maybe you'll like it too.",
+    "supportTitle": "Support the Project",
+    "supportText": "This tool is completely free. If you find it useful, consider becoming a supporter to help keep it running.",
+    "viewSupporters": "View Supporters →",
+    "features": {
+      "dashboard": "See your entire homelab at a glance",
+      "topology": "Visualize how everything connects",
+      "storage": "Track drives across all devices",
+      "aiSpecs": "Auto-fill device specifications",
+      "multiLang": "English & Romanian (more coming)",
+      "responsive": "Works on desktop, tablet, mobile"
+    }
+  },
+  "supporters": {
+    "title": "Supporters",
+    "subtitle": "These cool people keep the project alive",
+    "becomeSupporter": "Want to support the project?",
+    "monthlyButton": "Become a Monthly Supporter",
+    "oneTimeButton": "Make a One-Time Donation",
+    "monthlyBadge": "Monthly",
+    "oneTimeBadge": "One-time",
+    "loading": "Loading supporters...",
+    "beFirst": "Be the first supporter!"
+  },
+  "sampleData": {
+    "bannerText": "You're viewing sample data. Explore, then clear it when ready.",
+    "clearButton": "Clear Sample Data",
+    "clearing": "Clearing..."
+  },
+  "legal": {
+    "backToHome": "← Back to Home"
   }
 }

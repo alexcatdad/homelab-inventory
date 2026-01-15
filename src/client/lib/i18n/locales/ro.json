@@ -237,5 +237,42 @@
     "deviceDeleted": "Dispozitiv sters cu succes",
     "deviceSaved": "Dispozitiv salvat cu succes",
     "searchResults": "{count} dispozitive gasite"
+  },
+  "landing": {
+    "headline": "Un instrument de inventar homelab pe care chiar îl vei folosi cu plăcere",
+    "subheadline": "Urmărește-ți echipamentele. Vizualizează rețeaua. Nu mai uita ce ai.",
+    "cta": "Începe — Gratuit",
+    "whyTitle": "De Ce Am Construit Asta",
+    "whyText": "Am încercat instrumente existente dar nu am găsit unul care să mi se potrivească. Așa că am construit ceva simplu și frumos pe care chiar am vrut să-l folosesc. Poate îți va plăcea și ție.",
+    "supportTitle": "Susține Proiectul",
+    "supportText": "Acest instrument este complet gratuit. Dacă îl găsești util, consideră să devii susținător pentru a ajuta la menținerea lui.",
+    "viewSupporters": "Vezi Susținătorii →",
+    "features": {
+      "dashboard": "Vezi întregul tău homelab dintr-o privire",
+      "topology": "Vizualizează cum este totul conectat",
+      "storage": "Urmărește discurile de pe toate dispozitivele",
+      "aiSpecs": "Completare automată a specificațiilor",
+      "multiLang": "Engleză și Română (mai multe în curând)",
+      "responsive": "Funcționează pe desktop, tabletă, mobil"
+    }
+  },
+  "supporters": {
+    "title": "Susținători",
+    "subtitle": "Acești oameni minunați mențin proiectul în viață",
+    "becomeSupporter": "Vrei să susții proiectul?",
+    "monthlyButton": "Devino Susținător Lunar",
+    "oneTimeButton": "Fă o Donație Unică",
+    "monthlyBadge": "Lunar",
+    "oneTimeBadge": "O singură dată",
+    "loading": "Se încarcă susținătorii...",
+    "beFirst": "Fii primul susținător!"
+  },
+  "sampleData": {
+    "bannerText": "Vizualizezi date demonstrative. Explorează, apoi șterge-le când ești gata.",
+    "clearButton": "Șterge Datele Demo",
+    "clearing": "Se șterge..."
+  },
+  "legal": {
+    "backToHome": "← Înapoi la Prima Pagină"
   }
 }
