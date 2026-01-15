@@ -15,6 +15,11 @@
   function goToApp() {
     router.navigate('/app');
   }
+
+  function handleNavClick(e: MouseEvent, path: string) {
+    e.preventDefault();
+    router.navigate(path);
+  }
 </script>
 
 <div class="landing">
@@ -23,15 +28,15 @@
     <div class="hero-content">
       <h1>A homelab inventory tool you'll actually enjoy using</h1>
       <p class="subtitle">Track your gear. Visualize your network. Stop forgetting what you have.</p>
-      <button class="cta-button" onclick={goToApp}>
+      <button type="button" class="cta-button" onclick={goToApp}>
         Get Started — Free
       </button>
     </div>
   </header>
 
   <!-- Features Section -->
-  <section class="features">
-    <h2>Features</h2>
+  <section class="features" aria-labelledby="features-heading">
+    <h2 id="features-heading">Features</h2>
     <div class="feature-grid">
       {#each features as feature}
         <FeatureCard {...feature} />
@@ -40,8 +45,8 @@
   </section>
 
   <!-- Story Section -->
-  <section class="story">
-    <h2>Why I Built This</h2>
+  <section class="story" aria-labelledby="story-heading">
+    <h2 id="story-heading">Why I Built This</h2>
     <p>
       I tried existing tools but couldn't find one that clicked for me.
       So I built something simple and beautiful that I actually wanted to use.
@@ -50,21 +55,21 @@
   </section>
 
   <!-- Supporters Section -->
-  <section class="supporters-cta">
-    <h2>Support the Project</h2>
+  <section class="supporters-cta" aria-labelledby="supporters-heading">
+    <h2 id="supporters-heading">Support the Project</h2>
     <p>
       This tool is completely free. If you find it useful, consider becoming a supporter
       to help keep it running.
     </p>
-    <a href="/supporters" class="supporters-link">View Supporters →</a>
+    <a href="/supporters" class="supporters-link" onclick={(e) => handleNavClick(e, '/supporters')}>View Supporters →</a>
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <nav class="footer-links">
-      <a href="/privacy">Privacy Policy</a>
-      <a href="/terms">Terms of Service</a>
-      <a href="/supporters">Supporters</a>
+      <a href="/privacy" onclick={(e) => handleNavClick(e, '/privacy')}>Privacy Policy</a>
+      <a href="/terms" onclick={(e) => handleNavClick(e, '/terms')}>Terms of Service</a>
+      <a href="/supporters" onclick={(e) => handleNavClick(e, '/supporters')}>Supporters</a>
     </nav>
     <p class="footer-credit">Made for the homelab community</p>
   </footer>

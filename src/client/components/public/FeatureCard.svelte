@@ -10,7 +10,7 @@
 </script>
 
 <div class="feature-card">
-  <div class="feature-icon">{icon}</div>
+  <div class="feature-icon" aria-hidden="true">{icon}</div>
   <h3>{title}</h3>
   <p>{description}</p>
 </div>
