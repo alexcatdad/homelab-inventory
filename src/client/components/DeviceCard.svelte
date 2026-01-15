@@ -371,4 +371,167 @@
     width: 14px;
     height: 14px;
   }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     RESPONSIVE STYLES
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Tablet (768px) */
+  @media (max-width: 768px) {
+    .card-header {
+      padding: var(--space-3) var(--space-3) 0;
+    }
+
+    .card-identity {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .specs-grid {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .card-footer {
+      padding: var(--space-2) var(--space-3);
+      gap: var(--space-3);
+      flex-wrap: wrap;
+    }
+
+    .view-indicator {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  /* Mobile (640px) */
+  @media (max-width: 640px) {
+    .device-card::before,
+    .device-card::after {
+      width: 10px;
+      height: 10px;
+    }
+
+    .device-name {
+      font-size: 0.9375rem;
+    }
+
+    .device-model {
+      font-size: 0.6875rem;
+    }
+
+    .card-footer {
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .footer-metric {
+      gap: 2px;
+    }
+
+    .footer-metric svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    .footer-metric span {
+      font-size: 0.625rem;
+    }
+
+    /* Always show view indicator on mobile */
+    .view-indicator {
+      opacity: 1;
+      transform: translateX(0);
+      color: var(--signal-blue);
+    }
+
+    .device-card.upgradeable .view-indicator {
+      color: var(--signal-amber);
+    }
+
+    .view-indicator span {
+      font-size: 0.5625rem;
+    }
+
+    .view-indicator svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  /* Small Mobile (480px) */
+  @media (max-width: 480px) {
+    .card-header {
+      padding: var(--space-2) var(--space-2) 0;
+    }
+
+    .card-identity {
+      padding: var(--space-2);
+    }
+
+    .device-name {
+      font-size: 0.875rem;
+    }
+
+    .specs-grid {
+      padding: var(--space-2);
+      gap: var(--space-1);
+    }
+
+    .spec-label {
+      font-size: 0.5rem;
+    }
+
+    .spec-value {
+      font-size: 0.6875rem;
+    }
+
+    .card-footer {
+      padding: var(--space-2);
+      gap: var(--space-2);
+    }
+
+    /* Stack footer metrics into grid on very small screens */
+    .footer-metric span {
+      font-size: 0.5625rem;
+    }
+
+    /* Hide "VIEW" text on small screens, keep arrow */
+    .view-indicator span {
+      display: none;
+    }
+
+    .upgrade-badge {
+      font-size: 0.5rem;
+      padding: 2px 4px;
+    }
+
+    .upgrade-badge svg {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  /* Very small mobile (375px) */
+  @media (max-width: 375px) {
+    .device-card::before,
+    .device-card::after {
+      display: none;
+    }
+
+    .card-footer {
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .view-indicator {
+      width: 100%;
+      justify-content: flex-end;
+      margin-top: var(--space-1);
+      padding-top: var(--space-1);
+      border-top: 1px solid var(--border-dim);
+    }
+
+    .view-indicator span {
+      display: inline;
+    }
+  }
 </style>

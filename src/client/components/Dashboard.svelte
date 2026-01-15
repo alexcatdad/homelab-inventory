@@ -435,5 +435,190 @@
     .metric-value {
       font-size: 1.5rem;
     }
+
+    .dashboard {
+      gap: var(--space-5);
+    }
+
+    .card-header {
+      padding: var(--space-3) var(--space-4);
+    }
+
+    .card-content {
+      padding: var(--space-3);
+    }
+  }
+
+  /* Mobile (640px) */
+  @media (max-width: 640px) {
+    .dashboard {
+      gap: var(--space-4);
+    }
+
+    .metrics-grid {
+      gap: var(--space-3);
+    }
+
+    .metric-card {
+      padding: var(--space-3);
+      gap: var(--space-3);
+    }
+
+    .metric-card::before,
+    .metric-card::after {
+      width: 12px;
+      height: 12px;
+    }
+
+    .metric-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .metric-value {
+      font-size: 1.375rem;
+    }
+
+    .metric-value-sub {
+      font-size: 0.75rem;
+    }
+
+    .metric-label {
+      font-size: 0.625rem;
+    }
+
+    .metric-badge {
+      font-size: 0.5rem;
+      padding: 2px 4px;
+    }
+
+    .page-subtitle {
+      font-size: 0.75rem;
+      margin-left: var(--space-2);
+    }
+
+    .card-header h3 {
+      font-size: 0.6875rem;
+    }
+  }
+
+  /* Small Mobile (480px) */
+  @media (max-width: 480px) {
+    .dashboard {
+      gap: var(--space-3);
+    }
+
+    .page-header {
+      margin-bottom: var(--space-1);
+    }
+
+    .page-title {
+      gap: var(--space-1);
+    }
+
+    .page-header h1 {
+      font-size: 1.25rem;
+    }
+
+    .title-prefix {
+      font-size: 1.125rem;
+    }
+
+    .page-subtitle {
+      display: none; /* Hide subtitle on very small screens */
+    }
+
+    .metrics-grid {
+      gap: var(--space-2);
+    }
+
+    .metric-card {
+      padding: var(--space-2);
+      gap: var(--space-2);
+    }
+
+    .metric-card::before,
+    .metric-card::after {
+      display: none;
+    }
+
+    .metric-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+    }
+
+    .metric-value-sub {
+      font-size: 0.6875rem;
+    }
+
+    .metric-label {
+      font-size: 0.5625rem;
+    }
+
+    .metric-badge {
+      top: var(--space-1);
+      right: var(--space-1);
+    }
+
+    .card-header {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .card-content {
+      padding: var(--space-2);
+    }
+
+    .quick-actions {
+      padding-top: var(--space-2);
+    }
+  }
+
+  /* Very small mobile (375px) */
+  @media (max-width: 375px) {
+    .page-header h1 {
+      font-size: 1.125rem;
+    }
+
+    .title-prefix {
+      font-size: 1rem;
+    }
+
+    .metric-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .metric-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .metric-value {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .dashboard {
+      gap: var(--space-3);
+    }
+
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2);
+    }
+
+    .metric-card {
+      padding: var(--space-2);
+    }
+
+    .metric-value {
+      font-size: 1.25rem;
+    }
   }
 </style>

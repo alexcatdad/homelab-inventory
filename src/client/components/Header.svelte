@@ -545,5 +545,149 @@
     .search input:focus {
       width: 100%;
     }
+
+    /* Touch-friendly icon buttons */
+    .icon-button {
+      width: 44px;
+      height: 44px;
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .chat-button {
+      padding: var(--space-2);
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+    }
+
+    .chat-label {
+      display: none;
+    }
+
+    .chat-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-item {
+      padding: var(--space-2);
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+    }
+  }
+
+  /* Mobile (480px) */
+  @media (max-width: 480px) {
+    .header-content {
+      padding: var(--space-2) var(--space-3);
+      gap: var(--space-2);
+    }
+
+    .logo-section {
+      gap: var(--space-2);
+    }
+
+    .logo {
+      gap: var(--space-2);
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav {
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .nav-item {
+      padding: var(--space-1) var(--space-2);
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .nav-indicator {
+      width: 3px;
+      height: 3px;
+    }
+
+    .header-right {
+      gap: var(--space-2);
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .chat-button {
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .search-icon {
+      width: 12px;
+      height: 12px;
+      left: var(--space-2);
+    }
+
+    .search input {
+      padding-left: var(--space-6);
+      font-size: 16px; /* Prevents iOS zoom */
+      min-height: 40px;
+    }
+  }
+
+  /* Very small mobile (375px) */
+  @media (max-width: 375px) {
+    .header-content {
+      padding: var(--space-1) var(--space-2);
+      gap: var(--space-1);
+    }
+
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav {
+      display: none; /* Use bottom nav on very small screens */
+    }
+
+    .icon-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    .chat-button {
+      min-width: 36px;
+      min-height: 36px;
+    }
+
+    .header-right {
+      gap: var(--space-1);
+    }
+
+    /* Status can be hidden on tiny screens */
+    mc-status {
+      display: none;
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .header-content {
+      padding: var(--space-1) var(--space-4);
+    }
+
+    .header-accent {
+      height: 1px;
+    }
   }
 </style>
