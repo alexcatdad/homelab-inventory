@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setupConvex, useQuery, useConvexClient } from "convex-svelte";
+  import { setupConvex, useQuery, useMutation, useConvexClient } from "convex-svelte";
   import { api } from "../../convex/_generated/api";
   import { currentView } from "./lib/stores";
   import {
@@ -40,6 +40,11 @@
   let initStarted = $state(false);
   let languageSynced = $state(false);
   let currentRoute = $state<Route>({ page: 'landing' });
+  let seedAttempted = $state(false);
+
+  // Sample data seeding for new users
+  const hasDevicesQuery = useQuery(api.sampleData.hasDevices, () => (authenticated ? {} : "skip"));
+  const seedMutation = useMutation(api.sampleData.seedSampleData);
 
   // Initialize auth on mount - handles OAuth callback and token restoration
   $effect(() => {
@@ -88,6 +93,14 @@
         languageSynced = true;
         syncLanguageFromConvex(client, isAuthed).catch(console.error);
       }
+    }
+  });
+
+  // Seed sample data for new users who have no devices
+  $effect(() => {
+    if (authenticated && !hasDevicesQuery.isLoading && hasDevicesQuery.data === false && !seedAttempted) {
+      seedAttempted = true;
+      seedMutation({}).catch(console.error);
     }
   });
 </script>

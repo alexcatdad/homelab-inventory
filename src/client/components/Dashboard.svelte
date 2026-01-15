@@ -6,6 +6,7 @@
   import StorageChart from './viz/StorageChart.svelte';
   import RamChart from './viz/RamChart.svelte';
   import DeviceTypeChart from './viz/DeviceTypeChart.svelte';
+  import SampleDataBanner from './SampleDataBanner.svelte';
 
   // Convex queries - automatically reactive and real-time
   const statsQuery = useQuery(api.stats.get, {});
@@ -27,6 +28,8 @@
 </script>
 
 <div class="dashboard">
+  <SampleDataBanner />
+
   <!-- Page Header -->
   <div class="page-header">
     <div class="page-title">
