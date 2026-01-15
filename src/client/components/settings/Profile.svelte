@@ -3,6 +3,7 @@
   import { api } from '../../../../convex/_generated/api';
 
   const userQuery = useQuery(api.auth.currentUser, {});
+  const supporterStatus = useQuery(api.supporters.currentUserSupporter, {});
 
   let user = $derived(userQuery.data);
   let isLoading = $derived(userQuery.isLoading);
@@ -73,6 +74,13 @@
           <span class="auth-provider">GitHub Account</span>
         </div>
       </div>
+
+      {#if supporterStatus.data}
+        <div class="supporter-badge">
+          {supporterStatus.data.type === 'monthly' ? '⭐' : '💜'}
+          {supporterStatus.data.type === 'monthly' ? 'Monthly Supporter' : 'Supporter'}
+        </div>
+      {/if}
 
       <!-- Info Grid -->
       <div class="info-grid">
@@ -239,6 +247,23 @@
     letter-spacing: 0.1em;
     color: var(--text-dim);
     text-transform: uppercase;
+  }
+
+  /* Supporter Badge */
+  .supporter-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: var(--space-2) var(--space-3);
+    background: rgba(0, 200, 255, 0.1);
+    border: 1px solid var(--signal-blue);
+    border-radius: var(--radius-md);
+    color: var(--signal-blue);
+    margin-top: var(--space-3);
   }
 
   /* Info Grid */
