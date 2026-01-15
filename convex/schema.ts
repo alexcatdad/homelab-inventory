@@ -70,6 +70,23 @@ export default defineSchema({
     source_url: v.optional(v.string()),
     expires_at: v.optional(v.number()),
   }).index("by_model_query", ["model_query"]),
+
+  // Supporters table (public, for listing)
+  supporters: defineTable({
+    userId: v.id("users"),
+    displayName: v.string(),
+    avatarUrl: v.optional(v.string()),
+    type: v.union(v.literal("monthly"), v.literal("one-time")),
+    // Stripe-related
+    stripeCustomerId: v.optional(v.string()),
+    stripeSubscriptionId: v.optional(v.string()),
+    // Status
+    isActive: v.boolean(),
+    supportedAt: v.number(), // timestamp
+  })
+    .index("by_user", ["userId"])
+    .index("by_active", ["isActive"])
+    .index("by_type", ["type"]),
 });
 
 // Re-export validators for use in other files
