@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setupConvex, useQuery, useMutation, useConvexClient } from "convex-svelte";
+  import { setupConvex, useQuery, useConvexClient } from "convex-svelte";
   import { api } from "../../convex/_generated/api";
   import { currentView } from "./lib/stores";
   import {
@@ -44,7 +44,6 @@
 
   // Sample data seeding for new users
   const hasDevicesQuery = useQuery(api.sampleData.hasDevices, () => (authenticated ? {} : "skip"));
-  const seedMutation = useMutation(api.sampleData.seedSampleData);
 
   // Initialize auth on mount - handles OAuth callback and token restoration
   $effect(() => {
@@ -100,7 +99,7 @@
   $effect(() => {
     if (authenticated && !hasDevicesQuery.isLoading && hasDevicesQuery.data === false && !seedAttempted) {
       seedAttempted = true;
-      seedMutation({}).catch(console.error);
+      client.mutation(api.sampleData.seedSampleData, {}).catch(console.error);
     }
   });
 </script>

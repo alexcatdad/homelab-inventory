@@ -1,17 +1,17 @@
 <!-- src/client/components/SampleDataBanner.svelte -->
 <script lang="ts">
-  import { useQuery, useMutation } from 'convex-svelte';
+  import { useQuery, useConvexClient } from 'convex-svelte';
   import { api } from '../../../convex/_generated/api';
 
+  const client = useConvexClient();
   const hasSampleData = useQuery(api.sampleData.hasSampleData, {});
-  const clearMutation = useMutation(api.sampleData.clearSampleData);
 
   let isClearing = $state(false);
 
   async function clearSamples() {
     isClearing = true;
     try {
-      await clearMutation({});
+      await client.mutation(api.sampleData.clearSampleData, {});
     } catch (e) {
       console.error('Failed to clear sample data:', e);
     } finally {

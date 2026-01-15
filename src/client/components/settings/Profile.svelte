@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { useQuery, useMutation } from 'convex-svelte';
+  import { useQuery, useConvexClient } from 'convex-svelte';
   import { api } from '../../../../convex/_generated/api';
 
+  const client = useConvexClient();
   const userQuery = useQuery(api.auth.currentUser, {});
   const supporterStatus = useQuery(api.supporters.currentUserSupporter, {});
 
-  const deleteDataMutation = useMutation(api.account.deleteAllData);
   let showDeleteConfirm = $state(false);
   let isDeleting = $state(false);
 
   async function deleteAllData() {
     isDeleting = true;
     try {
-      await deleteDataMutation({});
+      await client.mutation(api.account.deleteAllData, {});
       // Redirect to landing page after deletion
       window.location.href = '/';
     } catch (e) {
