@@ -98,23 +98,18 @@ async function handleOAuthCallback(): Promise<boolean> {
   const verifier = getAndClearVerifier();
 
   try {
-    console.log("[Auth] Exchanging OAuth code, verifier:", verifier ? "present" : "missing");
-
     const httpClient = new ConvexHttpClient(import.meta.env.VITE_CONVEX_URL!);
     const result = await httpClient.action("auth:signIn" as any, {
       params: { code },
       verifier: verifier ?? undefined,
     });
 
-    console.log("[Auth] SignIn result:", result);
-
     if (result.tokens) {
       storeTokens(result.tokens.token, result.tokens.refreshToken);
       return true;
     }
-    console.warn("[Auth] No tokens in signIn result");
-  } catch (e) {
-    console.error("[Auth] Failed to exchange OAuth code:", e);
+  } catch (_e) {
+    // Auth exchange failed - user will remain unauthenticated
   }
   return false;
 }
@@ -123,7 +118,6 @@ async function handleOAuthCallback(): Promise<boolean> {
 async function refreshAuthToken(): Promise<string | null> {
   const refreshToken = getStoredRefreshToken();
   if (!refreshToken) {
-    console.log("[Auth] No refresh token available");
     return null;
   }
 
@@ -132,14 +126,12 @@ async function refreshAuthToken(): Promise<string | null> {
     const result = await httpClient.action("auth:signIn" as any, {
       refreshToken,
     });
-    console.log("[Auth] Refresh result:", result);
     if (result.tokens) {
       storeTokens(result.tokens.token, result.tokens.refreshToken);
       return result.tokens.token;
     }
-    console.warn("[Auth] Refresh response had no tokens");
-  } catch (e) {
-    console.error("[Auth] Failed to refresh token:", e);
+  } catch (_e) {
+    // Token refresh failed - will clear tokens below
   }
   // Clear stale tokens if refresh failed
   clearTokens();
@@ -163,7 +155,6 @@ export async function initializeAuth(client: ConvexClient): Promise<void> {
   const storedToken = getStoredToken();
   if (storedToken) {
     authToken.set(storedToken);
-    console.log("[Auth] Restored token from storage");
   }
 
   // Set up the auth function for the Convex client
@@ -173,7 +164,6 @@ export async function initializeAuth(client: ConvexClient): Promise<void> {
 
       // If forced refresh or no token but have refresh token, try refresh
       if (forceRefreshToken || (!token && getStoredRefreshToken())) {
-        console.log("[Auth] Refreshing token...");
         token = await refreshAuthToken();
       }
 
@@ -181,7 +171,6 @@ export async function initializeAuth(client: ConvexClient): Promise<void> {
     },
     // onChange callback - called when Convex confirms auth state
     (isAuthed) => {
-      console.log("[Auth] Convex auth state confirmed:", isAuthed);
       isAuthenticated.set(isAuthed);
       isAuthLoading.set(false);
       authInitialized.set(true);
@@ -193,8 +182,8 @@ export async function initializeAuth(client: ConvexClient): Promise<void> {
 export async function signOut(client: ConvexClient): Promise<void> {
   try {
     await client.action("auth:signOut" as any, {});
-  } catch (e) {
-    console.error("[Auth] Error signing out:", e);
+  } catch (_e) {
+    // Sign out error - continue with local cleanup
   }
   clearTokens();
   window.location.reload();

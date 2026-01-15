@@ -86,14 +86,16 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" role="navigation" aria-label={$t('accessibility.mainNavigation')}>
       {#each views as v}
         <button
           class="nav-item"
           class:active={view === v.id}
           onclick={() => setView(v.id)}
+          aria-pressed={view === v.id}
+          aria-label={$t(v.labelKey)}
         >
-          <span class="nav-indicator"></span>
+          <span class="nav-indicator" aria-hidden="true"></span>
           <span class="nav-label">{$t(v.labelKey)}</span>
         </button>
       {/each}
@@ -117,28 +119,32 @@
       {/if}
 
       <!-- Chat Button -->
-      <button class="chat-button" onclick={openChat} title={$t('header.aiAssistant')}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <button class="chat-button" onclick={openChat} aria-label={$t('header.aiAssistant')}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
           <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
           <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
         </svg>
-        <span class="chat-label">AI</span>
+        <span class="chat-label" aria-hidden="true">AI</span>
       </button>
 
       <!-- Search -->
-      <div class="search">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div class="search" role="search">
+        <label for="device-search" class="sr-only">{$t('header.searchLabel')}</label>
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="11" cy="11" r="7"/>
           <path d="m21 21-4.35-4.35" stroke-linecap="round"/>
         </svg>
         <input
-          type="text"
+          id="device-search"
+          type="search"
           placeholder={$t('header.searchPlaceholder')}
           value={search}
           oninput={updateSearch}
+          aria-describedby="search-description"
         />
+        <span id="search-description" class="sr-only">{$t('header.searchDescription')}</span>
       </div>
 
       <!-- Time Display -->
@@ -155,9 +161,10 @@
         class="icon-button"
         class:active={view === 'settings'}
         onclick={() => setView('settings')}
-        title={$t('header.settings')}
+        aria-label={$t('header.settings')}
+        aria-pressed={view === 'settings'}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
         </svg>
@@ -168,9 +175,10 @@
         class="icon-button sign-out"
         onclick={signOut}
         disabled={isSigningOut}
-        title={$t('header.signOut')}
+        aria-label={$t('header.signOut')}
+        aria-busy={isSigningOut}
       >
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke-linecap="round" stroke-linejoin="round"/>
           <polyline points="16 17 21 12 16 7" stroke-linecap="round" stroke-linejoin="round"/>
           <line x1="21" y1="12" x2="9" y2="12" stroke-linecap="round"/>
@@ -536,6 +544,150 @@
 
     .search input:focus {
       width: 100%;
+    }
+
+    /* Touch-friendly icon buttons */
+    .icon-button {
+      width: 44px;
+      height: 44px;
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .chat-button {
+      padding: var(--space-2);
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+    }
+
+    .chat-label {
+      display: none;
+    }
+
+    .chat-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .nav-item {
+      padding: var(--space-2);
+      min-width: 44px;
+      min-height: 44px;
+      justify-content: center;
+    }
+  }
+
+  /* Mobile (480px) */
+  @media (max-width: 480px) {
+    .header-content {
+      padding: var(--space-2) var(--space-3);
+      gap: var(--space-2);
+    }
+
+    .logo-section {
+      gap: var(--space-2);
+    }
+
+    .logo {
+      gap: var(--space-2);
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .nav {
+      padding: 2px;
+      gap: 2px;
+    }
+
+    .nav-item {
+      padding: var(--space-1) var(--space-2);
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .nav-indicator {
+      width: 3px;
+      height: 3px;
+    }
+
+    .header-right {
+      gap: var(--space-2);
+    }
+
+    .icon-button {
+      width: 40px;
+      height: 40px;
+    }
+
+    .chat-button {
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .search-icon {
+      width: 12px;
+      height: 12px;
+      left: var(--space-2);
+    }
+
+    .search input {
+      padding-left: var(--space-6);
+      font-size: 16px; /* Prevents iOS zoom */
+      min-height: 40px;
+    }
+  }
+
+  /* Very small mobile (375px) */
+  @media (max-width: 375px) {
+    .header-content {
+      padding: var(--space-1) var(--space-2);
+      gap: var(--space-1);
+    }
+
+    .logo-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .nav {
+      display: none; /* Use bottom nav on very small screens */
+    }
+
+    .icon-button {
+      width: 36px;
+      height: 36px;
+    }
+
+    .chat-button {
+      min-width: 36px;
+      min-height: 36px;
+    }
+
+    .header-right {
+      gap: var(--space-1);
+    }
+
+    /* Status can be hidden on tiny screens */
+    mc-status {
+      display: none;
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .header-content {
+      padding: var(--space-1) var(--space-4);
+    }
+
+    .header-accent {
+      height: 1px;
     }
   }
 </style>

@@ -1,6 +1,15 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
 import { getAuthUserId } from "@convex-dev/auth/server";
+import {
+  deviceType,
+  specificationsValidator,
+  gpuValidator,
+  storageDriveValidator,
+  pcieSlotValidator,
+  upgradeAnalysisValidator,
+  networkInfoValidator,
+} from "./validators";
 
 // List all devices for the current user with optional filtering
 export const list = query({
@@ -26,12 +35,12 @@ export const list = query({
 
     // Apply search filter in memory
     if (args.search) {
-      const query = args.search.toLowerCase();
+      const searchQuery = args.search.toLowerCase();
       devices = devices.filter(
         (d) =>
-          d.name.toLowerCase().includes(query) ||
-          d.model?.toLowerCase().includes(query) ||
-          d.specifications?.cpu?.model?.toLowerCase().includes(query)
+          d.name.toLowerCase().includes(searchQuery) ||
+          d.model?.toLowerCase().includes(searchQuery) ||
+          d.specifications?.cpu?.model?.toLowerCase().includes(searchQuery)
       );
     }
 
@@ -75,19 +84,19 @@ export const getByName = query({
 // Create a new device (assign to current user)
 export const create = mutation({
   args: {
-    type: v.string(),
+    type: deviceType,
     name: v.string(),
     model: v.optional(v.string()),
     quantity: v.optional(v.number()),
     location: v.optional(v.string()),
     notes: v.optional(v.string()),
     acquired_date: v.optional(v.string()),
-    specifications: v.optional(v.any()),
-    gpus: v.optional(v.array(v.any())),
-    storage: v.optional(v.array(v.any())),
-    pcie_slots: v.optional(v.array(v.any())),
-    upgrade_analysis: v.optional(v.any()),
-    network_info: v.optional(v.any()),
+    specifications: v.optional(specificationsValidator),
+    gpus: v.optional(v.array(gpuValidator)),
+    storage: v.optional(v.array(storageDriveValidator)),
+    pcie_slots: v.optional(v.array(pcieSlotValidator)),
+    upgrade_analysis: v.optional(upgradeAnalysisValidator),
+    network_info: v.optional(networkInfoValidator),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -108,7 +117,7 @@ export const create = mutation({
 
     const deviceId = await ctx.db.insert("devices", {
       userId,
-      type: args.type as any,
+      type: args.type,
       name: args.name,
       model: args.model || "",
       quantity: args.quantity || 1,
@@ -131,19 +140,19 @@ export const create = mutation({
 export const update = mutation({
   args: {
     id: v.id("devices"),
-    type: v.optional(v.string()),
+    type: v.optional(deviceType),
     name: v.optional(v.string()),
     model: v.optional(v.string()),
     quantity: v.optional(v.number()),
     location: v.optional(v.string()),
     notes: v.optional(v.string()),
     acquired_date: v.optional(v.string()),
-    specifications: v.optional(v.any()),
-    gpus: v.optional(v.array(v.any())),
-    storage: v.optional(v.array(v.any())),
-    pcie_slots: v.optional(v.array(v.any())),
-    upgrade_analysis: v.optional(v.any()),
-    network_info: v.optional(v.any()),
+    specifications: v.optional(specificationsValidator),
+    gpus: v.optional(v.array(gpuValidator)),
+    storage: v.optional(v.array(storageDriveValidator)),
+    pcie_slots: v.optional(v.array(pcieSlotValidator)),
+    upgrade_analysis: v.optional(upgradeAnalysisValidator),
+    network_info: v.optional(networkInfoValidator),
   },
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
@@ -171,7 +180,7 @@ export const update = mutation({
     }
 
     // Filter out undefined values
-    const filteredUpdates: Record<string, any> = {};
+    const filteredUpdates: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(updates)) {
       if (value !== undefined) {
         filteredUpdates[key] = value;

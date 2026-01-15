@@ -979,4 +979,193 @@
   @keyframes spin {
     to { transform: rotate(360deg); }
   }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     RESPONSIVE STYLES
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  /* Tablet (768px) */
+  @media (max-width: 768px) {
+    .form-panel {
+      max-width: calc(100vw - 60px);
+    }
+
+    .panel-header {
+      padding: var(--space-4);
+    }
+
+    .panel-content {
+      padding: var(--space-4);
+      gap: var(--space-4);
+    }
+
+    .form-section {
+      padding: var(--space-3);
+    }
+
+    .close-btn {
+      width: 40px;
+      height: 40px;
+    }
+
+    .close-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .form-row-3 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Mobile (640px) */
+  @media (max-width: 640px) {
+    .form-panel {
+      max-width: 100%;
+      border-left: none;
+    }
+
+    .panel-header {
+      padding: var(--space-3);
+    }
+
+    .header-info h2 {
+      font-size: 1.125rem;
+    }
+
+    .panel-content {
+      padding: var(--space-3);
+      gap: var(--space-3);
+    }
+
+    .form-section {
+      padding: var(--space-3);
+      gap: var(--space-3);
+    }
+
+    /* Touch-friendly close button */
+    .close-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    /* Stack form rows */
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .form-row-3 {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    /* Larger form inputs for touch */
+    .form-input,
+    .form-select,
+    .form-textarea {
+      font-size: 16px; /* Prevents iOS zoom */
+      padding: var(--space-3);
+      min-height: 44px;
+    }
+
+    /* Stack buttons on mobile */
+    .form-actions {
+      flex-direction: column-reverse;
+      gap: var(--space-2);
+    }
+
+    .btn-cancel,
+    .btn-save {
+      width: 100%;
+      justify-content: center;
+      min-height: 44px;
+    }
+  }
+
+  /* Small Mobile (480px) */
+  @media (max-width: 480px) {
+    .panel-header {
+      padding: var(--space-2);
+    }
+
+    .header-top {
+      margin-bottom: var(--space-2);
+    }
+
+    .header-info h2 {
+      font-size: 1rem;
+    }
+
+    .panel-content {
+      padding: var(--space-2);
+      gap: var(--space-2);
+    }
+
+    .form-section {
+      padding: var(--space-2);
+      gap: var(--space-2);
+    }
+
+    .section-header {
+      padding-bottom: var(--space-1);
+      margin-bottom: var(--space-1);
+    }
+
+    .section-header svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .section-header span {
+      font-size: 0.625rem;
+    }
+
+    .form-label {
+      font-size: 0.5rem;
+    }
+
+    .form-textarea {
+      min-height: 60px;
+    }
+
+    .lookup-status {
+      font-size: 0.625rem;
+    }
+
+    .form-actions {
+      margin-top: var(--space-2);
+      padding-top: var(--space-2);
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-height: 500px) and (orientation: landscape) {
+    .panel-header {
+      padding: var(--space-2) var(--space-3);
+      position: relative;
+    }
+
+    .header-top {
+      margin-bottom: var(--space-2);
+    }
+
+    .panel-content {
+      padding: var(--space-2) var(--space-3);
+    }
+
+    .form-section {
+      padding: var(--space-2);
+      gap: var(--space-2);
+    }
+
+    .form-actions {
+      flex-direction: row;
+    }
+
+    .btn-cancel,
+    .btn-save {
+      width: auto;
+    }
+  }
 </style>

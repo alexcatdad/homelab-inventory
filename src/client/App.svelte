@@ -20,6 +20,7 @@
   import Settings from "./components/Settings.svelte";
   import Header from "./components/Header.svelte";
   import LoginPage from "./components/LoginPage.svelte";
+  import ErrorBoundary from "./components/ErrorBoundary.svelte";
 
   // Initialize Convex client
   setupConvex(import.meta.env.VITE_CONVEX_URL);
@@ -78,6 +79,7 @@
   });
 </script>
 
+<ErrorBoundary>
 {#if loading}
   <div class="app">
     <!-- Background effects for loading screen -->
@@ -92,7 +94,7 @@
       <div class="corner-accent bottom-right"></div>
     </div>
 
-    <div class="loading-screen">
+    <div class="loading-screen" role="status" aria-live="polite">
       <div class="loading-indicator">
         <div class="spinner"></div>
         <div class="spinner-glow"></div>
@@ -125,6 +127,17 @@
   </div>
 {:else}
   <div class="app">
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">{$t('accessibility.skipToMain')}</a>
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      id="live-announcements"
+      class="live-region"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
     <!-- Aerospace Background Effects -->
     <div class="bg-effects" aria-hidden="true">
       <div class="particles">
@@ -155,7 +168,7 @@
 
     <Header />
 
-    <main class="main">
+    <main id="main-content" class="main" role="main" tabindex="-1">
       <div class="content fade-in">
         {#if view === "dashboard"}
           <Dashboard />
@@ -175,6 +188,7 @@
     <ChatPanel />
   </div>
 {/if}
+</ErrorBoundary>
 
 <style>
   .app {

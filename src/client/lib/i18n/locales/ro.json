@@ -21,6 +21,8 @@
     "storage": "STOCARE",
     "sysTime": "ORA SISTEM",
     "searchPlaceholder": "Cauta in inventar...",
+    "searchLabel": "Cauta dispozitive",
+    "searchDescription": "Cauta dupa nume dispozitiv, model sau CPU",
     "aiAssistant": "Asistent AI",
     "settings": "Setari",
     "signOut": "Deconectare"
@@ -225,5 +227,15 @@
     "LPDDR4": "LPDDR4",
     "LPDDR5": "LPDDR5",
     "UnifiedMemory": "Memorie unificata"
+  },
+  "accessibility": {
+    "skipToMain": "Sari la continut principal",
+    "mainNavigation": "Navigare principala",
+    "deviceList": "Lista dispozitive",
+    "closeDialog": "Inchide dialogul",
+    "loading": "Se incarca, te rugam asteapta",
+    "deviceDeleted": "Dispozitiv sters cu succes",
+    "deviceSaved": "Dispozitiv salvat cu succes",
+    "searchResults": "{count} dispozitive gasite"
   }
 }
