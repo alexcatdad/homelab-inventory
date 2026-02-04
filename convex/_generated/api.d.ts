@@ -10,6 +10,7 @@
 
 import type * as account from "../account.js";
 import type * as auth from "../auth.js";
+import type * as communitySpecs from "../communitySpecs.js";
 import type * as dataExport from "../dataExport.js";
 import type * as dataImport from "../dataImport.js";
 import type * as devices from "../devices.js";
@@ -20,6 +21,7 @@ import type * as specs from "../specs.js";
 import type * as stats from "../stats.js";
 import type * as stripe from "../stripe.js";
 import type * as supporters from "../supporters.js";
+import type * as testAuth from "../testAuth.js";
 import type * as topology from "../topology.js";
 import type * as userPreferences from "../userPreferences.js";
 import type * as validators from "../validators.js";
@@ -33,6 +35,7 @@ import type {
 declare const fullApi: ApiFromModules<{
   account: typeof account;
   auth: typeof auth;
+  communitySpecs: typeof communitySpecs;
   dataExport: typeof dataExport;
   dataImport: typeof dataImport;
   devices: typeof devices;
@@ -43,6 +46,7 @@ declare const fullApi: ApiFromModules<{
   stats: typeof stats;
   stripe: typeof stripe;
   supporters: typeof supporters;
+  testAuth: typeof testAuth;
   topology: typeof topology;
   userPreferences: typeof userPreferences;
   validators: typeof validators;
