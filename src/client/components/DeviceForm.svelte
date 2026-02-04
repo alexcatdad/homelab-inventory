@@ -2,8 +2,10 @@
   import { useConvexClient } from 'convex-svelte';
   import { api } from '../../../convex/_generated/api';
   import { deviceFormOpen, editingDevice, formSaving, formError, closeForm, type Device } from '../lib/stores';
-  import { lookupSpecs, specLookupLoading, specLookupError, type ConvexSpecsOps } from '../lib/llm/specLookup';
+  import { lookupSpecsCascade, type CascadeOps, type LookupResult } from '../lib/specLookup/cascade';
+  import { specLookupLoading, specLookupError } from '../lib/llm/specLookup';
   import { llmStatus, initializeLLM } from '../lib/llm/engine';
+  import SpecLookupPrompt from './SpecLookupPrompt.svelte';
   import type { DeviceType, RAMType, Specifications } from '../../shared/types';
 
   const client = useConvexClient();
@@ -14,6 +16,8 @@
   let error: string | null = $state(null);
   let lookingUpSpecs = $state(false);
   let lookupStatus: 'idle' | 'loading' | 'ready' | 'error' = $state('idle');
+  let showSpecPrompt = $state(false);
+  let pendingModel = $state('');
 
   // Form fields - Basic
   let name = $state('');
@@ -122,7 +126,6 @@
     if (!saving && !lookingUpSpecs) closeForm();
   }
 
-  // Auto-lookup specs when model field loses focus
   async function handleModelBlur() {
     if (!model.trim() || lookingUpSpecs || saving) return;
 
@@ -131,54 +134,70 @@
 
     specLookupLoading.set(true);
     specLookupError.set(null);
+    showSpecPrompt = false;
 
-    // Create Convex operations adapter for specLookup
-    const convexOps: ConvexSpecsOps = {
+    const cascadeOps: CascadeOps = {
       checkCache: async (modelQuery: string) => {
         const result = await client.action(api.specs.checkCache, { model: modelQuery });
-        return {
-          cached: result.cached,
-          specs: result.specs,
-          source_url: result.source_url,
-        };
+        return { cached: result.cached, specs: result.specs as Specifications | undefined };
+      },
+      checkCommunity: async (modelQuery: string) => {
+        const result = await client.query(api.communitySpecs.lookup, { model: modelQuery });
+        return { found: result.found, specs: result.specs as Specifications | undefined };
       },
       saveCache: async (modelQuery: string, specs: Specifications) => {
         await client.mutation(api.specs.setCache, { model: modelQuery, specs });
       },
-      proxySearch: async (query: string) => {
-        return await client.action(api.specs.proxySearch, { query });
-      },
     };
 
     try {
-      const result = await lookupSpecs(model, type, convexOps);
+      const result = await lookupSpecsCascade(model, cascadeOps);
 
       if (result.success && result.specs) {
-        // Fill in specs from lookup
-        if (result.specs.cpu) {
-          cpuModel = result.specs.cpu.model || cpuModel;
-          cpuCores = result.specs.cpu.cores ?? cpuCores;
-          cpuThreads = result.specs.cpu.threads ?? cpuThreads;
-          cpuSocket = result.specs.cpu.socket || cpuSocket;
-          cpuTdp = result.specs.cpu.tdp_watts ?? cpuTdp;
-        }
-        if (result.specs.ram) {
-          ramType = result.specs.ram.type || ramType;
-          ramCurrent = result.specs.ram.current || ramCurrent;
-          ramMax = result.specs.ram.max_supported || ramMax;
-        }
-        if (result.specs.motherboard) {
-          mbModel = result.specs.motherboard.model || mbModel;
-          mbChipset = result.specs.motherboard.chipset || mbChipset;
-          mbFormFactor = result.specs.motherboard.form_factor || mbFormFactor;
-        }
+        applySpecs(result.specs);
+      } else if (result.needsUserInput) {
+        // Show the paste prompt
+        pendingModel = model;
+        showSpecPrompt = true;
       }
     } catch (e) {
-      // Silently fail - user can fill specs manually
       console.error('Spec lookup failed:', e);
     } finally {
       specLookupLoading.set(false);
     }
+  }
+
+  function applySpecs(specs: Specifications) {
+    if (specs.cpu) {
+      cpuModel = specs.cpu.model || cpuModel;
+      cpuCores = specs.cpu.cores ?? cpuCores;
+      cpuThreads = specs.cpu.threads ?? cpuThreads;
+      cpuSocket = specs.cpu.socket || cpuSocket;
+      cpuTdp = specs.cpu.tdp_watts ?? cpuTdp;
+    }
+    if (specs.ram) {
+      ramType = specs.ram.type || ramType;
+      ramCurrent = specs.ram.current || ramCurrent;
+      ramMax = specs.ram.max_supported || ramMax;
+    }
+    if (specs.motherboard) {
+      mbModel = specs.motherboard.model || mbModel;
+      mbChipset = specs.motherboard.chipset || mbChipset;
+      mbFormFactor = specs.motherboard.form_factor || mbFormFactor;
+    }
+  }
+
+  function handleSpecsExtracted(specs: Specifications) {
+    applySpecs(specs);
+    showSpecPrompt = false;
+  }
+
+  function handleSpecPromptSkip() {
+    showSpecPrompt = false;
+  }
+
+  async function saveCacheForPrompt(modelQuery: string, specs: Specifications) {
+    await client.mutation(api.specs.setCache, { model: modelQuery, specs });
   }
 
   async function handleSubmit(e: Event) {
@@ -343,6 +362,14 @@
               {/if}
             </div>
           </div>
+        {#if showSpecPrompt}
+          <SpecLookupPrompt
+            modelName={pendingModel}
+            onSpecsExtracted={handleSpecsExtracted}
+            onSkip={handleSpecPromptSkip}
+            saveCache={saveCacheForPrompt}
+          />
+        {/if}
 
           <div class="form-row">
             <div class="form-group">
