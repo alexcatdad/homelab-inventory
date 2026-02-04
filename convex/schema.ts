@@ -71,6 +71,21 @@ export default defineSchema({
     expires_at: v.optional(v.number()),
   }).index("by_model_query", ["model_query"]),
 
+  // Community-contributed hardware specs (shared, verified by admin)
+  community_specs: defineTable({
+    model_query: v.string(),
+    specs_json: v.string(),
+    device_type: v.optional(v.string()),
+    manufacturer: v.optional(v.string()),
+    contributed_by: v.optional(v.id("users")),
+    verified: v.boolean(),
+    created_at: v.number(),
+    updated_at: v.number(),
+  })
+    .index("by_model_query", ["model_query"])
+    .index("by_manufacturer", ["manufacturer"])
+    .index("by_verified", ["verified"]),
+
   // Supporters table (public, for listing)
   supporters: defineTable({
     userId: v.id("users"),
