@@ -2,11 +2,16 @@ import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 import path from 'path';
 
+// For GitHub Pages: set VITE_BASE_PATH=/homelab-inventory/ in CI
+// For custom domain or local dev: leave unset (defaults to '/')
+const basePath = process.env.VITE_BASE_PATH || '/';
+
 export default defineConfig({
   plugins: [svelte({
     configFile: path.resolve(__dirname, 'svelte.config.js')
   })],
   root: 'src/client',
+  base: basePath,
   envDir: path.resolve(__dirname),
   build: {
     outDir: '../../dist/client',

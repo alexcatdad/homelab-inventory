@@ -7,8 +7,32 @@ export type Route =
   | { page: 'terms' }
   | { page: 'app' };  // The main authenticated app
 
+// Base path for GitHub Pages deployment (e.g., '/homelab-inventory/')
+// Vite injects this at build time from VITE_BASE_PATH
+const BASE_PATH = (import.meta.env.BASE_URL || '/').replace(/\/$/, '');
+
+/**
+ * Strip base path from URL pathname to get the route path
+ */
+function stripBasePath(pathname: string): string {
+  if (BASE_PATH && pathname.startsWith(BASE_PATH)) {
+    return pathname.slice(BASE_PATH.length) || '/';
+  }
+  return pathname;
+}
+
+/**
+ * Add base path to route for navigation
+ */
+function addBasePath(route: string): string {
+  return BASE_PATH + route;
+}
+
 function parseRoute(path: string): Route {
-  switch (path) {
+  // Strip base path before matching routes
+  const routePath = stripBasePath(path);
+
+  switch (routePath) {
     case '/':
       return { page: 'landing' };
     case '/supporters':
@@ -24,7 +48,21 @@ function parseRoute(path: string): Route {
 }
 
 function createRouter() {
-  const path = writable(window.location.pathname);
+  // Handle GitHub Pages SPA redirect
+  // When 404.html redirects, it encodes the original path as ?redirect=...
+  const params = new URLSearchParams(window.location.search);
+  const redirectPath = params.get('redirect');
+
+  let initialPath = window.location.pathname;
+
+  if (redirectPath) {
+    // Restore the original URL without the redirect param
+    const decoded = decodeURIComponent(redirectPath);
+    window.history.replaceState({}, '', decoded);
+    initialPath = decoded.split('?')[0]; // Get path without query string
+  }
+
+  const path = writable(initialPath);
 
   // Listen for popstate (browser back/forward)
   window.addEventListener('popstate', () => {
@@ -34,10 +72,14 @@ function createRouter() {
   return {
     subscribe: path.subscribe,
     navigate: (newPath: string) => {
-      window.history.pushState({}, '', newPath);
-      path.set(newPath);
+      // Add base path for the actual URL, but store route path for matching
+      const fullPath = addBasePath(newPath);
+      window.history.pushState({}, '', fullPath);
+      path.set(fullPath);
     },
-    route: derived(path, parseRoute)
+    route: derived(path, parseRoute),
+    // Export for components that need to build hrefs
+    basePath: BASE_PATH
   };
 }
 

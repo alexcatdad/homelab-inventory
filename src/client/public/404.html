@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages SPA redirect
+      // Captures the path and redirects to root with path as query param
+      // The router will then navigate to the correct route client-side
+      (function() {
+        var path = window.location.pathname;
+        var search = window.location.search;
+        var hash = window.location.hash;
+
+        // Detect base path from current URL (e.g., /homelab-inventory/)
+        // The 404.html is served from the same base path
+        var basePath = '';
+        var match = path.match(/^(\/[^\/]+\/)/);
+        if (match && match[1] !== '/') {
+          basePath = match[1].replace(/\/$/, '');
+        }
+
+        // Encode the full path for the redirect
+        var redirect = basePath + '/?redirect=' + encodeURIComponent(path + search + hash);
+
+        // Replace current history entry to avoid back-button loops
+        window.location.replace(redirect);
+      })();
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p>This page requires JavaScript for routing. Please enable JavaScript and refresh.</p>
+    </noscript>
+  </body>
+</html>
