@@ -4,10 +4,6 @@ import { v } from "convex/values";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { specsDataValidator } from "./validators";
 
-// Rate limiting: track last search time per user (in-memory, resets on deploy)
-const searchTimestamps = new Map<string, number>();
-const SEARCH_RATE_LIMIT_MS = 2000; // Minimum 2 seconds between searches
-
 // Internal query for cache lookup (used by action)
 export const getCacheInternal = internalQuery({
   args: { model: v.string() },
@@ -108,55 +104,6 @@ export const checkCache = action({
       model: args.model,
     });
     return result;
-  },
-});
-
-// Proxy search to DuckDuckGo (action for external HTTP calls)
-// Requires authentication and implements rate limiting
-export const proxySearch = action({
-  args: { query: v.string() },
-  handler: async (ctx, args) => {
-    // Require authentication
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new Error("Authentication required");
-    }
-
-    const userId = identity.subject;
-
-    // Rate limiting check
-    const lastSearch = searchTimestamps.get(userId);
-    const now = Date.now();
-    if (lastSearch && now - lastSearch < SEARCH_RATE_LIMIT_MS) {
-      throw new Error("Rate limit exceeded. Please wait before searching again.");
-    }
-    searchTimestamps.set(userId, now);
-
-    // Validate query
-    const trimmedQuery = args.query.trim();
-    if (trimmedQuery.length < 3 || trimmedQuery.length > 200) {
-      throw new Error("Invalid search query length");
-    }
-
-    // Only allow alphanumeric, spaces, and common hardware chars
-    if (!/^[\w\s\-./()]+$/i.test(trimmedQuery)) {
-      throw new Error("Invalid characters in search query");
-    }
-
-    const searchUrl = `https://html.duckduckgo.com/html/?q=${encodeURIComponent(trimmedQuery)}`;
-
-    const response = await fetch(searchUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Search request failed: ${response.status}`);
-    }
-
-    return await response.text();
   },
 });
 
