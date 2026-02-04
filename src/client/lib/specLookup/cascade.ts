@@ -65,7 +65,7 @@ function parseToonToSpecs(text: string): Specifications | null {
       if (!line.startsWith(' ') && !line.startsWith('\t') && trimmed.endsWith(':')) {
         currentSection = trimmed.slice(0, -1).toLowerCase();
         result[currentSection] = {};
-      } else if (currentSection && result[currentSection] && (line.startsWith('  ') || line.startsWith('\t'))) {
+      } else if (currentSection && (line.startsWith('  ') || line.startsWith('\t'))) {
         const colonIdx = trimmed.indexOf(':');
         if (colonIdx > 0) {
           const key = trimmed.slice(0, colonIdx).trim().toLowerCase().replace(/\s+/g, '_');
@@ -74,7 +74,10 @@ function parseToonToSpecs(text: string): Specifications | null {
           if (!isNaN(numValue) && /^\d+(\.\d+)?$/.test(value)) {
             value = numValue;
           }
-          result[currentSection][key] = value;
+          const section = result[currentSection];
+          if (section) {
+            section[key] = value;
+          }
         }
       }
     }
