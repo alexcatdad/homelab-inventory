@@ -15,10 +15,14 @@
     try {
       // Call the signIn action to get OAuth redirect URL
       // Using string action reference as expected by @convex-dev/auth
+      // Use origin + base path for GitHub Pages compatibility
+      const basePath = import.meta.env.BASE_URL || '/';
+      const redirectUrl = window.location.origin + basePath;
+
       const result = await client.action("auth:signIn" as any, {
         provider: "github",
         params: {
-          redirectTo: window.location.origin,
+          redirectTo: redirectUrl,
         },
       });
 
