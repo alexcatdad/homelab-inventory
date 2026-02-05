@@ -8,25 +8,32 @@
     authInitialized as authInitializedStore,
     initializeAuth,
   } from "./lib/authStore";
+  import { isGuestMode, initializeGuestMode } from "./lib/guestStore";
   import { t } from "./lib/i18n";
   import { syncLanguageFromConvex } from "./lib/i18n/languageStore";
   import { router } from './lib/router';
   import type { Route } from './lib/router';
   import Dashboard from "./components/Dashboard.svelte";
+  import DemoDashboard from "./components/demo/DemoDashboard.svelte";
   import DeviceGrid from "./components/DeviceGrid.svelte";
+  import DemoDeviceGrid from "./components/demo/DemoDeviceGrid.svelte";
   import DeviceDetail from "./components/DeviceDetail.svelte";
+  import DemoDeviceDetail from "./components/demo/DemoDeviceDetail.svelte";
   import DeviceForm from "./components/DeviceForm.svelte";
   import DeleteConfirm from "./components/DeleteConfirm.svelte";
   import ChatPanel from "./components/chat/ChatPanel.svelte";
   import TopologyView from "./components/TopologyView.svelte";
+  import DemoTopologyView from "./components/demo/DemoTopologyView.svelte";
   import Settings from "./components/Settings.svelte";
   import Header from "./components/Header.svelte";
+  import DemoHeader from "./components/demo/DemoHeader.svelte";
   import LoginPage from "./components/LoginPage.svelte";
   import ErrorBoundary from "./components/ErrorBoundary.svelte";
   import LandingPage from './components/public/LandingPage.svelte';
   import SupportersPage from './components/public/SupportersPage.svelte';
   import PrivacyPage from './components/public/PrivacyPage.svelte';
   import TermsPage from './components/public/TermsPage.svelte';
+  import DemoBanner from "./components/DemoBanner.svelte";
 
   // Initialize Convex client
   setupConvex(import.meta.env.VITE_CONVEX_URL);
@@ -41,16 +48,24 @@
   let languageSynced = $state(false);
   let currentRoute = $state<Route>({ page: 'landing' });
   let seedAttempted = $state(false);
+  let guestMode = $state(false);
 
   // Sample data seeding for new users
   const hasDevicesQuery = useQuery(api.sampleData.hasDevices, () => (authenticated ? {} : "skip"));
 
-  // Initialize auth on mount - handles OAuth callback and token restoration
+  // Initialize auth and guest mode on mount
   $effect(() => {
     if (!initStarted) {
       initStarted = true;
+      initializeGuestMode();
       initializeAuth(client).catch(console.error);
     }
+  });
+
+  // Subscribe to guest mode store
+  $effect(() => {
+    const unsub = isGuestMode.subscribe((v) => (guestMode = v));
+    return () => unsub();
   });
 
   // Subscribe to auth stores
@@ -192,6 +207,67 @@
       <div class="corner-accent bottom-right"></div>
     </div>
     <TermsPage />
+  </div>
+{:else if currentRoute.page === 'demo'}
+  <!-- Demo/guest mode - no auth required, uses static demo data -->
+  <div class="app">
+    <!-- Skip to main content link for keyboard users -->
+    <a href="#main-content" class="skip-link">{$t('accessibility.skipToMain')}</a>
+
+    <!-- Live region for screen reader announcements -->
+    <div
+      id="live-announcements"
+      class="live-region"
+      aria-live="polite"
+      aria-atomic="true"
+    ></div>
+
+    <!-- Aerospace Background Effects -->
+    <div class="bg-effects" aria-hidden="true">
+      <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+      </div>
+      <div class="data-streams">
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+      </div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="grid-pulse"></div>
+      <div class="corner-accent top-left"></div>
+      <div class="corner-accent bottom-right"></div>
+    </div>
+
+    <DemoHeader />
+
+    <main id="main-content" class="main" role="main" tabindex="-1">
+      <div class="content fade-in">
+        <DemoBanner />
+        {#if view === "dashboard"}
+          <DemoDashboard />
+        {:else if view === "devices"}
+          <DemoDeviceGrid />
+        {:else if view === "topology"}
+          <DemoTopologyView />
+        {:else if view === "settings"}
+          <Settings />
+        {/if}
+      </div>
+    </main>
+
+    <DemoDeviceDetail />
   </div>
 {:else if currentRoute.page === 'app'}
   <!-- Auth-gated app content -->

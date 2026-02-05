@@ -1,6 +1,8 @@
 <!-- src/client/components/public/LandingPage.svelte -->
 <script lang="ts">
   import { router } from '../../lib/router';
+  import { enterGuestMode } from '../../lib/guestStore';
+  import { t } from '../../lib/i18n';
   import FeatureCard from './FeatureCard.svelte';
 
   const features = [
@@ -16,6 +18,11 @@
     router.navigate('/app');
   }
 
+  function goToDemo() {
+    enterGuestMode();
+    router.navigate('/demo');
+  }
+
   function handleNavClick(e: MouseEvent, path: string) {
     e.preventDefault();
     router.navigate(path);
@@ -28,9 +35,14 @@
     <div class="hero-content">
       <h1>A homelab inventory tool you'll actually enjoy using</h1>
       <p class="subtitle">Track your gear. Visualize your network. Stop forgetting what you have.</p>
-      <button type="button" class="cta-button" onclick={goToApp}>
-        Get Started — Free
-      </button>
+      <div class="cta-buttons">
+        <button type="button" class="cta-button" onclick={goToApp}>
+          Get Started — Free
+        </button>
+        <button type="button" class="demo-button" onclick={goToDemo}>
+          {$t('demo.tryDemo')}
+        </button>
+      </div>
     </div>
   </header>
 
@@ -128,6 +140,34 @@
   .cta-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 20px rgba(0, 200, 255, 0.3);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--tui-space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .demo-button {
+    background: transparent;
+    color: var(--tui-text-muted);
+    border: 1px solid var(--tui-border);
+    padding: var(--tui-space-3) var(--tui-space-6);
+    font-family: var(--tui-font-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    border-radius: var(--tui-radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .demo-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
+    box-shadow: 0 4px 20px rgba(0, 200, 255, 0.15);
   }
 
   /* Features */

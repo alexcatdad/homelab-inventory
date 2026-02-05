@@ -5,7 +5,8 @@ export type Route =
   | { page: 'supporters' }
   | { page: 'privacy' }
   | { page: 'terms' }
-  | { page: 'app' };  // The main authenticated app
+  | { page: 'demo' }   // Guest/demo mode - read-only with sample data
+  | { page: 'app' };   // The main authenticated app
 
 // Base path for GitHub Pages deployment (e.g., '/homelab-inventory/')
 // Vite injects this at build time from VITE_BASE_PATH
@@ -41,6 +42,8 @@ function parseRoute(path: string): Route {
       return { page: 'privacy' };
     case '/terms':
       return { page: 'terms' };
+    case '/demo':
+      return { page: 'demo' };
     case '/app':
     default:
       return { page: 'app' };

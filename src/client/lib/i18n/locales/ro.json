@@ -274,5 +274,13 @@
   },
   "legal": {
     "backToHome": "← Înapoi la Prima Pagină"
+  },
+  "demo": {
+    "bannerTitle": "MOD DEMO",
+    "bannerDesc": "Vizualizezi date demonstrative. Conectează-te pentru a crea propriul inventar.",
+    "signIn": "Conectare",
+    "tryDemo": "Încearcă Demo",
+    "readOnly": "Mod doar citire",
+    "signInToEdit": "Conectează-te pentru a face modificări"
   }
 }

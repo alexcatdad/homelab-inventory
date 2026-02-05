@@ -274,5 +274,13 @@
   },
   "legal": {
     "backToHome": "← Back to Home"
+  },
+  "demo": {
+    "bannerTitle": "DEMO MODE",
+    "bannerDesc": "You're viewing sample data. Sign in to create your own inventory.",
+    "signIn": "Sign In",
+    "tryDemo": "Try Demo",
+    "readOnly": "Read-only mode",
+    "signInToEdit": "Sign in to make changes"
   }
 }
