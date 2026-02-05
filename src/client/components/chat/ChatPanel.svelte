@@ -159,8 +159,8 @@
   .chat-panel {
     width: 100%;
     max-width: 440px;
-    background: var(--panel);
-    border-left: 1px solid var(--border-panel);
+    background: var(--tui-panel);
+    border-left: 1px solid var(--tui-border);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -177,7 +177,7 @@
   /* Status line at top */
   .panel-status-line {
     height: 2px;
-    background: linear-gradient(90deg, var(--signal-blue), var(--signal-cyan));
+    background: linear-gradient(90deg, var(--tui-info), var(--signal-cyan));
     opacity: 0.8;
   }
 
@@ -186,15 +186,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-4) var(--space-5);
-    background: var(--panel-deep);
-    border-bottom: 1px solid var(--border-dim);
+    padding: var(--tui-space-4) var(--tui-space-5);
+    background: var(--tui-panel-deep);
+    border-bottom: 1px solid var(--tui-border);
   }
 
   .header-content {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .header-icon {
@@ -204,8 +204,8 @@
     align-items: center;
     justify-content: center;
     background: var(--panel-hover);
-    border-radius: var(--radius-md);
-    color: var(--signal-blue);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-info);
   }
 
   .header-icon svg {
@@ -217,34 +217,34 @@
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     margin: 0;
   }
 
   .status-badge {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.05em;
     padding: 2px 6px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
     background: var(--panel-hover);
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .status-badge.ready {
     background: rgba(0, 210, 106, 0.15);
-    color: var(--signal-green);
+    color: var(--tui-success);
   }
 
   .status-badge.loading {
     background: rgba(0, 168, 255, 0.15);
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .header-actions {
     display: flex;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .action-button,
@@ -254,15 +254,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
-    border-radius: var(--radius-md);
+    color: var(--tui-text-muted);
+    border-radius: var(--tui-radius-md);
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
   .action-button:hover,
   .close-button:hover {
     background: var(--panel-hover);
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
   }
 
   .action-button svg,
@@ -282,20 +282,20 @@
   .messages-container {
     flex: 1;
     overflow-y: auto;
-    padding: var(--space-4);
+    padding: var(--tui-space-4);
   }
 
   /* Empty state */
   .empty-state {
     text-align: center;
-    padding: var(--space-8) var(--space-4);
+    padding: var(--tui-space-8) var(--tui-space-4);
   }
 
   .empty-icon {
     width: 48px;
     height: 48px;
-    margin: 0 auto var(--space-4);
-    color: var(--text-dim);
+    margin: 0 auto var(--tui-space-4);
+    color: var(--tui-text-dim);
   }
 
   .empty-icon svg {
@@ -304,43 +304,43 @@
   }
 
   .empty-state p {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0 0 var(--space-5);
+    color: var(--tui-text-muted);
+    margin: 0 0 var(--tui-space-5);
   }
 
   .example-prompts {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
     align-items: center;
   }
 
   .prompt-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.08em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     text-transform: uppercase;
   }
 
   .prompt-chip {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--tui-space-2) var(--tui-space-3);
     background: var(--panel-hover);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    color: var(--text-secondary);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-text-muted);
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
   .prompt-chip:hover {
-    background: var(--signal-blue);
-    border-color: var(--signal-blue);
-    color: var(--text-bright);
+    background: var(--tui-info);
+    border-color: var(--tui-info);
+    color: var(--tui-text-bright);
     transform: translateY(-1px);
   }
 
@@ -348,24 +348,24 @@
   .error-message {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-3);
     background: rgba(255, 71, 87, 0.1);
     border: 1px solid rgba(255, 71, 87, 0.3);
-    border-radius: var(--radius-md);
-    margin-top: var(--space-3);
+    border-radius: var(--tui-radius-md);
+    margin-top: var(--tui-space-3);
   }
 
   .error-message svg {
     width: 16px;
     height: 16px;
-    color: var(--signal-red);
+    color: var(--tui-danger);
     flex-shrink: 0;
   }
 
   .error-message span {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--signal-red);
+    color: var(--tui-danger);
   }
 </style>

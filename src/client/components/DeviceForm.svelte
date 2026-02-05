@@ -620,10 +620,10 @@
         </section>
 
         <div class="form-actions">
-          <button type="button" class="btn-cancel" onclick={closeForm} disabled={isDisabled}>
+          <button type="button" class="tui-btn tui-btn-ghost" onclick={closeForm} disabled={isDisabled}>
             Cancel
           </button>
-          <button type="submit" class="btn-save" disabled={isDisabled}>
+          <button type="submit" class="tui-btn tui-btn-primary" disabled={isDisabled}>
             {#if saving}
               <span class="spinner"></span>
               Saving...
@@ -652,8 +652,8 @@
   .form-panel {
     width: 100%;
     max-width: 520px;
-    background: var(--panel);
-    border-left: 1px solid var(--border-panel);
+    background: var(--tui-panel);
+    border-left: 1px solid var(--tui-border);
     height: 100%;
     overflow-y: auto;
     animation: slideIn 0.25s var(--ease-out-expo);
@@ -678,8 +678,8 @@
 
   /* Header */
   .panel-header {
-    padding: var(--space-6);
-    background: var(--panel-deep);
+    padding: var(--tui-space-6);
+    background: var(--tui-panel-deep);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -689,11 +689,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--tui-space-4);
   }
 
   .badge {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -701,7 +701,7 @@
     padding: 4px 8px;
     background: rgba(0, 212, 255, 0.1);
     border: 1px solid rgba(0, 212, 255, 0.3);
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
   }
 
   .close-btn {
@@ -710,14 +710,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
-    border-radius: var(--radius-md);
+    color: var(--tui-text-muted);
+    border-radius: var(--tui-radius-md);
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
   .close-btn:hover:not(:disabled) {
     background: var(--panel-hover);
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
   }
 
   .close-btn:disabled {
@@ -734,7 +734,7 @@
     font-family: var(--font-display);
     font-size: 1.375rem;
     font-weight: 600;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     margin: 0;
   }
 
@@ -746,48 +746,48 @@
     height: 1px;
     background: linear-gradient(90deg,
       var(--signal-cyan) 0%,
-      var(--border-panel) 50%,
+      var(--tui-border) 50%,
       transparent 100%
     );
   }
 
   /* Form Content */
   .panel-content {
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--tui-space-5);
   }
 
   /* Form sections */
   .form-section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
-    padding: var(--space-4);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-lg);
+    gap: var(--tui-space-4);
+    padding: var(--tui-space-4);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
   }
 
   .section-header {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    color: var(--text-secondary);
-    padding-bottom: var(--space-2);
-    border-bottom: 1px solid var(--border-dim);
-    margin-bottom: var(--space-2);
+    gap: var(--tui-space-2);
+    color: var(--tui-text-muted);
+    padding-bottom: var(--tui-space-2);
+    border-bottom: 1px solid var(--tui-border);
+    margin-bottom: var(--tui-space-2);
   }
 
   .section-header svg {
     width: 16px;
     height: 16px;
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .section-header span {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -797,11 +797,11 @@
   .error-message {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-3);
     background: rgba(255, 77, 77, 0.1);
     border: 1px solid rgba(255, 77, 77, 0.3);
-    border-radius: var(--radius-md);
+    border-radius: var(--tui-radius-md);
     color: #ff6b6b;
     font-size: 0.875rem;
   }
@@ -816,39 +816,39 @@
   .form-group {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .form-row-3 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .form-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 600;
     letter-spacing: 0.12em;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .form-input,
   .form-select,
   .form-textarea {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-primary);
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    padding: var(--space-2) var(--space-3);
+    color: var(--tui-fg);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    padding: var(--tui-space-2) var(--tui-space-3);
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
@@ -856,7 +856,7 @@
   .form-select:focus,
   .form-textarea:focus {
     outline: none;
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
     box-shadow: 0 0 0 2px rgba(77, 154, 255, 0.15);
   }
 
@@ -869,7 +869,7 @@
 
   .form-input::placeholder,
   .form-textarea::placeholder {
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .form-textarea {
@@ -885,9 +885,9 @@
   .lookup-status {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-2);
-    font-family: var(--font-mono);
+    gap: var(--tui-space-2);
+    margin-top: var(--tui-space-2);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
   }
 
@@ -896,11 +896,11 @@
   }
 
   .lookup-status.loading {
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .lookup-status.ready {
-    color: var(--signal-green);
+    color: var(--tui-success);
   }
 
   .lookup-status svg {
@@ -926,17 +926,17 @@
     width: 100%;
     appearance: none;
     cursor: pointer;
-    padding-right: var(--space-8);
+    padding-right: var(--tui-space-8);
   }
 
   .select-arrow {
     position: absolute;
-    right: var(--space-3);
+    right: var(--tui-space-3);
     top: 50%;
     transform: translateY(-50%);
     width: 16px;
     height: 16px;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     pointer-events: none;
   }
 
@@ -944,53 +944,10 @@
   .form-actions {
     display: flex;
     justify-content: flex-end;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--border-dim);
-  }
-
-  .btn-cancel,
-  .btn-save {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    padding: var(--space-3) var(--space-5);
-    border-radius: var(--radius-md);
-    transition: all var(--duration-fast) var(--ease-out-quad);
-    cursor: pointer;
-  }
-
-  .btn-cancel {
-    color: var(--text-muted);
-    background: transparent;
-    border: 1px solid var(--border-dim);
-  }
-
-  .btn-cancel:hover:not(:disabled) {
-    color: var(--text-primary);
-    border-color: var(--border-panel);
-    background: var(--panel-hover);
-  }
-
-  .btn-save {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    color: var(--bg-base);
-    background: var(--signal-blue);
-    border: none;
-  }
-
-  .btn-save:hover:not(:disabled) {
-    background: var(--signal-blue-bright, #5ba3ff);
-  }
-
-  .btn-cancel:disabled,
-  .btn-save:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    gap: var(--tui-space-3);
+    margin-top: var(--tui-space-4);
+    padding-top: var(--tui-space-4);
+    border-top: 1px solid var(--tui-border);
   }
 
   /* Spinner */
@@ -1018,16 +975,16 @@
     }
 
     .panel-header {
-      padding: var(--space-4);
+      padding: var(--tui-space-4);
     }
 
     .panel-content {
-      padding: var(--space-4);
-      gap: var(--space-4);
+      padding: var(--tui-space-4);
+      gap: var(--tui-space-4);
     }
 
     .form-section {
-      padding: var(--space-3);
+      padding: var(--tui-space-3);
     }
 
     .close-btn {
@@ -1053,7 +1010,7 @@
     }
 
     .panel-header {
-      padding: var(--space-3);
+      padding: var(--tui-space-3);
     }
 
     .header-info h2 {
@@ -1061,13 +1018,13 @@
     }
 
     .panel-content {
-      padding: var(--space-3);
-      gap: var(--space-3);
+      padding: var(--tui-space-3);
+      gap: var(--tui-space-3);
     }
 
     .form-section {
-      padding: var(--space-3);
-      gap: var(--space-3);
+      padding: var(--tui-space-3);
+      gap: var(--tui-space-3);
     }
 
     /* Touch-friendly close button */
@@ -1079,12 +1036,12 @@
     /* Stack form rows */
     .form-row {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .form-row-3 {
       grid-template-columns: 1fr;
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     /* Larger form inputs for touch */
@@ -1092,18 +1049,17 @@
     .form-select,
     .form-textarea {
       font-size: 16px; /* Prevents iOS zoom */
-      padding: var(--space-3);
+      padding: var(--tui-space-3);
       min-height: 44px;
     }
 
     /* Stack buttons on mobile */
     .form-actions {
       flex-direction: column-reverse;
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
-    .btn-cancel,
-    .btn-save {
+    .form-actions .tui-btn {
       width: 100%;
       justify-content: center;
       min-height: 44px;
@@ -1113,11 +1069,11 @@
   /* Small Mobile (480px) */
   @media (max-width: 480px) {
     .panel-header {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .header-top {
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--tui-space-2);
     }
 
     .header-info h2 {
@@ -1125,18 +1081,18 @@
     }
 
     .panel-content {
-      padding: var(--space-2);
-      gap: var(--space-2);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-2);
     }
 
     .form-section {
-      padding: var(--space-2);
-      gap: var(--space-2);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-2);
     }
 
     .section-header {
-      padding-bottom: var(--space-1);
-      margin-bottom: var(--space-1);
+      padding-bottom: var(--tui-space-1);
+      margin-bottom: var(--tui-space-1);
     }
 
     .section-header svg {
@@ -1161,37 +1117,36 @@
     }
 
     .form-actions {
-      margin-top: var(--space-2);
-      padding-top: var(--space-2);
+      margin-top: var(--tui-space-2);
+      padding-top: var(--tui-space-2);
     }
   }
 
   /* Landscape mobile */
   @media (max-height: 500px) and (orientation: landscape) {
     .panel-header {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
       position: relative;
     }
 
     .header-top {
-      margin-bottom: var(--space-2);
+      margin-bottom: var(--tui-space-2);
     }
 
     .panel-content {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
     }
 
     .form-section {
-      padding: var(--space-2);
-      gap: var(--space-2);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-2);
     }
 
     .form-actions {
       flex-direction: row;
     }
 
-    .btn-cancel,
-    .btn-save {
+    .form-actions .tui-btn {
       width: auto;
     }
   }

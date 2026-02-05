@@ -42,17 +42,17 @@
   .legal-page {
     max-width: 700px;
     margin: 0 auto;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     min-height: 100vh;
   }
 
   .back-link {
     display: inline-block;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     text-decoration: none;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
     letter-spacing: 0.05em;
   }
 
@@ -61,29 +61,29 @@
   }
 
   h1 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-bright);
-    margin-bottom: var(--space-6);
+    color: var(--tui-text-bright);
+    margin-bottom: var(--tui-space-6);
   }
 
   section {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
   }
 
   h2 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    color: var(--signal-blue);
-    margin-bottom: var(--space-2);
+    color: var(--tui-info);
+    margin-bottom: var(--tui-space-2);
   }
 
   p {
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     line-height: 1.7;
   }
 </style>

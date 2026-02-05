@@ -28,7 +28,7 @@
 <style>
   .message {
     display: flex;
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--tui-space-3);
   }
 
   .message.user {
@@ -41,26 +41,26 @@
 
   .message-bubble {
     max-width: 85%;
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-lg);
+    padding: var(--tui-space-3) var(--tui-space-4);
+    border-radius: var(--tui-radius-lg);
     position: relative;
   }
 
   .user .message-bubble {
-    background: var(--signal-blue);
-    color: var(--text-bright);
-    border-bottom-right-radius: var(--radius-sm);
+    background: var(--tui-info);
+    color: var(--tui-text-bright);
+    border-bottom-right-radius: var(--tui-radius-sm);
   }
 
   .assistant .message-bubble {
-    background: var(--panel-raised);
-    border: 1px solid var(--border-dim);
-    color: var(--text-primary);
-    border-bottom-left-radius: var(--radius-sm);
+    background: var(--tui-panel-raised);
+    border: 1px solid var(--tui-border);
+    color: var(--tui-fg);
+    border-bottom-left-radius: var(--tui-radius-sm);
   }
 
   .message-content {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     line-height: 1.5;
     white-space: pre-wrap;
@@ -91,7 +91,7 @@
   .typing-indicator span {
     width: 6px;
     height: 6px;
-    background: var(--text-muted);
+    background: var(--tui-text-muted);
     border-radius: 50%;
     animation: bounce 1.4s infinite ease-in-out both;
   }

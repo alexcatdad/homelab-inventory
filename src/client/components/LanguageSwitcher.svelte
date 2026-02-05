@@ -84,24 +84,24 @@
   .lang-button {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
-    padding: var(--space-2) var(--space-3);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    color: var(--text-muted);
+    gap: var(--tui-space-1);
+    padding: var(--tui-space-2) var(--tui-space-3);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-text-muted);
     transition: all var(--duration-base) var(--ease-out-quad);
     cursor: pointer;
   }
 
   .lang-button:hover {
     background: var(--panel-hover);
-    border-color: var(--signal-blue);
-    color: var(--signal-blue);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
   }
 
   .lang-code {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -119,13 +119,13 @@
 
   .dropdown {
     position: absolute;
-    top: calc(100% + var(--space-2));
+    top: calc(100% + var(--tui-space-2));
     right: 0;
     min-width: 140px;
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-md);
-    padding: var(--space-1);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    padding: var(--tui-space-1);
     z-index: 200;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     animation: dropdownIn 0.15s var(--ease-out-expo);
@@ -145,36 +145,36 @@
   .dropdown-item {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
     width: 100%;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--tui-space-2) var(--tui-space-3);
     background: transparent;
     border: none;
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
+    border-radius: var(--tui-radius-sm);
+    color: var(--tui-text-muted);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
   .dropdown-item:hover {
     background: var(--panel-hover);
-    color: var(--text-primary);
+    color: var(--tui-fg);
   }
 
   .dropdown-item.active {
     background: rgba(0, 168, 255, 0.1);
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .item-code {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
     min-width: 24px;
   }
 
   .item-name {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     flex: 1;
     text-align: left;
@@ -183,7 +183,7 @@
   .check-icon {
     width: 14px;
     height: 14px;
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .backdrop {

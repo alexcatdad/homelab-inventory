@@ -75,21 +75,21 @@
 <style>
   .chat-input-container {
     display: flex;
-    gap: var(--space-2);
-    padding: var(--space-4);
-    background: var(--panel-deep);
-    border-top: 1px solid var(--border-dim);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-4);
+    background: var(--tui-panel-deep);
+    border-top: 1px solid var(--tui-border);
   }
 
   .chat-input {
     flex: 1;
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
-    font-family: var(--font-mono);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    padding: var(--tui-space-3);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
-    color: var(--text-primary);
+    color: var(--tui-fg);
     resize: none;
     min-height: 40px;
     max-height: 120px;
@@ -99,11 +99,11 @@
 
   .chat-input:focus {
     outline: none;
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
   }
 
   .chat-input::placeholder {
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .chat-input:disabled {
@@ -117,9 +117,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--signal-blue);
-    border-radius: var(--radius-md);
-    color: var(--text-bright);
+    background: var(--tui-info);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-text-bright);
     flex-shrink: 0;
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
@@ -131,7 +131,7 @@
 
   .send-button:disabled {
     background: var(--panel-hover);
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     cursor: not-allowed;
   }
 

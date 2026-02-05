@@ -76,17 +76,17 @@
   .supporters-page {
     max-width: 900px;
     margin: 0 auto;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     min-height: 100vh;
   }
 
   .back-link {
     display: inline-block;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     text-decoration: none;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
     letter-spacing: 0.05em;
   }
 
@@ -96,51 +96,51 @@
 
   .page-header {
     text-align: center;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
   }
 
   .page-header h1 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-bright);
-    margin-bottom: var(--space-2);
+    color: var(--tui-text-bright);
+    margin-bottom: var(--tui-space-2);
   }
 
   .subtitle {
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     font-size: 0.9375rem;
   }
 
   .become-supporter {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-5);
     text-align: center;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
   }
 
   .become-supporter p {
-    color: var(--text-secondary);
-    margin-bottom: var(--space-4);
+    color: var(--tui-text-muted);
+    margin-bottom: var(--tui-space-4);
   }
 
   .support-options {
     display: flex;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     justify-content: center;
     flex-wrap: wrap;
   }
 
   .support-button {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-md);
+    padding: var(--tui-space-2) var(--tui-space-4);
+    border-radius: var(--tui-radius-md);
     text-decoration: none;
     transition: transform 0.2s ease;
   }
@@ -150,31 +150,31 @@
   }
 
   .support-button.monthly {
-    background: var(--signal-blue);
-    color: var(--void);
+    background: var(--tui-info);
+    color: var(--tui-bg);
   }
 
   .support-button.one-time {
     background: transparent;
-    border: 1px solid var(--signal-blue);
-    color: var(--signal-blue);
+    border: 1px solid var(--tui-info);
+    color: var(--tui-info);
   }
 
   .supporters-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .supporter-card {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-4);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .avatar {
@@ -189,29 +189,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--tui-fg);
   }
 
   .name {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--tui-fg);
   }
 
   .badge {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.05em;
-    padding: var(--space-1) var(--space-2);
-    border-radius: var(--radius-sm);
+    padding: var(--tui-space-1) var(--tui-space-2);
+    border-radius: var(--tui-radius-sm);
   }
 
   .badge.monthly {
     background: rgba(0, 200, 255, 0.1);
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .badge.one-time {
@@ -221,9 +221,9 @@
 
   .loading, .empty-state {
     text-align: center;
-    padding: var(--space-6);
-    color: var(--text-muted);
-    font-family: var(--font-mono);
+    padding: var(--tui-space-6);
+    color: var(--tui-text-muted);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
   }
 </style>

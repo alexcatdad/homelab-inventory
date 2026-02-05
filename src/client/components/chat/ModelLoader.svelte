@@ -94,7 +94,7 @@
     align-items: center;
     justify-content: center;
     flex: 1;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
   }
 
   .loader-content {
@@ -105,8 +105,8 @@
   .loader-icon {
     width: 64px;
     height: 64px;
-    margin: 0 auto var(--space-4);
-    color: var(--signal-blue);
+    margin: 0 auto var(--tui-space-4);
+    color: var(--tui-info);
   }
 
   .loader-icon svg {
@@ -119,7 +119,7 @@
   }
 
   .error .loader-icon {
-    color: var(--signal-red);
+    color: var(--tui-danger);
   }
 
   @keyframes spin {
@@ -131,26 +131,26 @@
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-bright);
-    margin: 0 0 var(--space-3);
+    color: var(--tui-text-bright);
+    margin: 0 0 var(--tui-space-3);
   }
 
   p {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-secondary);
-    margin: 0 0 var(--space-2);
+    color: var(--tui-text-muted);
+    margin: 0 0 var(--tui-space-2);
     line-height: 1.5;
   }
 
   .hint {
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     font-size: 0.75rem;
   }
 
   .size-info {
-    color: var(--text-muted);
-    margin-bottom: var(--space-4);
+    color: var(--tui-text-muted);
+    margin-bottom: var(--tui-space-4);
   }
 
   .size-info strong {
@@ -160,54 +160,54 @@
   .progress-container {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-3);
+    gap: var(--tui-space-3);
+    margin-bottom: var(--tui-space-3);
   }
 
   .progress-bar {
     flex: 1;
     height: 8px;
-    background: var(--panel);
-    border-radius: var(--radius-sm);
+    background: var(--tui-panel);
+    border-radius: var(--tui-radius-sm);
     overflow: hidden;
   }
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--signal-blue), var(--signal-cyan));
-    border-radius: var(--radius-sm);
+    background: linear-gradient(90deg, var(--tui-info), var(--signal-cyan));
+    border-radius: var(--tui-radius-sm);
     transition: width 0.3s ease-out;
   }
 
   .progress-text {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     min-width: 40px;
     text-align: right;
   }
 
   .status-text {
     font-size: 0.75rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     margin: 0;
   }
 
   .error-message {
-    color: var(--signal-red);
-    margin-bottom: var(--space-4);
+    color: var(--tui-danger);
+    margin-bottom: var(--tui-space-4);
   }
 
   .start-button,
   .retry-button {
-    padding: var(--space-3) var(--space-5);
-    background: var(--signal-blue);
-    color: var(--text-bright);
-    font-family: var(--font-mono);
+    padding: var(--tui-space-3) var(--tui-space-5);
+    background: var(--tui-info);
+    color: var(--tui-text-bright);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 500;
-    border-radius: var(--radius-md);
+    border-radius: var(--tui-radius-md);
     transition: all var(--duration-fast) var(--ease-out-quad);
   }
 
@@ -219,12 +219,12 @@
 
   .retry-button {
     background: var(--panel-hover);
-    border: 1px solid var(--signal-red);
-    color: var(--signal-red);
+    border: 1px solid var(--tui-danger);
+    color: var(--tui-danger);
   }
 
   .retry-button:hover {
-    background: var(--signal-red);
-    color: var(--text-bright);
+    background: var(--tui-danger);
+    color: var(--tui-text-bright);
   }
 </style>

@@ -37,46 +37,46 @@
   }
 
   .modal-content {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-6);
     max-width: 400px;
     text-align: center;
   }
 
   h2 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.25rem;
-    color: var(--text-bright);
-    margin-bottom: var(--space-3);
+    color: var(--tui-text-bright);
+    margin-bottom: var(--tui-space-3);
   }
 
   p {
-    color: var(--text-secondary);
-    margin-bottom: var(--space-3);
+    color: var(--tui-text-muted);
+    margin-bottom: var(--tui-space-3);
   }
 
   .price {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     font-weight: 600;
   }
 
   .close-button {
-    margin-top: var(--space-4);
-    padding: var(--space-2) var(--space-4);
+    margin-top: var(--tui-space-4);
+    padding: var(--tui-space-2) var(--tui-space-4);
     background: transparent;
-    border: 1px solid var(--border-panel);
-    color: var(--text-secondary);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--tui-border);
+    color: var(--tui-text-muted);
+    border-radius: var(--tui-radius-md);
     cursor: pointer;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
   }
 
   .close-button:hover {
-    border-color: var(--signal-blue);
-    color: var(--signal-blue);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
   }
 </style>

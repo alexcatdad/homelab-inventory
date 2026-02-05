@@ -80,13 +80,13 @@
   .chart {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .row {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     opacity: 0;
     animation: fadeIn 0.3s var(--ease-out-quad) forwards;
   }
@@ -97,9 +97,9 @@
 
   .label {
     width: 90px;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -109,37 +109,37 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .bar-bg {
     flex: 1;
     height: 10px;
-    background: var(--panel-deep);
-    border-radius: var(--radius-sm);
+    background: var(--tui-panel-deep);
+    border-radius: var(--tui-radius-sm);
     overflow: hidden;
   }
 
   .bar-fill {
     height: 100%;
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
     transition: width var(--duration-slow) var(--ease-out-expo);
   }
 
   .bar-fill.expandable {
-    background: linear-gradient(90deg, var(--signal-green-dim), var(--signal-green));
+    background: linear-gradient(90deg, rgba(91, 255, 142, 0.2), var(--tui-success));
     box-shadow: 0 0 8px rgba(0, 210, 106, 0.3);
   }
 
   .bar-fill.full {
-    background: var(--text-dim);
+    background: var(--tui-text-dim);
   }
 
   .values {
     display: flex;
     align-items: baseline;
     gap: 2px;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     min-width: 85px;
     justify-content: flex-end;
   }
@@ -147,36 +147,36 @@
   .current {
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: var(--tui-fg);
   }
 
   .sep {
     font-size: 0.625rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .max {
     font-size: 0.6875rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .legend {
     display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-3);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--border-dim);
+    gap: var(--tui-space-4);
+    margin-top: var(--tui-space-3);
+    padding-top: var(--tui-space-3);
+    border-top: 1px solid var(--tui-border);
   }
 
   .legend-item {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.05em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .indicator {
@@ -186,19 +186,19 @@
   }
 
   .indicator.expandable {
-    background: var(--signal-green);
+    background: var(--tui-success);
   }
 
   .indicator.full {
-    background: var(--text-dim);
+    background: var(--tui-text-dim);
   }
 
   .empty {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     text-align: center;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
   }
 </style>

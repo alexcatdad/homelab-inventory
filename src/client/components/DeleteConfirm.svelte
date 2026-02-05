@@ -45,7 +45,7 @@
 
 {#if device}
   <div class="overlay" onclick={handleOverlayClick} role="button" tabindex="-1" onkeydown={(e) => e.key === 'Enter' && handleOverlayClick()}>
-    <div class="confirm-dialog" onclick={(e) => e.stopPropagation()} role="alertdialog" aria-modal="true" tabindex="-1" onkeydown={(e) => e.stopPropagation()}>
+    <div class="confirm-dialog tui-panel" onclick={(e) => e.stopPropagation()} role="alertdialog" aria-modal="true" tabindex="-1" onkeydown={(e) => e.stopPropagation()}>
 
       <div class="dialog-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -62,10 +62,10 @@
       </p>
 
       <div class="dialog-actions">
-        <button class="btn-cancel" onclick={closeDeleteConfirm} disabled={isDeleting}>
+        <button class="tui-btn tui-btn-ghost" onclick={closeDeleteConfirm} disabled={isDeleting}>
           Cancel
         </button>
-        <button class="btn-delete" onclick={handleDelete} disabled={isDeleting}>
+        <button class="tui-btn tui-btn-danger" onclick={handleDelete} disabled={isDeleting}>
           {#if isDeleting}
             <span class="spinner"></span>
             Deleting...
@@ -89,14 +89,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-4);
+    padding: var(--tui-space-4);
   }
 
   .confirm-dialog {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     max-width: 400px;
     width: 100%;
     animation: scaleIn 0.2s var(--ease-out-expo);
@@ -117,7 +114,7 @@
   .dialog-icon {
     width: 48px;
     height: 48px;
-    margin: 0 auto var(--space-4);
+    margin: 0 auto var(--tui-space-4);
     color: #ff6b6b;
   }
 
@@ -130,71 +127,30 @@
     font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--text-bright);
-    margin: 0 0 var(--space-3);
+    color: var(--tui-text-bright);
+    margin: 0 0 var(--tui-space-3);
   }
 
   .dialog-message {
     font-size: 0.9375rem;
-    color: var(--text-secondary);
-    margin: 0 0 var(--space-6);
+    color: var(--tui-text-muted);
+    margin: 0 0 var(--tui-space-6);
     line-height: 1.5;
   }
 
   .dialog-message strong {
-    color: var(--text-primary);
+    color: var(--tui-fg);
     font-weight: 500;
   }
 
   .dialog-actions {
     display: flex;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     justify-content: center;
   }
 
-  .btn-cancel,
-  .btn-delete {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    padding: var(--space-3) var(--space-5);
-    border-radius: var(--radius-md);
-    transition: all var(--duration-fast) var(--ease-out-quad);
-    cursor: pointer;
+  .dialog-actions .tui-btn {
     min-width: 100px;
-  }
-
-  .btn-cancel {
-    color: var(--text-muted);
-    background: transparent;
-    border: 1px solid var(--border-dim);
-  }
-
-  .btn-cancel:hover:not(:disabled) {
-    color: var(--text-primary);
-    border-color: var(--border-panel);
-    background: var(--panel-hover);
-  }
-
-  .btn-delete {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    color: white;
-    background: #dc3545;
-    border: none;
-  }
-
-  .btn-delete:hover:not(:disabled) {
-    background: #c82333;
-  }
-
-  .btn-cancel:disabled,
-  .btn-delete:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
   }
 
   .spinner {

@@ -70,10 +70,10 @@
   </label>
 
   <div class="prompt-actions">
-    <button type="button" class="btn-skip" onclick={onSkip} disabled={isExtracting}>
+    <button type="button" class="tui-btn tui-btn-ghost" onclick={onSkip} disabled={isExtracting}>
       Skip, enter manually
     </button>
-    <button type="button" class="btn-extract" onclick={handleExtract} disabled={!canExtract}>
+    <button type="button" class="tui-btn tui-btn-primary" onclick={handleExtract} disabled={!canExtract}>
       {#if isExtracting}
         <span class="spinner"></span>
         Extracting...
@@ -86,19 +86,19 @@
 
 <style>
   .spec-prompt {
-    background: var(--panel-deep);
-    border: 1px solid var(--signal-blue);
-    border-radius: var(--radius-lg);
-    padding: var(--space-4);
-    margin: var(--space-4) 0;
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-info);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-4);
+    margin: var(--tui-space-4) 0;
   }
 
   .prompt-header {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    color: var(--signal-blue);
-    margin-bottom: var(--space-3);
+    gap: var(--tui-space-2);
+    color: var(--tui-info);
+    margin-bottom: var(--tui-space-3);
   }
 
   .prompt-header svg {
@@ -107,7 +107,7 @@
   }
 
   .prompt-header span {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -115,34 +115,34 @@
 
   .prompt-text {
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-3);
+    color: var(--tui-text-muted);
+    margin-bottom: var(--tui-space-3);
   }
 
   .prompt-text strong {
-    color: var(--text-primary);
+    color: var(--tui-fg);
   }
 
   textarea {
     width: 100%;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-primary);
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    padding: var(--space-3);
+    color: var(--tui-fg);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    padding: var(--tui-space-3);
     resize: vertical;
     min-height: 100px;
   }
 
   textarea:focus {
     outline: none;
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
   }
 
   textarea::placeholder {
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   textarea:disabled {
@@ -152,68 +152,28 @@
   .error {
     color: #ff6b6b;
     font-size: 0.8125rem;
-    margin-top: var(--space-2);
+    margin-top: var(--tui-space-2);
   }
 
   .share-checkbox {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    margin-top: var(--space-3);
+    gap: var(--tui-space-2);
+    margin-top: var(--tui-space-3);
     font-size: 0.8125rem;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     cursor: pointer;
   }
 
   .share-checkbox input {
-    accent-color: var(--signal-blue);
+    accent-color: var(--tui-info);
   }
 
   .prompt-actions {
     display: flex;
     justify-content: flex-end;
-    gap: var(--space-3);
-    margin-top: var(--space-4);
-  }
-
-  .btn-skip,
-  .btn-extract {
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out-quad);
-  }
-
-  .btn-skip {
-    color: var(--text-muted);
-    background: transparent;
-    border: 1px solid var(--border-dim);
-  }
-
-  .btn-skip:hover:not(:disabled) {
-    color: var(--text-primary);
-    border-color: var(--border-panel);
-  }
-
-  .btn-extract {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    color: var(--bg-base);
-    background: var(--signal-blue);
-    border: none;
-  }
-
-  .btn-extract:hover:not(:disabled) {
-    background: var(--signal-blue-bright, #5ba3ff);
-  }
-
-  .btn-skip:disabled,
-  .btn-extract:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+    gap: var(--tui-space-3);
+    margin-top: var(--tui-space-4);
   }
 
   .spinner {

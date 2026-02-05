@@ -113,64 +113,64 @@
 
   .language-corner {
     position: absolute;
-    top: var(--space-4);
-    right: var(--space-4);
+    top: var(--tui-space-4);
+    right: var(--tui-space-4);
     z-index: 10;
   }
 
   .login-container {
     text-align: center;
     max-width: 400px;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     position: relative;
     z-index: 1;
   }
 
   .login-header {
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--tui-space-6);
   }
 
   .logo {
-    color: var(--signal-blue);
-    margin-bottom: var(--space-4);
+    color: var(--tui-info);
+    margin-bottom: var(--tui-space-4);
   }
 
   .login-header h1 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
     letter-spacing: 0.2em;
-    color: var(--signal-blue);
-    margin-bottom: var(--space-2);
+    color: var(--tui-info);
+    margin-bottom: var(--tui-space-2);
   }
 
   .subtitle {
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     font-size: 0.875rem;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     letter-spacing: 0.05em;
   }
 
   .login-card {
     background: var(--panel-bg);
     border: 1px solid var(--panel-border);
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    margin: var(--space-6) 0;
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-6);
+    margin: var(--tui-space-6) 0;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   }
 
   .login-card h2 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1rem;
     letter-spacing: 0.1em;
-    color: var(--text-primary);
-    margin-bottom: var(--space-2);
+    color: var(--tui-fg);
+    margin-bottom: var(--tui-space-2);
   }
 
   .login-card p {
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     font-size: 0.875rem;
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--tui-space-5);
   }
 
   .github-button {
@@ -178,12 +178,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-4);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-3) var(--tui-space-4);
     background: #24292e;
     color: white;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--tui-radius-md);
     font-size: 0.9375rem;
     font-weight: 500;
     cursor: pointer;
@@ -206,19 +206,19 @@
 
   .error-message {
     background: rgba(239, 68, 68, 0.1);
-    border: 1px solid var(--signal-red);
-    color: var(--signal-red);
-    padding: var(--space-2) var(--space-3);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--tui-danger);
+    color: var(--tui-danger);
+    padding: var(--tui-space-2) var(--tui-space-3);
+    border-radius: var(--tui-radius-sm);
     font-size: 0.8125rem;
-    margin-bottom: var(--space-4);
-    font-family: var(--font-mono);
+    margin-bottom: var(--tui-space-4);
+    font-family: var(--tui-font-mono);
   }
 
   .signup-note {
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     font-size: 0.75rem;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     letter-spacing: 0.02em;
   }
 </style>

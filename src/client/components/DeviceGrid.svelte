@@ -52,7 +52,7 @@
         </select>
       </div>
 
-      <button class="add-device-btn" onclick={openCreateForm}>
+      <button class="tui-btn tui-btn-primary" onclick={openCreateForm}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 5v14M5 12h14"/>
         </svg>
@@ -68,7 +68,7 @@
       <span class="count-label">{$t('devices.unitsFound', { count: filteredDevices.length })}</span>
     </div>
     {#if currentTypeFilter || currentSearch}
-      <button class="clear-filters" onclick={() => { typeFilter.set(null); searchQuery.set(''); }}>
+      <button class="tui-btn tui-btn-ghost clear-filters" onclick={() => { typeFilter.set(null); searchQuery.set(''); }}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 6L6 18M6 6l12 12"/>
         </svg>
@@ -104,7 +104,7 @@
   .page {
     display: flex;
     flex-direction: column;
-    gap: var(--space-5);
+    gap: var(--tui-space-5);
   }
 
   /* Page Header */
@@ -113,19 +113,19 @@
     align-items: flex-start;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .page-title {
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .title-prefix {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     font-weight: 300;
   }
 
@@ -134,59 +134,35 @@
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
   }
 
   .header-controls {
     display: flex;
     align-items: flex-end;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
-  .add-device-btn {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: var(--bg-base);
-    background: var(--signal-blue);
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out-quad);
-  }
-
-  .add-device-btn:hover {
-    background: var(--signal-blue-bright, #5ba3ff);
-  }
-
-  .add-device-btn svg {
-    width: 16px;
-    height: 16px;
-  }
+  /* Button icon sizing handled by tui-btn */
 
   .filter-group {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
+    gap: var(--tui-space-1);
   }
 
   .filter-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 600;
     letter-spacing: 0.12em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .filter-group select {
     min-width: 160px;
-    padding: var(--space-2) var(--space-3);
-    padding-right: var(--space-8);
+    padding: var(--tui-space-2) var(--tui-space-3);
+    padding-right: var(--tui-space-8);
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235c6578' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -198,50 +174,36 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-3) var(--space-4);
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
+    padding: var(--tui-space-3) var(--tui-space-4);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
   }
 
   .results-count {
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .count-value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .count-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .clear-filters {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-1) var(--space-2);
-    font-family: var(--font-mono);
     font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    border-radius: var(--radius-sm);
-    transition: all var(--duration-fast) var(--ease-out-quad);
-  }
-
-  .clear-filters:hover {
-    background: var(--panel-hover);
-    color: var(--text-primary);
+    padding: var(--tui-space-1) var(--tui-space-2);
   }
 
   .clear-filters svg {
@@ -253,7 +215,7 @@
   .device-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .grid-item {
@@ -278,15 +240,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--space-12);
-    gap: var(--space-3);
+    padding: var(--tui-space-12);
+    gap: var(--tui-space-3);
   }
 
   .empty-icon {
     width: 48px;
     height: 48px;
-    color: var(--text-dim);
-    margin-bottom: var(--space-2);
+    color: var(--tui-text-dim);
+    margin-bottom: var(--tui-space-2);
   }
 
   .empty-icon svg {
@@ -295,17 +257,17 @@
   }
 
   .empty-title {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .empty-sub {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   @media (max-width: 768px) {
@@ -345,15 +307,15 @@
   /* Mobile (640px) */
   @media (max-width: 640px) {
     .page {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .page-header {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .header-controls {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .add-device-btn {
@@ -363,9 +325,9 @@
     }
 
     .results-bar {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
       flex-wrap: wrap;
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .count-value {
@@ -378,15 +340,15 @@
 
     .clear-filters {
       min-height: 36px;
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .device-grid {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .empty-state {
-      padding: var(--space-8);
+      padding: var(--tui-space-8);
     }
 
     .empty-icon {
@@ -406,15 +368,15 @@
   /* Small Mobile (480px) */
   @media (max-width: 480px) {
     .page {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .page-header {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .page-title {
-      gap: var(--space-1);
+      gap: var(--tui-space-1);
     }
 
     .page-header h1 {
@@ -427,7 +389,7 @@
 
     .header-controls {
       flex-direction: column;
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .filter-group {
@@ -439,21 +401,20 @@
       font-size: 16px; /* Prevents iOS zoom */
     }
 
-    .add-device-btn {
+    .header-controls .tui-btn-primary {
       width: 100%;
-      padding: var(--space-3) var(--space-4);
     }
 
     .results-bar {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .device-grid {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .empty-state {
-      padding: var(--space-6);
+      padding: var(--tui-space-6);
     }
   }
 
@@ -467,20 +428,15 @@
       font-size: 1rem;
     }
 
-    .add-device-btn {
+    .header-controls .tui-btn-primary {
       font-size: 0.6875rem;
-    }
-
-    .add-device-btn svg {
-      width: 14px;
-      height: 14px;
     }
   }
 
   /* Landscape mobile */
   @media (max-height: 500px) and (orientation: landscape) {
     .page {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .page-header {
@@ -494,11 +450,11 @@
 
     .device-grid {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .empty-state {
-      padding: var(--space-4);
+      padding: var(--tui-space-4);
     }
   }
 </style>

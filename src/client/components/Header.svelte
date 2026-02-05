@@ -193,8 +193,8 @@
 
 <style>
   .header {
-    background: linear-gradient(180deg, var(--panel) 0%, var(--panel-deep) 100%);
-    border-bottom: 1px solid var(--border-panel);
+    background: linear-gradient(180deg, var(--tui-panel) 0%, var(--tui-panel-deep) 100%);
+    border-bottom: 1px solid var(--tui-border);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -203,18 +203,18 @@
   .header-content {
     max-width: 1600px;
     margin: 0 auto;
-    padding: var(--space-3) var(--space-6);
+    padding: var(--tui-space-3) var(--tui-space-6);
     display: flex;
     align-items: center;
-    gap: var(--space-8);
+    gap: var(--tui-space-8);
   }
 
   .header-accent {
     height: 2px;
     background: linear-gradient(90deg,
       transparent 0%,
-      var(--signal-blue) 20%,
-      var(--signal-blue) 80%,
+      var(--tui-info) 20%,
+      var(--tui-info) 80%,
       transparent 100%
     );
     opacity: 0.4;
@@ -224,19 +224,19 @@
   .logo-section {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .logo {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .logo-icon {
     width: 32px;
     height: 32px;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     filter: drop-shadow(0 0 8px var(--signal-blue-glow));
   }
 
@@ -251,19 +251,19 @@
   }
 
   .logo-title {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: 0.1em;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     line-height: 1.1;
   }
 
   .logo-sub {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     letter-spacing: 0.2em;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     line-height: 1.2;
   }
 
@@ -271,20 +271,20 @@
   /* Navigation */
   .nav {
     display: flex;
-    gap: var(--space-1);
-    background: var(--panel-deep);
-    padding: var(--space-1);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border-dim);
+    gap: var(--tui-space-1);
+    background: var(--tui-panel-deep);
+    padding: var(--tui-space-1);
+    border-radius: var(--tui-radius-md);
+    border: 1px solid var(--tui-border);
   }
 
   .nav-item {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-sm);
-    color: var(--text-muted);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-2) var(--tui-space-4);
+    border-radius: var(--tui-radius-sm);
+    color: var(--tui-text-muted);
     transition: all var(--duration-base) var(--ease-out-quad);
     position: relative;
   }
@@ -299,7 +299,7 @@
   }
 
   .nav-item:hover {
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     background: var(--panel-hover);
   }
 
@@ -308,7 +308,7 @@
   }
 
   .nav-item.active {
-    color: var(--signal-blue);
+    color: var(--tui-info);
     background: rgba(0, 168, 255, 0.1);
   }
 
@@ -318,7 +318,7 @@
   }
 
   .nav-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 500;
     letter-spacing: 0.08em;
@@ -329,64 +329,64 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: var(--space-5);
+    gap: var(--tui-space-5);
   }
 
   /* Quick Stats */
   .quick-stats {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-2) var(--space-3);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
+    gap: var(--tui-space-3);
+    padding: var(--tui-space-2) var(--tui-space-3);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
   }
 
   .stat-chip {
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .stat-value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .stat-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .stat-divider {
     width: 1px;
     height: 20px;
-    background: var(--border-panel);
+    background: var(--tui-border);
   }
 
   /* Chat Button */
   .chat-button {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-2) var(--space-3);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    color: var(--text-muted);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-2) var(--tui-space-3);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-text-muted);
     transition: all var(--duration-base) var(--ease-out-quad);
   }
 
   .chat-button:hover {
     background: var(--panel-hover);
-    border-color: var(--signal-blue);
-    color: var(--signal-blue);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
   }
 
   .chat-button svg {
@@ -395,7 +395,7 @@
   }
 
   .chat-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 600;
     letter-spacing: 0.1em;
@@ -408,19 +408,19 @@
 
   .search-icon {
     position: absolute;
-    left: var(--space-3);
+    left: var(--tui-space-3);
     top: 50%;
     transform: translateY(-50%);
     width: 14px;
     height: 14px;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     pointer-events: none;
   }
 
   .search input {
     width: 200px;
-    padding-left: var(--space-8);
-    background: var(--panel-deep);
+    padding-left: var(--tui-space-8);
+    background: var(--tui-panel-deep);
     font-size: 0.8125rem;
   }
 
@@ -436,19 +436,19 @@
   }
 
   .time {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1rem;
     font-weight: 500;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     letter-spacing: 0.05em;
     font-variant-numeric: tabular-nums;
   }
 
   .time-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     letter-spacing: 0.15em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   /* Icon Buttons (Settings, Sign Out) */
@@ -459,30 +459,30 @@
     width: 36px;
     height: 36px;
     padding: 0;
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    color: var(--text-muted);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-text-muted);
     transition: all var(--duration-base) var(--ease-out-quad);
     flex-shrink: 0;
   }
 
   .icon-button:hover:not(:disabled) {
     background: var(--panel-hover);
-    border-color: var(--signal-blue);
-    color: var(--signal-blue);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
   }
 
   .icon-button.active {
     background: rgba(0, 168, 255, 0.1);
-    border-color: var(--signal-blue);
-    color: var(--signal-blue);
+    border-color: var(--tui-info);
+    color: var(--tui-info);
   }
 
   .icon-button.sign-out:hover:not(:disabled) {
     background: rgba(239, 68, 68, 0.1);
-    border-color: var(--signal-red);
-    color: var(--signal-red);
+    border-color: var(--tui-danger);
+    color: var(--tui-danger);
   }
 
   .icon-button:disabled {
@@ -505,7 +505,7 @@
   @media (max-width: 900px) {
     .header-content {
       flex-wrap: wrap;
-      gap: var(--space-4);
+      gap: var(--tui-space-4);
     }
 
     .time-display {
@@ -558,7 +558,7 @@
     }
 
     .chat-button {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
       min-width: 44px;
       min-height: 44px;
       justify-content: center;
@@ -574,7 +574,7 @@
     }
 
     .nav-item {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
       min-width: 44px;
       min-height: 44px;
       justify-content: center;
@@ -584,16 +584,16 @@
   /* Mobile (480px) */
   @media (max-width: 480px) {
     .header-content {
-      padding: var(--space-2) var(--space-3);
-      gap: var(--space-2);
+      padding: var(--tui-space-2) var(--tui-space-3);
+      gap: var(--tui-space-2);
     }
 
     .logo-section {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .logo {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .logo-icon {
@@ -607,7 +607,7 @@
     }
 
     .nav-item {
-      padding: var(--space-1) var(--space-2);
+      padding: var(--tui-space-1) var(--tui-space-2);
       min-width: 40px;
       min-height: 40px;
     }
@@ -618,7 +618,7 @@
     }
 
     .header-right {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .icon-button {
@@ -634,11 +634,11 @@
     .search-icon {
       width: 12px;
       height: 12px;
-      left: var(--space-2);
+      left: var(--tui-space-2);
     }
 
     .search input {
-      padding-left: var(--space-6);
+      padding-left: var(--tui-space-6);
       font-size: 16px; /* Prevents iOS zoom */
       min-height: 40px;
     }
@@ -647,8 +647,8 @@
   /* Very small mobile (375px) */
   @media (max-width: 375px) {
     .header-content {
-      padding: var(--space-1) var(--space-2);
-      gap: var(--space-1);
+      padding: var(--tui-space-1) var(--tui-space-2);
+      gap: var(--tui-space-1);
     }
 
     .logo-icon {
@@ -671,7 +671,7 @@
     }
 
     .header-right {
-      gap: var(--space-1);
+      gap: var(--tui-space-1);
     }
 
     /* Status can be hidden on tiny screens */
@@ -683,7 +683,7 @@
   /* Landscape mobile */
   @media (max-height: 500px) and (orientation: landscape) {
     .header-content {
-      padding: var(--space-1) var(--space-4);
+      padding: var(--tui-space-1) var(--tui-space-4);
     }
 
     .header-accent {

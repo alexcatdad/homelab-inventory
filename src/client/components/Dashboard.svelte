@@ -167,24 +167,24 @@
   .dashboard {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
+    gap: var(--tui-space-8);
   }
 
   /* Page Header */
   .page-header {
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--tui-space-2);
   }
 
   .page-title {
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .title-prefix {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.5rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     font-weight: 300;
   }
 
@@ -193,32 +193,32 @@
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
   }
 
   .page-subtitle {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     letter-spacing: 0.02em;
-    margin-top: var(--space-1);
-    margin-left: calc(var(--space-2) + 1.5rem);
+    margin-top: var(--tui-space-1);
+    margin-left: calc(var(--tui-space-2) + 1.5rem);
   }
 
   /* Metrics Grid */
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .metric-card {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-5);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-5);
     display: flex;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
     position: relative;
     overflow: hidden;
     transition: all var(--duration-base) var(--ease-out-quad);
@@ -256,30 +256,30 @@
 
   .metric-card:hover::before,
   .metric-card:hover::after {
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
   }
 
   .metric-card.upgradeable {
-    background: linear-gradient(135deg, var(--panel) 0%, rgba(255, 176, 32, 0.05) 100%);
+    background: linear-gradient(135deg, var(--tui-panel) 0%, rgba(255, 176, 32, 0.05) 100%);
     border-color: rgba(255, 176, 32, 0.3);
   }
 
   .metric-card.upgradeable::before,
   .metric-card.upgradeable::after {
-    border-color: var(--signal-amber);
+    border-color: var(--tui-warning);
   }
 
   .metric-icon {
     width: 40px;
     height: 40px;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     opacity: 0.8;
     flex-shrink: 0;
   }
 
-  .metric-icon.storage { color: var(--signal-cyan); }
-  .metric-icon.ram { color: var(--signal-green); }
-  .metric-icon.upgradeable { color: var(--signal-amber); }
+  .metric-icon.storage { color: var(--tui-cyan); }
+  .metric-icon.ram { color: var(--tui-success); }
+  .metric-icon.upgradeable { color: var(--tui-warning); }
 
   .metric-icon svg {
     width: 100%;
@@ -295,10 +295,10 @@
   }
 
   .metric-value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.75rem;
     font-weight: 700;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     line-height: 1.1;
     letter-spacing: -0.02em;
   }
@@ -306,103 +306,103 @@
   .metric-value-group {
     display: flex;
     align-items: baseline;
-    gap: var(--space-1);
+    gap: var(--tui-space-1);
   }
 
   .metric-value-sub {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 400;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .metric-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin-top: var(--space-1);
+    color: var(--tui-text-muted);
+    margin-top: var(--tui-space-1);
   }
 
   .metric-progress {
     height: 3px;
-    background: var(--panel-deep);
+    background: var(--tui-panel-deep);
     border-radius: 2px;
-    margin-top: var(--space-2);
+    margin-top: var(--tui-space-2);
     overflow: hidden;
   }
 
   .metric-progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--signal-green-dim), var(--signal-green));
+    background: linear-gradient(90deg, rgba(91, 255, 142, 0.2), var(--tui-success));
     border-radius: 2px;
     transition: width var(--duration-slow) var(--ease-out-expo);
   }
 
   .metric-badge {
     position: absolute;
-    top: var(--space-2);
-    right: var(--space-2);
-    font-family: var(--font-mono);
+    top: var(--tui-space-2);
+    right: var(--tui-space-2);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     padding: 2px 6px;
     background: rgba(0, 168, 255, 0.15);
-    color: var(--signal-blue);
-    border-radius: var(--radius-sm);
+    color: var(--tui-info);
+    border-radius: var(--tui-radius-sm);
   }
 
   .metric-badge.storage {
     background: rgba(0, 229, 204, 0.15);
-    color: var(--signal-cyan);
+    color: var(--tui-cyan);
   }
 
   .metric-badge.ram {
     background: rgba(0, 210, 106, 0.15);
-    color: var(--signal-green);
+    color: var(--tui-success);
   }
 
   .metric-badge.upgradeable {
     background: rgba(255, 176, 32, 0.15);
-    color: var(--signal-amber);
+    color: var(--tui-warning);
   }
 
   /* Analytics Grid */
   .analytics-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-4) var(--space-5);
-    border-bottom: 1px solid var(--border-dim);
-    background: var(--panel-deep);
+    padding: var(--tui-space-4) var(--tui-space-5);
+    border-bottom: 1px solid var(--tui-border);
+    background: var(--tui-panel-deep);
   }
 
   .card-header h3 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.08em;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     margin: 0;
   }
 
   .card-content {
-    padding: var(--space-5);
+    padding: var(--tui-space-5);
   }
 
   /* Quick Actions */
   .quick-actions {
     display: flex;
     justify-content: center;
-    padding-top: var(--space-4);
+    padding-top: var(--tui-space-4);
   }
 
   /* Responsive */
@@ -440,31 +440,31 @@
     }
 
     .dashboard {
-      gap: var(--space-5);
+      gap: var(--tui-space-5);
     }
 
     .card-header {
-      padding: var(--space-3) var(--space-4);
+      padding: var(--tui-space-3) var(--tui-space-4);
     }
 
     .card-content {
-      padding: var(--space-3);
+      padding: var(--tui-space-3);
     }
   }
 
   /* Mobile (640px) */
   @media (max-width: 640px) {
     .dashboard {
-      gap: var(--space-4);
+      gap: var(--tui-space-4);
     }
 
     .metrics-grid {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .metric-card {
-      padding: var(--space-3);
-      gap: var(--space-3);
+      padding: var(--tui-space-3);
+      gap: var(--tui-space-3);
     }
 
     .metric-card::before,
@@ -497,7 +497,7 @@
 
     .page-subtitle {
       font-size: 0.75rem;
-      margin-left: var(--space-2);
+      margin-left: var(--tui-space-2);
     }
 
     .card-header h3 {
@@ -508,15 +508,15 @@
   /* Small Mobile (480px) */
   @media (max-width: 480px) {
     .dashboard {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .page-header {
-      margin-bottom: var(--space-1);
+      margin-bottom: var(--tui-space-1);
     }
 
     .page-title {
-      gap: var(--space-1);
+      gap: var(--tui-space-1);
     }
 
     .page-header h1 {
@@ -532,12 +532,12 @@
     }
 
     .metrics-grid {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .metric-card {
-      padding: var(--space-2);
-      gap: var(--space-2);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-2);
     }
 
     .metric-card::before,
@@ -563,20 +563,20 @@
     }
 
     .metric-badge {
-      top: var(--space-1);
-      right: var(--space-1);
+      top: var(--tui-space-1);
+      right: var(--tui-space-1);
     }
 
     .card-header {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
     }
 
     .card-content {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .quick-actions {
-      padding-top: var(--space-2);
+      padding-top: var(--tui-space-2);
     }
   }
 
@@ -608,16 +608,16 @@
   /* Landscape mobile */
   @media (max-height: 500px) and (orientation: landscape) {
     .dashboard {
-      gap: var(--space-3);
+      gap: var(--tui-space-3);
     }
 
     .metrics-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
     }
 
     .metric-card {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .metric-value {

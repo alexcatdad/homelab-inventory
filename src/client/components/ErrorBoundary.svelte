@@ -71,14 +71,14 @@
       {/if}
 
       <div class="error-actions">
-        <button class="btn btn-primary" onclick={reload}>
+        <button class="tui-btn tui-btn-primary" onclick={reload}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <polyline points="23 4 23 10 17 10"/>
             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
           </svg>
           Reload Page
         </button>
-        <button class="btn btn-ghost" onclick={reset}>
+        <button class="tui-btn tui-btn-ghost" onclick={reset}>
           Try Again
         </button>
       </div>
@@ -94,24 +94,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-6);
-    background: var(--void);
+    padding: var(--tui-space-6);
+    background: var(--tui-bg);
   }
 
   .error-container {
     max-width: 480px;
     text-align: center;
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
+    padding: var(--tui-space-8);
   }
 
   .error-icon {
     width: 64px;
     height: 64px;
-    margin: 0 auto var(--space-4);
-    color: var(--signal-red);
+    margin: 0 auto var(--tui-space-4);
+    color: var(--tui-danger);
     filter: drop-shadow(0 0 12px rgba(255, 71, 87, 0.4));
   }
 
@@ -121,45 +121,45 @@
   }
 
   .error-title {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: 0.1em;
-    color: var(--signal-red);
-    margin-bottom: var(--space-3);
+    color: var(--tui-danger);
+    margin-bottom: var(--tui-space-3);
   }
 
   .error-message {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: var(--space-6);
+    color: var(--tui-text-muted);
+    margin-bottom: var(--tui-space-6);
     line-height: 1.6;
   }
 
   .error-details {
     text-align: left;
-    margin-bottom: var(--space-6);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
+    margin-bottom: var(--tui-space-6);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
     overflow: hidden;
   }
 
   .error-details summary {
-    padding: var(--space-3);
-    font-family: var(--font-mono);
+    padding: var(--tui-space-3);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     cursor: pointer;
-    border-bottom: 1px solid var(--border-dim);
+    border-bottom: 1px solid var(--tui-border);
   }
 
   .error-details pre {
-    padding: var(--space-3);
+    padding: var(--tui-space-3);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     white-space: pre-wrap;
     word-break: break-word;
     max-height: 200px;
@@ -168,18 +168,18 @@
 
   .error-actions {
     display: flex;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     justify-content: center;
     flex-wrap: wrap;
   }
 
-  .error-actions .btn {
+  .error-actions .tui-btn {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
-  .error-actions .btn svg {
+  .error-actions .tui-btn svg {
     width: 16px;
     height: 16px;
   }

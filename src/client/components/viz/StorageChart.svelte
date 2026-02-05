@@ -98,13 +98,13 @@
   .chart {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .row {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     opacity: 0;
     animation: fadeIn 0.3s var(--ease-out-quad) forwards;
   }
@@ -115,9 +115,9 @@
 
   .label {
     width: 90px;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -127,17 +127,17 @@
     flex: 1;
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .bar-stack {
     display: flex;
     height: 20px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
     overflow: hidden;
     min-width: 8px;
     transition: width var(--duration-slow) var(--ease-out-expo);
-    background: var(--panel-deep);
+    background: var(--tui-panel-deep);
   }
 
   .segment {
@@ -151,7 +151,7 @@
   .segment.hdd { background: linear-gradient(180deg, #94a3b8, var(--storage-hdd)); }
 
   .value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 500;
     color: var(--signal-cyan);
@@ -161,21 +161,21 @@
 
   .legend {
     display: flex;
-    gap: var(--space-4);
-    margin-top: var(--space-3);
-    padding-top: var(--space-3);
-    border-top: 1px solid var(--border-dim);
+    gap: var(--tui-space-4);
+    margin-top: var(--tui-space-3);
+    padding-top: var(--tui-space-3);
+    border-top: 1px solid var(--tui-border);
   }
 
   .legend-item {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.05em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .dot {
@@ -190,11 +190,11 @@
   .dot.hdd { background: var(--storage-hdd); }
 
   .empty {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     text-align: center;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
   }
 </style>

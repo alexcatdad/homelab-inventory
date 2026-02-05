@@ -166,7 +166,7 @@
     <!-- Grid pattern -->
     <defs>
       <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--border-dim)" stroke-width="0.5" opacity="0.3"/>
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="var(--tui-border)" stroke-width="0.5" opacity="0.3"/>
       </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#grid)"/>
@@ -217,7 +217,7 @@
           <!-- Node circle -->
           <circle
             r={node.type === 'Network' ? 35 : 28}
-            fill="var(--panel)"
+            fill="var(--tui-panel)"
             stroke={typeColors[node.type]}
             stroke-width="2"
             class="node-circle"
@@ -261,8 +261,8 @@
             tabindex="0"
             aria-label="Connect"
           >
-            <circle r="10" fill="var(--panel-hover)" stroke="var(--border-panel)" stroke-width="1"/>
-            <text text-anchor="middle" dominant-baseline="central" fill="var(--text-muted)" font-size="12">+</text>
+            <circle r="10" fill="var(--panel-hover)" stroke="var(--tui-border)" stroke-width="1"/>
+            <text text-anchor="middle" dominant-baseline="central" fill="var(--tui-text-muted)" font-size="12">+</text>
           </g>
         </g>
       {/each}
@@ -298,9 +298,9 @@
     height: 100%;
     min-height: 500px;
     position: relative;
-    background: var(--panel-deep);
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-dim);
+    background: var(--tui-panel-deep);
+    border-radius: var(--tui-radius-lg);
+    border: 1px solid var(--tui-border);
     overflow: hidden;
   }
 
@@ -315,7 +315,7 @@
   }
 
   .edge {
-    stroke: var(--signal-blue);
+    stroke: var(--tui-info);
     stroke-width: 2;
     opacity: 0.6;
   }
@@ -326,7 +326,7 @@
   }
 
   .edge.preview {
-    stroke: var(--signal-green);
+    stroke: var(--tui-success);
     stroke-dasharray: 8, 4;
     opacity: 0.8;
   }
@@ -344,7 +344,7 @@
   }
 
   .node.connecting .node-circle {
-    stroke: var(--signal-green);
+    stroke: var(--tui-success);
     animation: pulse 1s infinite;
   }
 
@@ -363,10 +363,10 @@
   }
 
   .node-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 11px;
     font-weight: 500;
-    fill: var(--text-secondary);
+    fill: var(--tui-text-muted);
     pointer-events: none;
   }
 
@@ -381,41 +381,41 @@
   }
 
   .connect-btn:hover circle {
-    fill: var(--signal-blue);
+    fill: var(--tui-info);
   }
 
   .connect-btn:hover text {
-    fill: var(--text-bright);
+    fill: var(--tui-text-bright);
   }
 
   .legend {
     position: absolute;
-    top: var(--space-4);
-    left: var(--space-4);
+    top: var(--tui-space-4);
+    left: var(--tui-space-4);
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
+    gap: var(--tui-space-2);
+    padding: var(--tui-space-3);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
   }
 
   .legend-title {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .legend-item {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
+    gap: var(--tui-space-2);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .legend-dot {
@@ -426,15 +426,15 @@
 
   .instruction {
     position: absolute;
-    bottom: var(--space-4);
+    bottom: var(--tui-space-4);
     left: 50%;
     transform: translateX(-50%);
-    padding: var(--space-2) var(--space-4);
-    background: var(--panel);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
-    font-family: var(--font-mono);
+    padding: var(--tui-space-2) var(--tui-space-4);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 </style>

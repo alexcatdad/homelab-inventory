@@ -125,9 +125,9 @@
 
 <style>
   .device-card {
-    background: var(--panel);
-    border: 1px solid var(--border-panel);
-    border-radius: var(--radius-lg);
+    background: var(--tui-panel);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-lg);
     padding: 0;
     text-align: left;
     cursor: pointer;
@@ -165,14 +165,14 @@
   }
 
   .device-card:hover {
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 168, 255, 0.1);
   }
 
   .device-card:hover::before,
   .device-card:hover::after {
-    border-color: var(--signal-blue);
+    border-color: var(--tui-info);
   }
 
   .device-card.upgradeable {
@@ -196,7 +196,7 @@
   /* Status indicator line at top */
   .card-status-line {
     height: 2px;
-    background: linear-gradient(90deg, var(--signal-blue), var(--signal-cyan));
+    background: linear-gradient(90deg, var(--tui-info), var(--signal-cyan));
     opacity: 0.6;
     transition: opacity var(--duration-base) var(--ease-out-quad);
   }
@@ -214,7 +214,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--space-4) var(--space-4) 0;
+    padding: var(--tui-space-4) var(--tui-space-4) 0;
   }
 
   .upgrade-badge {
@@ -224,9 +224,9 @@
     padding: 2px 6px;
     background: rgba(255, 176, 32, 0.15);
     border: 1px solid rgba(255, 176, 32, 0.3);
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
     color: var(--signal-amber);
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -239,57 +239,57 @@
 
   /* Identity */
   .card-identity {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--tui-space-3) var(--tui-space-4);
   }
 
   .device-name {
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 600;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     margin: 0;
     line-height: 1.3;
   }
 
   .device-model {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
-    margin: var(--space-1) 0 0;
+    color: var(--tui-text-muted);
+    margin: var(--tui-space-1) 0 0;
     line-height: 1.3;
   }
 
   /* Specs grid */
   .specs-grid {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--tui-space-3) var(--tui-space-4);
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
-    border-top: 1px solid var(--border-dim);
-    border-bottom: 1px solid var(--border-dim);
-    background: var(--panel-deep);
+    gap: var(--tui-space-2);
+    border-top: 1px solid var(--tui-border);
+    border-bottom: 1px solid var(--tui-border);
+    background: var(--tui-panel-deep);
   }
 
   .spec-item {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .spec-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.5625rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     flex-shrink: 0;
   }
 
   .spec-value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     text-align: right;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -303,24 +303,24 @@
   }
 
   .spec-max {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   /* Footer */
   .card-footer {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
-    padding: var(--space-3) var(--space-4);
+    gap: var(--tui-space-4);
+    padding: var(--tui-space-3) var(--tui-space-4);
   }
 
   .footer-metric {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
-    color: var(--text-muted);
+    gap: var(--tui-space-1);
+    color: var(--tui-text-muted);
   }
 
   .footer-metric svg {
@@ -330,7 +330,7 @@
   }
 
   .footer-metric span {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.02em;
   }
@@ -343,8 +343,8 @@
     margin-left: auto;
     display: flex;
     align-items: center;
-    gap: var(--space-1);
-    color: var(--text-dim);
+    gap: var(--tui-space-1);
+    color: var(--tui-text-dim);
     opacity: 0;
     transform: translateX(-8px);
     transition: all var(--duration-base) var(--ease-out-quad);
@@ -353,7 +353,7 @@
   .device-card:hover .view-indicator {
     opacity: 1;
     transform: translateX(0);
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .device-card.upgradeable:hover .view-indicator {
@@ -361,7 +361,7 @@
   }
 
   .view-indicator span {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 500;
     letter-spacing: 0.1em;
@@ -379,20 +379,20 @@
   /* Tablet (768px) */
   @media (max-width: 768px) {
     .card-header {
-      padding: var(--space-3) var(--space-3) 0;
+      padding: var(--tui-space-3) var(--tui-space-3) 0;
     }
 
     .card-identity {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
     }
 
     .specs-grid {
-      padding: var(--space-2) var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
     }
 
     .card-footer {
-      padding: var(--space-2) var(--space-3);
-      gap: var(--space-3);
+      padding: var(--tui-space-2) var(--tui-space-3);
+      gap: var(--tui-space-3);
       flex-wrap: wrap;
     }
 
@@ -419,7 +419,7 @@
     }
 
     .card-footer {
-      gap: var(--space-2);
+      gap: var(--tui-space-2);
       flex-wrap: wrap;
     }
 
@@ -440,7 +440,7 @@
     .view-indicator {
       opacity: 1;
       transform: translateX(0);
-      color: var(--signal-blue);
+      color: var(--tui-info);
     }
 
     .device-card.upgradeable .view-indicator {
@@ -460,11 +460,11 @@
   /* Small Mobile (480px) */
   @media (max-width: 480px) {
     .card-header {
-      padding: var(--space-2) var(--space-2) 0;
+      padding: var(--tui-space-2) var(--tui-space-2) 0;
     }
 
     .card-identity {
-      padding: var(--space-2);
+      padding: var(--tui-space-2);
     }
 
     .device-name {
@@ -472,8 +472,8 @@
     }
 
     .specs-grid {
-      padding: var(--space-2);
-      gap: var(--space-1);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-1);
     }
 
     .spec-label {
@@ -485,8 +485,8 @@
     }
 
     .card-footer {
-      padding: var(--space-2);
-      gap: var(--space-2);
+      padding: var(--tui-space-2);
+      gap: var(--tui-space-2);
     }
 
     /* Stack footer metrics into grid on very small screens */
@@ -525,9 +525,9 @@
     .view-indicator {
       width: 100%;
       justify-content: flex-end;
-      margin-top: var(--space-1);
-      padding-top: var(--space-1);
-      border-top: 1px solid var(--border-dim);
+      margin-top: var(--tui-space-1);
+      padding-top: var(--tui-space-1);
+      border-top: 1px solid var(--tui-border);
     }
 
     .view-indicator span {

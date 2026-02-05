@@ -315,7 +315,7 @@
 
   .main {
     flex: 1;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
     max-width: 1600px;
     margin: 0 auto;
     width: 100%;
@@ -339,7 +339,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .loading-indicator {
@@ -352,7 +352,7 @@
     width: 100%;
     height: 100%;
     border: 2px solid var(--panel-active);
-    border-top-color: var(--signal-blue);
+    border-top-color: var(--tui-info);
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
@@ -361,7 +361,7 @@
     position: absolute;
     inset: -4px;
     border: 2px solid transparent;
-    border-top-color: var(--signal-blue);
+    border-top-color: var(--tui-info);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     filter: blur(8px);
@@ -375,11 +375,11 @@
   }
 
   .loading-text {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.2em;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     animation: blink 1.5s ease-in-out infinite;
   }
 
@@ -400,13 +400,13 @@
     align-items: center;
     justify-content: center;
     min-height: 50vh;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .error-icon {
     width: 48px;
     height: 48px;
-    color: var(--signal-red);
+    color: var(--tui-danger);
   }
 
   .error-icon svg {
@@ -415,24 +415,24 @@
   }
 
   .error-title {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.15em;
-    color: var(--signal-red);
+    color: var(--tui-danger);
   }
 
   .error-msg {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     text-align: center;
     max-width: 400px;
   }
 
   .error .btn {
-    margin-top: var(--space-2);
-    gap: var(--space-2);
+    margin-top: var(--tui-space-2);
+    gap: var(--tui-space-2);
   }
 
   .error .btn svg {
@@ -447,14 +447,14 @@
     align-items: center;
     justify-content: center;
     min-height: 50vh;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .placeholder-icon {
     width: 64px;
     height: 64px;
-    color: var(--text-dim);
-    margin-bottom: var(--space-2);
+    color: var(--tui-text-dim);
+    margin-bottom: var(--tui-space-2);
   }
 
   .placeholder-icon svg {
@@ -463,23 +463,23 @@
   }
 
   .placeholder h2 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
   }
 
   .placeholder-sub {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     letter-spacing: 0.05em;
   }
 
   @media (max-width: 768px) {
     .main {
-      padding: var(--space-4);
+      padding: var(--tui-space-4);
     }
   }
 </style>

@@ -24,39 +24,39 @@
   .settings {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--tui-space-6);
   }
 
   .page-header {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .page-title {
     display: flex;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--tui-space-1);
   }
 
   .title-prefix {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.25rem;
-    color: var(--signal-blue);
+    color: var(--tui-info);
   }
 
   .page-title h1 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.25rem;
     font-weight: 600;
     letter-spacing: 0.15em;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
   }
 
   .page-subtitle {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     letter-spacing: 0.05em;
     padding-left: 1.75rem;
   }
@@ -64,7 +64,7 @@
   .settings-sections {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--tui-space-6);
     max-width: 800px;
   }
 </style>

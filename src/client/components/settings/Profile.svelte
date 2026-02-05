@@ -154,14 +154,14 @@
   .section-header {
     display: flex;
     align-items: flex-start;
-    gap: var(--space-4);
-    margin-bottom: var(--space-6);
+    gap: var(--tui-space-4);
+    margin-bottom: var(--tui-space-6);
   }
 
   .section-icon {
     width: 40px;
     height: 40px;
-    color: var(--signal-blue);
+    color: var(--tui-info);
     flex-shrink: 0;
   }
 
@@ -171,35 +171,35 @@
   }
 
   .section-title h2 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--text-bright);
-    margin: 0 0 var(--space-1) 0;
+    color: var(--tui-text-bright);
+    margin: 0 0 var(--tui-space-1) 0;
   }
 
   .section-title p {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     margin: 0;
   }
 
   .loading {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
-    font-family: var(--font-mono);
+    gap: var(--tui-space-3);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
   }
 
   .spinner {
     width: 16px;
     height: 16px;
-    border: 2px solid var(--border-panel);
-    border-top-color: var(--signal-blue);
+    border: 2px solid var(--tui-border);
+    border-top-color: var(--tui-info);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
   }
@@ -211,14 +211,14 @@
   .profile-content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
+    gap: var(--tui-space-6);
   }
 
   /* Profile Header */
   .profile-header {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .avatar-wrapper {
@@ -230,7 +230,7 @@
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 2px solid var(--signal-blue);
+    border: 2px solid var(--tui-info);
     box-shadow: 0 0 20px var(--signal-blue-glow);
   }
 
@@ -238,12 +238,12 @@
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 2px solid var(--border-panel);
-    background: var(--panel-deep);
+    border: 2px solid var(--tui-border);
+    background: var(--tui-panel-deep);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .avatar-placeholder svg {
@@ -257,13 +257,13 @@
     right: -2px;
     width: 24px;
     height: 24px;
-    background: var(--panel);
-    border: 2px solid var(--panel-deep);
+    background: var(--tui-panel);
+    border: 2px solid var(--tui-panel-deep);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
   }
 
   .avatar-badge svg {
@@ -272,18 +272,18 @@
   }
 
   .profile-name h3 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 1.125rem;
     font-weight: 600;
-    color: var(--text-bright);
-    margin: 0 0 var(--space-1) 0;
+    color: var(--tui-text-bright);
+    margin: 0 0 var(--tui-space-1) 0;
   }
 
   .auth-provider {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.6875rem;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     text-transform: uppercase;
   }
 
@@ -291,152 +291,152 @@
   .supporter-badge {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-mono);
+    gap: var(--tui-space-2);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    padding: var(--space-2) var(--space-3);
+    padding: var(--tui-space-2) var(--tui-space-3);
     background: rgba(0, 200, 255, 0.1);
-    border: 1px solid var(--signal-blue);
-    border-radius: var(--radius-md);
-    color: var(--signal-blue);
-    margin-top: var(--space-3);
+    border: 1px solid var(--tui-info);
+    border-radius: var(--tui-radius-md);
+    color: var(--tui-info);
+    margin-top: var(--tui-space-3);
   }
 
   /* Info Grid */
   .info-grid {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--tui-space-4);
   }
 
   .info-item {
     display: flex;
     flex-direction: column;
-    gap: var(--space-1);
-    padding: var(--space-3);
-    background: var(--panel-deep);
-    border: 1px solid var(--border-dim);
-    border-radius: var(--radius-md);
+    gap: var(--tui-space-1);
+    padding: var(--tui-space-3);
+    background: var(--tui-panel-deep);
+    border: 1px solid var(--tui-border);
+    border-radius: var(--tui-radius-md);
   }
 
   .info-label {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.625rem;
     font-weight: 600;
     letter-spacing: 0.15em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .info-value {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.8125rem;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     display: flex;
     align-items: baseline;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
   }
 
   .info-value.mono {
     font-size: 0.6875rem;
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     word-break: break-all;
   }
 
   .info-sub {
     font-size: 0.6875rem;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
   }
 
   .error {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--signal-red);
+    color: var(--tui-danger);
   }
 
   /* Danger Zone */
   .danger-zone {
-    margin-top: var(--space-6);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--signal-red);
+    margin-top: var(--tui-space-6);
+    padding-top: var(--tui-space-6);
+    border-top: 1px solid var(--tui-danger);
   }
 
   .danger-zone h3 {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.1em;
-    color: var(--signal-red);
-    margin-bottom: var(--space-2);
+    color: var(--tui-danger);
+    margin-bottom: var(--tui-space-2);
   }
 
   .danger-zone > p {
-    color: var(--text-muted);
+    color: var(--tui-text-muted);
     font-size: 0.8125rem;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--tui-space-4);
   }
 
   .delete-button {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.05em;
-    padding: var(--space-2) var(--space-4);
+    padding: var(--tui-space-2) var(--tui-space-4);
     background: transparent;
-    border: 1px solid var(--signal-red);
-    color: var(--signal-red);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--tui-danger);
+    color: var(--tui-danger);
+    border-radius: var(--tui-radius-md);
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .delete-button:hover {
-    background: var(--signal-red);
-    color: var(--void);
+    background: var(--tui-danger);
+    color: var(--tui-bg);
   }
 
   .confirm-delete {
     background: rgba(239, 68, 68, 0.1);
-    border: 1px solid var(--signal-red);
-    border-radius: var(--radius-md);
-    padding: var(--space-4);
+    border: 1px solid var(--tui-danger);
+    border-radius: var(--tui-radius-md);
+    padding: var(--tui-space-4);
   }
 
   .confirm-delete p {
-    color: var(--signal-red);
+    color: var(--tui-danger);
     font-size: 0.8125rem;
-    margin-bottom: var(--space-4);
+    margin-bottom: var(--tui-space-4);
   }
 
   .confirm-buttons {
     display: flex;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .cancel-button {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    padding: var(--space-2) var(--space-4);
+    padding: var(--tui-space-2) var(--tui-space-4);
     background: transparent;
-    border: 1px solid var(--border-panel);
-    color: var(--text-secondary);
-    border-radius: var(--radius-md);
+    border: 1px solid var(--tui-border);
+    color: var(--tui-text-muted);
+    border-radius: var(--tui-radius-md);
     cursor: pointer;
   }
 
   .cancel-button:hover {
-    border-color: var(--text-secondary);
+    border-color: var(--tui-text-muted);
   }
 
   .confirm-delete-button {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     font-weight: 600;
-    padding: var(--space-2) var(--space-4);
-    background: var(--signal-red);
+    padding: var(--tui-space-2) var(--tui-space-4);
+    background: var(--tui-danger);
     border: none;
     color: white;
-    border-radius: var(--radius-md);
+    border-radius: var(--tui-radius-md);
     cursor: pointer;
   }
 

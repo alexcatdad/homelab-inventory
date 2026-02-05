@@ -1,0 +1,114 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   HOME LAB INVENTORY - Styles
+   Uses meowtern Tailwind CSS plugin for aerospace terminal UI
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@import "tailwindcss";
+@import "meowtern/meowtern.css";
+
+/* ─── APP-SPECIFIC OVERRIDES ──────────────────────────────────────────────── */
+
+/* Storage type colors */
+.storage-nvme { color: #3b82f6; }
+.storage-ssd { color: #22c55e; }
+.storage-hdd { color: #64748b; }
+.storage-raid { color: #a855f7; }
+
+/*
+ * NOTE: Use meowtern classes directly in components:
+ * - .tui-panel, .tui-panel-raised
+ * - .tui-btn, .tui-btn-primary, .tui-btn-ghost, .tui-btn-danger
+ * - .tui-badge, .tui-badge-type-1 through .tui-badge-type-6
+ * - .tui-data-bar, .tui-data-bar-fill
+ *
+ * Device type badges:
+ * - Server: .tui-badge.tui-badge-type-1 (Blue)
+ * - Desktop: .tui-badge.tui-badge-type-2 (Purple)
+ * - Laptop: .tui-badge.tui-badge-type-3 (Green)
+ * - Component: .tui-badge.tui-badge-type-4 (Amber)
+ * - IoT: .tui-badge.tui-badge-type-5 (Red)
+ * - Network: .tui-badge.tui-badge-type-6 (Cyan)
+ */
+
+/* App container */
+#app {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Chat-specific styles */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--tui-space-4);
+}
+
+.chat-input-container {
+  padding: var(--tui-space-4);
+  border-top: 1px solid var(--tui-border);
+}
+
+/* Topology view specific */
+.topology-node {
+  cursor: pointer;
+  transition: transform var(--tui-duration) var(--tui-ease);
+}
+
+.topology-node:hover {
+  transform: scale(1.05);
+}
+
+.topology-edge {
+  stroke: var(--tui-border);
+  stroke-width: 1;
+  fill: none;
+}
+
+/* Device grid layout */
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--tui-space-4);
+}
+
+@media (max-width: 768px) {
+  .device-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form layouts */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--tui-space-4);
+}
+
+@media (max-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Settings page */
+.settings-section {
+  margin-bottom: var(--tui-space-6);
+}
+
+.settings-section-title {
+  font-family: var(--tui-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tui-accent);
+  margin-bottom: var(--tui-space-4);
+  padding-bottom: var(--tui-space-2);
+  border-bottom: 1px solid var(--tui-border);
+}

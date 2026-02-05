@@ -1,6 +1,6 @@
 import { mount } from 'svelte';
 import App from './App.svelte';
-import './styles/global.css';
+import './styles/app.css';
 
 // Initialize i18n
 import { initI18n } from './lib/i18n';

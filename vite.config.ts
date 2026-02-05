@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 
 // For GitHub Pages: set VITE_BASE_PATH=/homelab-inventory/ in CI
@@ -7,9 +8,12 @@ import path from 'path';
 const basePath = process.env.VITE_BASE_PATH || '/';
 
 export default defineConfig({
-  plugins: [svelte({
-    configFile: path.resolve(__dirname, 'svelte.config.js')
-  })],
+  plugins: [
+    tailwindcss(),
+    svelte({
+      configFile: path.resolve(__dirname, 'svelte.config.js')
+    })
+  ],
   root: 'src/client',
   base: basePath,
   envDir: path.resolve(__dirname),

@@ -20,13 +20,13 @@
   {#each typeEntries as [type, count], i}
     <div class="row" style="animation-delay: {i * 50}ms">
       <div class="type-info">
-        <span class="type-indicator" style="background: {typeColors[type] || 'var(--text-muted)'}"></span>
+        <span class="type-indicator" style="background: {typeColors[type] || 'var(--tui-text-muted)'}"></span>
         <span class="type-name">{type}</span>
       </div>
       <div class="bar-container">
         <div
           class="bar"
-          style="width: {total > 0 ? (count / total) * 100 : 0}%; background: {typeColors[type] || 'var(--text-muted)'}"
+          style="width: {total > 0 ? (count / total) * 100 : 0}%; background: {typeColors[type] || 'var(--tui-text-muted)'}"
         ></div>
       </div>
       <span class="count">{count}</span>
@@ -42,13 +42,13 @@
   .chart {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
   }
 
   .row {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
+    gap: var(--tui-space-3);
     opacity: 0;
     animation: fadeIn 0.3s var(--ease-out-quad) forwards;
   }
@@ -60,7 +60,7 @@
   .type-info {
     display: flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--tui-space-2);
     width: 100px;
   }
 
@@ -73,23 +73,23 @@
   }
 
   .type-name {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--tui-text-muted);
     letter-spacing: 0.02em;
   }
 
   .bar-container {
     flex: 1;
     height: 20px;
-    background: var(--panel-deep);
-    border-radius: var(--radius-sm);
+    background: var(--tui-panel-deep);
+    border-radius: var(--tui-radius-sm);
     overflow: hidden;
   }
 
   .bar {
     height: 100%;
-    border-radius: var(--radius-sm);
+    border-radius: var(--tui-radius-sm);
     transition: width var(--duration-slow) var(--ease-out-expo);
     opacity: 0.75;
   }
@@ -99,20 +99,20 @@
   }
 
   .count {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--text-bright);
+    color: var(--tui-text-bright);
     min-width: 28px;
     text-align: right;
   }
 
   .empty {
-    font-family: var(--font-mono);
+    font-family: var(--tui-font-mono);
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    color: var(--text-dim);
+    color: var(--tui-text-dim);
     text-align: center;
-    padding: var(--space-6);
+    padding: var(--tui-space-6);
   }
 </style>
