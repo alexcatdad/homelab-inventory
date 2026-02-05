@@ -9,9 +9,10 @@
     initializeAuth,
   } from "./lib/authStore";
   import { isGuestMode, initializeGuestMode } from "./lib/guestStore";
+  import { onMount } from 'svelte';
   import { t } from "./lib/i18n";
   import { syncLanguageFromConvex } from "./lib/i18n/languageStore";
-  import { router } from './lib/router';
+  import { router, demoView, type DemoView, getDemoViewFromURL } from './lib/router';
   import type { Route } from './lib/router';
   import Dashboard from "./components/Dashboard.svelte";
   import DemoDashboard from "./components/demo/DemoDashboard.svelte";
@@ -40,7 +41,6 @@
 
   const client = useConvexClient();
 
-  let view = $state("dashboard");
   let authenticated = $state(false);
   let loading = $state(true);
   let authReady = $state(false);
@@ -49,6 +49,7 @@
   let currentRoute = $state<Route>({ page: 'landing' });
   let seedAttempted = $state(false);
   let guestMode = $state(false);
+  let currentDemoView = $state<DemoView>(getDemoViewFromURL());
 
   // Sample data seeding for new users
   const hasDevicesQuery = useQuery(api.sampleData.hasDevices, () => (authenticated ? {} : "skip"));
@@ -80,15 +81,15 @@
     };
   });
 
-  // Subscribe to view store
-  $effect(() => {
-    const unsub = currentView.subscribe((v) => (view = v));
-    return () => unsub();
-  });
-
   // Subscribe to router
   $effect(() => {
     const unsub = router.route.subscribe((r) => (currentRoute = r));
+    return () => unsub();
+  });
+
+  // Subscribe to demo view (URL-based state)
+  $effect(() => {
+    const unsub = demoView.subscribe((v) => (currentDemoView = v));
     return () => unsub();
   });
 
@@ -255,13 +256,13 @@
     <main id="main-content" class="main" role="main" tabindex="-1">
       <div class="content fade-in">
         <DemoBanner />
-        {#if view === "dashboard"}
+        {#if currentDemoView === "dashboard"}
           <DemoDashboard />
-        {:else if view === "devices"}
+        {:else if currentDemoView === "devices"}
           <DemoDeviceGrid />
-        {:else if view === "topology"}
+        {:else if currentDemoView === "topology"}
           <DemoTopologyView />
-        {:else if view === "settings"}
+        {:else if currentDemoView === "settings"}
           <Settings />
         {/if}
       </div>
@@ -361,13 +362,13 @@
 
       <main id="main-content" class="main" role="main" tabindex="-1">
         <div class="content fade-in">
-          {#if view === "dashboard"}
+          {#if $currentView === "dashboard"}
             <Dashboard />
-          {:else if view === "devices"}
+          {:else if $currentView === "devices"}
             <DeviceGrid />
-          {:else if view === "topology"}
+          {:else if $currentView === "topology"}
             <TopologyView />
-          {:else if view === "settings"}
+          {:else if $currentView === "settings"}
             <Settings />
           {/if}
         </div>

@@ -87,3 +87,37 @@ function createRouter() {
 }
 
 export const router = createRouter();
+
+// Demo view state in URL (like nuqs pattern)
+export type DemoView = 'dashboard' | 'devices' | 'topology' | 'settings';
+
+export function getDemoViewFromURL(): DemoView {
+  if (typeof window === 'undefined') return 'dashboard';
+  const params = new URLSearchParams(window.location.search);
+  const view = params.get('view');
+  if (view === 'devices' || view === 'topology' || view === 'settings') {
+    return view;
+  }
+  return 'dashboard';
+}
+
+const demoViewStore = writable<DemoView>(getDemoViewFromURL());
+
+// Listen for popstate to sync URL -> store
+window.addEventListener('popstate', () => {
+  demoViewStore.set(getDemoViewFromURL());
+});
+
+export const demoView = {
+  subscribe: demoViewStore.subscribe,
+  set: (view: DemoView) => {
+    const url = new URL(window.location.href);
+    if (view === 'dashboard') {
+      url.searchParams.delete('view');
+    } else {
+      url.searchParams.set('view', view);
+    }
+    window.history.pushState({}, '', url.toString());
+    demoViewStore.set(view);
+  }
+};

@@ -1,6 +1,6 @@
 <!-- Demo Dashboard - uses static demo data instead of Convex queries -->
 <script lang="ts">
-  import { currentView } from '../../lib/stores';
+  import { demoView } from '../../lib/router';
   import { demoStats, demoDevices } from '../../lib/demoData';
   import { t } from '../../lib/i18n';
   import StorageChart from '../viz/StorageChart.svelte';
@@ -12,7 +12,7 @@
   const deviceList = demoDevices;
 
   function goToDevices() {
-    currentView.set('devices');
+    demoView.set('devices');
   }
 
   // Parse RAM values for progress calculation

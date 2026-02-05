@@ -1,27 +1,28 @@
 <!-- Demo mode header - similar to regular header but no auth, read-only -->
 <script lang="ts">
-  import { currentView, searchQuery } from '../../lib/stores';
+  import { searchQuery } from '../../lib/stores';
+  import { demoView, type DemoView } from '../../lib/router';
   import { demoStats } from '../../lib/demoData';
   import { t, locale } from '../../lib/i18n';
   import LanguageSwitcher from '../LanguageSwitcher.svelte';
 
   let search = $state('');
-  let view = $state('dashboard');
   let currentLocale = $state('en');
+  let currentDemoView = $state<DemoView>('dashboard');
 
   $effect(() => {
     const unsubSearch = searchQuery.subscribe(v => search = v);
-    const unsubView = currentView.subscribe(v => view = v);
     const unsubLocale = locale.subscribe(v => currentLocale = v || 'en');
+    const unsubView = demoView.subscribe(v => currentDemoView = v);
     return () => {
       unsubSearch();
-      unsubView();
       unsubLocale();
+      unsubView();
     };
   });
 
   function setView(v: string) {
-    currentView.set(v as any);
+    demoView.set(v as DemoView);
   }
 
   function updateSearch(e: Event) {
@@ -70,9 +71,9 @@
       {#each views as v}
         <button
           class="nav-item"
-          class:active={view === v.id}
+          class:active={currentDemoView === v.id}
           onclick={() => setView(v.id)}
-          aria-pressed={view === v.id}
+          aria-pressed={currentDemoView === v.id}
           aria-label={$t(v.labelKey)}
         >
           <span class="nav-indicator" aria-hidden="true"></span>

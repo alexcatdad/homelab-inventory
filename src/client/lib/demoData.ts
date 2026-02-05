@@ -339,6 +339,7 @@ export const demoStats = calculateDemoStats();
 export interface DemoTopology {
   nodes: Array<{
     _id: string;
+    id: number; // Numeric ID for TopologyGraph
     name: string;
     type: DeviceType;
     ip?: string;
@@ -347,26 +348,51 @@ export interface DemoTopology {
     _id: string;
     from_device_id: string;
     to_device_id: string;
+    source: number; // Numeric source for TopologyGraph
+    target: number; // Numeric target for TopologyGraph
     connection_type: ConnectionType;
+    type: ConnectionType; // Alias for TopologyGraph
     speed?: string;
   }>;
 }
 
 export function getDemoTopology(): DemoTopology {
-  const nodes = demoDevices.map(device => ({
+  // Create a map from device _id to numeric index for edge lookups
+  const idToIndex = new Map<string, number>();
+  demoDevices.forEach((device, index) => {
+    idToIndex.set(device._id, index);
+  });
+
+  const nodes = demoDevices.map((device, index) => ({
     _id: device._id,
+    id: index, // Numeric ID for TopologyGraph
     name: device.name,
     type: device.type,
     ip: device.network_info?.ip_address,
   }));
 
-  const edges = demoConnections.map(conn => ({
-    _id: conn._id,
-    from_device_id: conn.from_device_id,
-    to_device_id: conn.to_device_id,
-    connection_type: conn.connection_type,
-    speed: conn.speed,
-  }));
+  const edges = demoConnections
+    .map(conn => {
+      const sourceIndex = idToIndex.get(conn.from_device_id);
+      const targetIndex = idToIndex.get(conn.to_device_id);
+
+      // Only include edges where both devices exist
+      if (sourceIndex === undefined || targetIndex === undefined) {
+        return null;
+      }
+
+      return {
+        _id: conn._id,
+        from_device_id: conn.from_device_id,
+        to_device_id: conn.to_device_id,
+        source: sourceIndex, // Numeric source for TopologyGraph
+        target: targetIndex, // Numeric target for TopologyGraph
+        connection_type: conn.connection_type,
+        type: conn.connection_type, // Alias for TopologyGraph
+        speed: conn.speed,
+      };
+    })
+    .filter((edge): edge is NonNullable<typeof edge> => edge !== null);
 
   return { nodes, edges };
 }
