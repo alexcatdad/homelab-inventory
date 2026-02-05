@@ -60,6 +60,23 @@ test.describe('Public Pages (no auth required)', () => {
     // Should navigate to /app
     await expect(page).toHaveURL('/app');
   });
+
+  test('clicking "Try Demo" navigates to demo mode', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('h1')).toBeVisible({ timeout: 10000 });
+
+    // Check Try Demo button exists and click it
+    const tryDemoButton = page.getByRole('button', { name: /try demo/i });
+    await expect(tryDemoButton).toBeVisible();
+    await tryDemoButton.click();
+
+    // Should navigate to /demo
+    await expect(page).toHaveURL('/demo');
+
+    // Should show demo banner
+    const demoBanner = page.locator('.demo-banner');
+    await expect(demoBanner).toBeVisible({ timeout: 5000 });
+  });
 });
 
 test.describe('Navigation between public pages', () => {
