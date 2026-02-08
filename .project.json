@@ -1,0 +1,8 @@
+{
+  "$schema": "https://alexcatdad.github.io/schemas/project-meta.schema.json",
+  "what": "Homelab device tracker with network topology visualization and on-device AI.",
+  "why": "Manages and visualizes homelab devices and network topology with D3.js graphs and local AI chat.",
+  "tags": ["svelte", "d3", "convex", "homelab", "network-visualization"],
+  "featured": false,
+  "order": 45
+}
