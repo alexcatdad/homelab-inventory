@@ -1,0 +1,12 @@
+{
+  "what": "Homelab device tracker with inventory management and on-device AI classification.",
+  "why": "Centralizes infrastructure visibility and reduces manual tracking for homelab assets.",
+  "tags": [
+    "homelab",
+    "inventory",
+    "ai",
+    "svelte"
+  ],
+  "featured": false,
+  "order": 50
+}
